@@ -16,7 +16,7 @@ class VinylController {
 			throw new IllegalArgumentException("Can't show vinyl with null id")
 		}
 		
-		if(!db.exists(id)) {
+		if(!db.contains(id)) {
 			throw new IllegalArgumentException("Vinyl doesn't exist")
 		}
 		
@@ -40,7 +40,7 @@ class VinylController {
 		if(!vinyl?.id) {
 			throw new IllegalArgumentException("Can't delete null vinyl")
 		}
-		if(!db.exists(vinyl.id)) {
+		if(!db.contains(vinyl.id)) {
 			throw new IllegalArgumentException("Vinyl doesn't exist")
 		}
 		

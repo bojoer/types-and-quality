@@ -28,7 +28,7 @@ class VinylDB {
 		vinyls.remove(vinyls.find{it.id == id})
 	}
 	
-	boolean exists(id) {
+	boolean contains(id) {
 		vinyls.find{it.id == id} != null
 	}
 	

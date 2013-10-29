@@ -38,7 +38,7 @@ class VinylControllerSpec extends Specification {
 	
 	def "should show one vinyl given its id"() {
 		given:
-		db.exists(2) >> true
+		db.contains(2) >> true
 		
 		when:
 		def shownVinyl = controller.show(2)
@@ -55,7 +55,7 @@ class VinylControllerSpec extends Specification {
 		controller.show(47)
 		
 		then:
-		1 * db.exists(47) >> false
+		1 * db.contains(47) >> false
 		
 		and:
 		thrown IllegalArgumentException
@@ -63,7 +63,7 @@ class VinylControllerSpec extends Specification {
 	
 	def "should delete a vinyl"() {
 		given:
-		db.exists(2) >> true
+		db.contains(2) >> true
 		
 		when:
 		controller.delete(vinylB)
@@ -77,7 +77,7 @@ class VinylControllerSpec extends Specification {
 		controller.delete(new Vinyl(id:198))
 		
 		then:
-		db.exists(198) >> false
+		db.contains(198) >> false
 		
 		and:
 		thrown IllegalArgumentException
@@ -85,7 +85,7 @@ class VinylControllerSpec extends Specification {
 	
 	def "should update a vinyl by removing the exiting one form the DB and adding another with the same id"() {
 		given:
-		db.exists(1) >> true
+		db.contains(1) >> true
 		
 		and:
 		def updatedVinylA = new Vinyl(id:1, artist:"A*", title:"A*", songs:["A1*", "A2*", "A3*"], year:"A*", genre:"A*")
@@ -108,7 +108,7 @@ class VinylControllerSpec extends Specification {
 		controller.update(unexistentVinyl)
 		
 		then:
-		db.exists(123) >> false
+		db.contains(123) >> false
 		
 		and:
 		thrown IllegalArgumentException
