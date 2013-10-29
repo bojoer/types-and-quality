@@ -22,7 +22,7 @@ class VinylSpec extends Specification {
 		equals == (vinyl1 == vinyl2)
 		
 		where:
-		equals	| vinyl1																		| vinyl2
+		equals	| vinyl1																			| vinyl2
 		// id
 		true	| new Vinyl(id:1, artist:"A", title:"A", songs:["A"], year:"A", genre:"A")			| new Vinyl(id:1, artist:"A", title:"A", songs:["A"], year:"A", genre:"A")
 		true	| new Vinyl(id:1, artist:"A", title:"A", songs:["A"], year:"A", genre:"A")			| new Vinyl(id:2, artist:"A", title:"A", songs:["A"], year:"A", genre:"A")

@@ -20,12 +20,32 @@ class VinylDBSpec extends Specification {
 		vinylC = new Vinyl(id:3, artist:"C", title:"C", songs:["C1", "C2", "C3"], year:"C", genre:"C")
 	}
 	
-	def "should add a vynil to the database and then retrive it using its id"() {
+	def "should auto generate an id and add it to the database"() {
+		given:
+		db.vinyls = [vinylA, vinylB, vinylC]
+		
+		and:
+		Vinyl newVinyl = new Vinyl(artist:"A", title:"A", songs:["A1", "A2", "A3"], year:"A", genre:"A")
+		
 		when:
-		def id = db.add(vinylA)
+		def id = db.add(newVinyl)
 		
 		then:
-		db.get(id) == vinylA
+		id == 4
+	}
+	
+	def "should assign id=1 to the first vinyl added to the database"() {
+		given:
+		Vinyl newVinyl = new Vinyl(artist:"A", title:"A", songs:["A1", "A2", "A3"], year:"A", genre:"A")
+		
+		expect:
+		db.vinyls == []
+		
+		when:
+		def id = db.add(newVinyl)
+		
+		then:
+		id == 1
 	}
 	
 	def "should fail when trying to add an invalid vinyl"() {
@@ -57,10 +77,10 @@ class VinylDBSpec extends Specification {
 		db.vinyls = [vinylA, vinylB, vinylC]
 		
 		when:
-		def all = db.remove(2)
+		db.remove(2)
 		
 		then:
-		all == [vinylA, vinylC]
+		db.all == [vinylA, vinylC]
 	}
 	
 	def "should tell if a vinyl exists or not in the database"(id, exists) {
