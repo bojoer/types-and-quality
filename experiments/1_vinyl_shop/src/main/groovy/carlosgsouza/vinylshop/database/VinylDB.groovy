@@ -13,7 +13,7 @@ class VinylDB {
 		
 	}
 	
-	void add(Vinyl vinyl) {
+	Integer add(Vinyl vinyl) {
 		
 	}
 	
