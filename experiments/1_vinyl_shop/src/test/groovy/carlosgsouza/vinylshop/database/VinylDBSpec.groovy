@@ -88,7 +88,7 @@ class VinylDBSpec extends Specification {
 		db.vinyls = [vinylA, vinylB, vinylC]
 		
 		expect:
-		def all = db.exists(2)
+		def all = db.contains(2)
 		
 		where:
 		id		| exists

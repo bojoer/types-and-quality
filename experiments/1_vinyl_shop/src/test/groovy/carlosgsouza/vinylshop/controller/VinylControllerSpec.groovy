@@ -30,13 +30,16 @@ class VinylControllerSpec extends Specification {
 		def all = controller.list()
 		
 		then:
-		1 * controller.getAll() >> [vinylA, vinylB, vinylC]
+		1 * db.all >> [vinylA, vinylB, vinylC]
 		
 		and:
 		all == [vinylA, vinylB, vinylC]
 	}
 	
 	def "should show one vinyl given its id"() {
+		given:
+		db.exists(2) >> true
+		
 		when:
 		def shownVinyl = controller.show(2)
 		
@@ -59,8 +62,11 @@ class VinylControllerSpec extends Specification {
 	}
 	
 	def "should delete a vinyl"() {
+		given:
+		db.exists(2) >> true
+		
 		when:
-		controller.delete(2)
+		controller.delete(vinylB)
 		
 		then:
 		db.remove(2)
@@ -68,7 +74,7 @@ class VinylControllerSpec extends Specification {
 	
 	def "should thrown an exception when trying to delete a non existent vinyl"() {
 		when:
-		controller.delete(198)
+		controller.delete(new Vinyl(id:198))
 		
 		then:
 		db.exists(198) >> false
@@ -79,16 +85,19 @@ class VinylControllerSpec extends Specification {
 	
 	def "should update a vinyl by removing the exiting one form the DB and adding another with the same id"() {
 		given:
-		def updatedvinylA = new Vinyl(id:1, artist:"A*", title:"A*", songs:["A1*", "A2*", "A3*"], year:"A*", genre:"A*")
-		
-		when:
-		controller.update(updatedvinylA)
-		
-		then:
-		db.remove(1)
+		db.exists(1) >> true
 		
 		and:
-		db.add(updatedvinylA)
+		def updatedVinylA = new Vinyl(id:1, artist:"A*", title:"A*", songs:["A1*", "A2*", "A3*"], year:"A*", genre:"A*")
+		
+		when:
+		controller.update(updatedVinylA)
+		
+		then:
+		1 * db.remove(1)
+		
+		and:
+		1 * db.add(updatedVinylA)
 	}
 	
 	def "should fail when trying to update an unexistant vinyl"() {
@@ -96,12 +105,63 @@ class VinylControllerSpec extends Specification {
 		def unexistentVinyl = new Vinyl(id:123, artist:"A*", title:"A*", songs:["A1*", "A2*", "A3*"], year:"A*", genre:"A*")
 		
 		when:
-		controller.update(updatedvinylA)
+		controller.update(unexistentVinyl)
 		
 		then:
 		db.exists(123) >> false
 		
 		and:
+		thrown IllegalArgumentException
+	}
+	
+	
+	def "should fail when trying to update a vinyl with no id"() {
+		given:
+		def vinylWithNoId = new Vinyl(artist:"A", title:"A", songs:["A1", "A2", "A3"], year:"A", genre:"A")
+		
+		expect:
+		vinylWithNoId.id == null
+		
+		when:
+		controller.update(vinylWithNoId)
+		
+		then:
+		thrown IllegalArgumentException
+	}
+	
+	
+	def "should fail when trying to update a null vinyl"() {
+		when:
+		controller.update(null)
+		
+		then:
+		thrown IllegalArgumentException
+	}
+	
+	
+	def "should fail when trying to show a vinyl with a null id"() {
+		when:
+		controller.show(null)
+		
+		then:
+		thrown IllegalArgumentException
+	}
+	
+	
+	def "should fail when trying to create a null vinyl"() {
+		when:
+		controller.create(null)
+		
+		then:
+		thrown IllegalArgumentException
+	}
+	
+	
+	def "should fail when trying to delete a null vinyl"() {
+		when:
+		controller.delete(null)
+		
+		then:
 		thrown IllegalArgumentException
 	}
 	
@@ -132,7 +192,7 @@ class VinylControllerSpec extends Specification {
 		id == 4
 	}
 	
-	def "should fail when trying to add an invalid vinyl"() {
+	def "should fail when trying to create an invalid vinyl"() {
 		given:
 		def invalidVinyl = Mock(Vinyl) {
 			isValid() >> false
@@ -144,7 +204,5 @@ class VinylControllerSpec extends Specification {
 		then:
 		thrown IllegalArgumentException
 	}
-	
-	
 	
 }
