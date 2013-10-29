@@ -8,6 +8,11 @@ class Vinyl {
 	String year
 	String genre
 	
+	@Override
+	public String toString() {
+		"(Vinyl | id:$id, artist:$artist, title:$title, songs:$songs, year:$year, genre:$genre)"
+	}
+
 	boolean isValid() {
 		def anyNonListEmpty = [artist, title, year, genre].findAll{ !it }
 		def atLeastOneSongIsValid = songs.find { it }

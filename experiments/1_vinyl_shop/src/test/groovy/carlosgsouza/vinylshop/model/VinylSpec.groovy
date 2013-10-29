@@ -96,4 +96,12 @@ class VinylSpec extends Specification {
 		""		| null	| []			| "y"	| "g"
 	}
 	
+	
+	def "should generate a string representing the Vinyl"() {
+		when:
+		def string = new Vinyl(id:1, artist:"The Artist", title:"The Title", songs:["A1", "A2", "A3"], year:"1985", genre:"Samba").toString()
+		
+		then:
+		string == '(Vinyl | id:1, artist:The Artist, title:The Title, songs:[A1, A2, A3], year:1985, genre:Samba)'
+	}
 }
