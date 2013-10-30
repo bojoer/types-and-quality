@@ -1,8 +1,7 @@
 package carlosgsouza.vinylshop.model
 
-import java.util.List;
-
 import spock.lang.Specification
+import spock.lang.Unroll
 
 class VinylSpec extends Specification {
 	
@@ -17,6 +16,7 @@ class VinylSpec extends Specification {
 		valid == true
 	}
 	
+	@Unroll
 	def "should consider two vinyls equal to each other if they have the same attributes but the id"(equals, vinyl1, vinyl2) {
 		expect:
 		equals == (vinyl1 == vinyl2)
@@ -68,6 +68,7 @@ class VinylSpec extends Specification {
 		true	| null																				| null
 	}
 	
+	@Unroll
 	def "should not validate an invalid vinyl"(artist, title, songs, year, genre) {
 		given:
 		def vinyl = new Vinyl(artist:artist, title:title, songs:songs, year:year, genre:genre)

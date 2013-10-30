@@ -1,6 +1,7 @@
 package carlosgsouza.vinylshop.database
 
 import spock.lang.Specification
+import spock.lang.Unroll
 import carlosgsouza.vinylshop.model.Vinyl
 
 class VinylDBSpec extends Specification {
@@ -83,6 +84,7 @@ class VinylDBSpec extends Specification {
 		db.all == [vinylA, vinylC]
 	}
 	
+	@Unroll
 	def "should tell if a vinyl exists or not in the database"(id, exists) {
 		given:
 		db.vinyls = [vinylA, vinylB, vinylC]

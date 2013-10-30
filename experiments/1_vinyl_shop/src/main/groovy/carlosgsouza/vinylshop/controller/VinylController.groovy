@@ -5,7 +5,7 @@ import carlosgsouza.vinylshop.model.Vinyl
 
 class VinylController {
 	
-	VinylDB db
+	VinylDB db = new VinylDB()
 	
 	List<Vinyl> list() {
 		db.all
