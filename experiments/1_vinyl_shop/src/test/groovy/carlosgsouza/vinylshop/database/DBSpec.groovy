@@ -98,4 +98,48 @@ class DBSpec extends Specification {
 		then:
 		vinyl == null
 	}
+	
+	def "should search for vinyls"() {
+		given:
+		db.vinyls = [vinylA, vinylB, vinylC]
+		
+		when:
+		def result = db.searchVinyl("A")
+		
+		then:
+		result == [vinylA]
+	}
+	
+	def "should return an empty list if the search for vinyls doesn't match any elements"() {
+		given:
+		db.vinyls = [vinylA, vinylB, vinylC]
+		
+		when:
+		def result = db.searchVinyl("wont match")
+		
+		then:
+		result == []
+	}
+	
+	def "should return multiple vinyls if the search matches multiple items"() {
+		given:
+		db.vinyls = [vinylA, vinylA, vinylC]
+		
+		when:
+		def result = db.searchVinyl("A")
+		
+		then:
+		result == [vinylA, vinylA]
+	}
+	
+	def "should match vinyls without considering the case"() {
+		given:
+		db.vinyls = [vinylA, vinylB, vinylC]
+		
+		when:
+		def result = db.searchVinyl("a")
+		
+		then:
+		result == [vinylA]
+	}
 }

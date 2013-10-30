@@ -1,8 +1,9 @@
 package carlosgsouza.vinylshop.controller
 
 import spock.lang.Specification
+import spock.lang.Unroll
 import carlosgsouza.vinylshop.database.DB
-import carlosgsouza.vinylshop.model.Vinyl;
+import carlosgsouza.vinylshop.model.Vinyl
 
 
 class VinylControllerSpec extends Specification {
@@ -147,6 +148,29 @@ class VinylControllerSpec extends Specification {
 		
 		then:
 		thrown IllegalArgumentException
+	}
+	
+	def "should find a vinyl"() {
+		when:
+		def result = controller.find("vinyl title")
+		
+		then:
+		db.searchVinyl("vinyl title") >> [vinylA, vinylB]
+		
+		and:
+		result == [vinylA, vinylB]
+	}
+	
+	@Unroll
+	def "should fail when trying to search for a vinyl with an empty or null title"(title) {
+		when:
+		controller.find(title)
+		
+		then:
+		thrown IllegalArgumentException
+		
+		where:
+		title << [null, ""]
 	}
 	
 }

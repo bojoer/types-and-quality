@@ -42,4 +42,12 @@ class VinylController {
 		db.remove(id)
 	}
 	
+	List<Vinyl> find(String title) {
+		if(!title) {
+			throw new IllegalArgumentException("Must provide a title for the vinyl search")
+		}
+		
+		db.searchVinyl(title)
+	}
+	
 }

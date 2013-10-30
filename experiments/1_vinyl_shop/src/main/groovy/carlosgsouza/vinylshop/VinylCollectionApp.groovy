@@ -32,6 +32,9 @@ class VinylCollectionApp extends DeRailsApp {
 					def id = Integer.valueOf parameter
 					vinylController.delete(id)
 					vinylView.delete()
+				case "find":
+					def result = vinylController.find(parameter)
+					vinylView.list(result)
 			}
 				
 		}

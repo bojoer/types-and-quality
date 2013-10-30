@@ -76,4 +76,15 @@ class VinylCollectionAppSpec extends Specification {
 		1 * vinylView.show(vinylA)
 	}
 	
+	def "should find a vinyl"() {
+		when:
+		app.routeRequest("vinyl", "find", "Album Title")
+		
+		then:
+		1 * vinylController.find("Album Title") >> [vinylA, vinylB]
+		1 * vinylView.list([vinylA, vinylB])
+	}
+	
+	
+	
 }

@@ -31,4 +31,8 @@ class DB {
 	private getMaxId() {
 		vinyls*.id.max() ?: 0
 	}
+	
+	public List<Vinyl> searchVinyl(title) {
+		vinyls.findAll{ it.title.toLowerCase().contains(title.toLowerCase()) }
+	}
 }
