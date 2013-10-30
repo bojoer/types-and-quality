@@ -36,12 +36,12 @@ class VinylControllerSpec extends Specification {
 		all == [vinylA, vinylB, vinylC]
 	}
 	
-	def "should show one vinyl given its id"() {
+	def "should get one vinyl given its id"() {
 		given:
 		db.contains(2) >> true
 		
 		when:
-		def shownVinyl = controller.show(2)
+		def shownVinyl = controller.get(2)
 		
 		then:
 		1 * db.get(2) >> vinylB
@@ -52,7 +52,7 @@ class VinylControllerSpec extends Specification {
 	
 	def "should thrown an exception when a non existent vinyl is requested"() {
 		when:
-		controller.show(47)
+		controller.get(47)
 		
 		then:
 		1 * db.contains(47) >> false
@@ -83,9 +83,9 @@ class VinylControllerSpec extends Specification {
 		thrown IllegalArgumentException
 	}
 	
-	def "should fail when trying to show a vinyl with a null id"() {
+	def "should fail when trying to get a vinyl with a null id"() {
 		when:
-		controller.show(null)
+		controller.get(null)
 		
 		then:
 		thrown IllegalArgumentException

@@ -22,11 +22,11 @@ class VinylCollectionApp extends DeRailsApp {
 					return
 				case "create":
 					def id = vinylController.create(vinylView.create())
-					vinylView.show(vinylController.show(id))
+					vinylView.show(vinylController.get(id))
 					return
 				case "show":
 					def id = Integer.valueOf parameter
-					vinylView.show(vinylController.show(id))
+					vinylView.show(vinylController.get(id))
 					return
 				case "delete":
 					def id = Integer.valueOf parameter

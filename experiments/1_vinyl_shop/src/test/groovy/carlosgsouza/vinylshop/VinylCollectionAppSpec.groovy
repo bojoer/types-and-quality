@@ -54,7 +54,7 @@ class VinylCollectionAppSpec extends Specification {
 		then:
 		1 * vinylView.create() >> vinylA
 		1 * vinylController.create(vinylA) >> 1
-		1 * vinylController.show(1) >> vinylA
+		1 * vinylController.get(1) >> vinylA
 		1 * vinylView.show(vinylA)
 	}
 	
@@ -72,7 +72,7 @@ class VinylCollectionAppSpec extends Specification {
 		app.routeRequest("vinyl", "show", "1")
 		
 		then:
-		1 * vinylController.show(1) >> vinylA
+		1 * vinylController.get(1) >> vinylA
 		1 * vinylView.show(vinylA)
 	}
 	

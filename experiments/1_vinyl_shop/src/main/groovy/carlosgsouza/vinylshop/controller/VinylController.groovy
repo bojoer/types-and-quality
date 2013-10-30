@@ -11,7 +11,7 @@ class VinylController {
 		db.all
 	}
 	
-	Vinyl show(Integer id) {
+	Vinyl get(Integer id) {
 		if(!id) {
 			throw new IllegalArgumentException("Can't show vinyl with null id")
 		}
