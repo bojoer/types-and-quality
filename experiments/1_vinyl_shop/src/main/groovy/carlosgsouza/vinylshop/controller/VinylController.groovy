@@ -1,11 +1,11 @@
 package carlosgsouza.vinylshop.controller
 
-import carlosgsouza.vinylshop.database.VinylDB
+import carlosgsouza.vinylshop.database.DB
 import carlosgsouza.vinylshop.model.Vinyl
 
 class VinylController {
 	
-	VinylDB db = new VinylDB()
+	DB db = new DB()
 	
 	List<Vinyl> list() {
 		db.all

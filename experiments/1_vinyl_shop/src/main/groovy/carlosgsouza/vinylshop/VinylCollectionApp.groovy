@@ -5,63 +5,36 @@ import carlosgsouza.vinylshop.controller.VinylController
 import carlosgsouza.vinylshop.model.Vinyl
 import carlosgsouza.vinylshop.view.VinylView
 
-class App {
-	
-	ConsoleReader console = new ConsoleReader()
+class VinylCollectionApp extends DeRailsApp {
 	
 	VinylController vinylController = new VinylController()
 	VinylView vinylView = new VinylView()
 	
-	void run() {
-		println "Vinyl Collection"
-		
-		System.in.eachLine { line ->
-			if(line == "exit") {
-				println "bye"
-				System.exit(0)
-			}
-			
-			routeRequest(line)
-		}
-	}
-	
-	void routeRequest(String command) {
-		def tokens = command.tokenize()
-		
-		if(tokens.size() < 2) {
-			println "Unreckognized command"
-			return
-		}
-		
-		def controller = tokens[1].toLowerCase()
-		def action = tokens[0].toLowerCase()
-		
-		tokens.remove(0)
-		tokens.remove(0)
-		
-		def parameter = tokens.join(" ")
-		
-		routeRequest(controller, action, parameter)
-	}
-	
 	void routeRequest(String controller, String action, String parameter) {
 		if(controller == "vinyl") {
-			if(action == "list") {
-				def vinylList = vinylController.list()
-				vinylView.renderList(vinylList)
+			switch(action) {
+				case "list":
+					vinylView.list(vinylController.list())
+					return
+				case "create":
+					def id = vinylController.create(vinylView.create())
+					return
 			}
+				
 		}
 	}
 	
-	void fillDB() {
-		vinylController.create new Vinyl(id:1, artist:"A", title:"A", songs:["A1", "A2", "A3"], year:"A", genre:"A")
-		vinylController.create new Vinyl(id:2, artist:"B", title:"B", songs:["B1", "B2", "B3"], year:"B", genre:"B")
-		vinylController.create new Vinyl(id:3, artist:"C", title:"C", songs:["C1", "C2", "C3"], year:"C", genre:"C")
+	void bootstrap() {
+		vinylController.create new Vinyl(artist:"Lana Del Rey", title:"Born to Dei", songs:["Off to Races", "Radio", "Carmen"], year:"2012", genre:"Pop")
+		vinylController.create new Vinyl(artist:"Bruno Mars", title:"Unorthodox Jukebox", songs:["Gorilla", "Treasure", "Young Girls"], year:"2012", genre:"Pop")
+		vinylController.create new Vinyl(artist:"Pearl Jam", title:"Lightning Bolt", songs:["Getaway", "Mind Your Manners", "Young Sirens"], year:"2013", genre:"Rock")
+		vinylController.create new Vinyl(artist:"Temple of Shadows", title:"Angra", songs:["Spread Your Fire", "Deus Le Volt!", "Waiting Silence"], year:"2004", genre:"Metal")
+		vinylController.create new Vinyl(artist:"Luan Santana", title:"Quando Chega a Noite", songs:["Te Esperando", "Te vivo", "Química do Amor"], year:"2010", genre:"Rock")
+		vinylController.create new Vinyl(artist:"Coldplay", title:"Parachutes", songs:["Don't Panic", "Shiver", "Spies"], year:"2000", genre:"Alternative")
+		vinylController.create new Vinyl(artist:"Pearl Jam", title:"Backspacer", songs:["Just Breathe", "Mind Your Amongst the Waves", "Supersonic"], year:"2009", genre:"Rock")
 	}
 	
 	public static void main(String[] args) {
-		def app = new App()
-		app.fillDB()
-		app.run()
+		new VinylCollectionApp(name: "DJ Pop Corn - Amazing Vinyl Collection").run()
 	}
 }

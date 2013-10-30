@@ -1,7 +1,7 @@
 package carlosgsouza.vinylshop.controller
 
 import spock.lang.Specification
-import carlosgsouza.vinylshop.database.VinylDB
+import carlosgsouza.vinylshop.database.DB
 import carlosgsouza.vinylshop.model.Vinyl;
 
 
@@ -9,7 +9,7 @@ class VinylControllerSpec extends Specification {
 	
 	VinylController controller
 	
-	VinylDB db
+	DB db
 	
 	Vinyl vinylA
 	Vinyl vinylB
@@ -20,7 +20,7 @@ class VinylControllerSpec extends Specification {
 		vinylB = new Vinyl(id:2, artist:"B", title:"B", songs:["B1", "B2", "B3"], year:"B", genre:"B")
 		vinylC = new Vinyl(id:3, artist:"C", title:"C", songs:["C1", "C2", "C3"], year:"C", genre:"C")
 		
-		db = Mock(VinylDB)
+		db = Mock(DB)
 		
 		controller = new VinylController(db:db)
 	}
@@ -200,6 +200,19 @@ class VinylControllerSpec extends Specification {
 		
 		when:
 		def id = controller.create(invalidVinyl)
+		
+		then:
+		thrown IllegalArgumentException
+	}
+	
+	def "should fail when trying to add an invalid vinyl"() {
+		given:
+		def vinyl = Mock(Vinyl) {
+			isValid() >> false
+		}
+		
+		when:
+		controller.create(vinyl)
 		
 		then:
 		thrown IllegalArgumentException

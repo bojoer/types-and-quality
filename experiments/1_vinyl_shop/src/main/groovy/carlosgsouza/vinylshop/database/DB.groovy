@@ -2,8 +2,8 @@ package carlosgsouza.vinylshop.database
 
 import carlosgsouza.vinylshop.model.Vinyl
 
-class VinylDB {
-	private List<VinylDB> vinyls = []
+class DB {
+	private List<DB> vinyls = []
 	
 	List<Vinyl> getAll() {
 		vinyls
@@ -14,10 +14,6 @@ class VinylDB {
 	}
 	
 	Integer add(Vinyl vinyl) {
-		if(!vinyl.valid) {
-			throw new IllegalArgumentException("Trying to add an invalid vinyl")
-		}
-		
 		vinyl.id = vinyl.id ?: maxId + 1
 		vinyls << vinyl
 		

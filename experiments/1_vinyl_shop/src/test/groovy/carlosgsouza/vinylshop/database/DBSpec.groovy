@@ -4,9 +4,9 @@ import spock.lang.Specification
 import spock.lang.Unroll
 import carlosgsouza.vinylshop.model.Vinyl
 
-class VinylDBSpec extends Specification {
+class DBSpec extends Specification {
 	
-	VinylDB db
+	DB db
 	
 	Vinyl vinylA
 	Vinyl vinylB
@@ -14,7 +14,7 @@ class VinylDBSpec extends Specification {
 	
 	
 	def setup() {
-		db = new VinylDB()
+		db = new DB()
 		
 		vinylA = new Vinyl(id:1, artist:"A", title:"A", songs:["A1", "A2", "A3"], year:"A", genre:"A")
 		vinylB = new Vinyl(id:2, artist:"B", title:"B", songs:["B1", "B2", "B3"], year:"B", genre:"B")
@@ -47,19 +47,6 @@ class VinylDBSpec extends Specification {
 		
 		then:
 		id == 1
-	}
-	
-	def "should fail when trying to add an invalid vinyl"() {
-		given:
-		def vinyl = Mock(Vinyl) {
-			isValid() >> false
-		}
-		
-		when:
-		db.add(vinyl)
-		
-		then:
-		thrown IllegalArgumentException
 	}
 	
 	def "should return all vinyls on the database"() {
