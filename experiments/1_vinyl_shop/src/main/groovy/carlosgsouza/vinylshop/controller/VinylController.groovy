@@ -23,11 +23,6 @@ class VinylController {
 		db.get(id)
 	}
 	
-	void update(Vinyl vinyl) {
-		delete(vinyl)
-		create(vinyl)
-	}
-	
 	Integer create(Vinyl vinyl) {
 		if(!vinyl?.valid) {
 			throw new IllegalArgumentException("Can't create invalid vinyl")
@@ -36,15 +31,15 @@ class VinylController {
 		db.add(vinyl)
 	}
 	
-	void delete(Vinyl vinyl) {
-		if(!vinyl?.id) {
+	void delete(Integer id) {
+		if(!id) {
 			throw new IllegalArgumentException("Can't delete null vinyl")
 		}
-		if(!db.contains(vinyl.id)) {
+		if(!db.contains(id)) {
 			throw new IllegalArgumentException("Vinyl doesn't exist")
 		}
 		
-		db.remove(vinyl.id)
+		db.remove(id)
 	}
 	
 }

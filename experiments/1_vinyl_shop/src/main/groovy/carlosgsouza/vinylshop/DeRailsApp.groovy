@@ -8,18 +8,29 @@ abstract class DeRailsApp {
 	
 	String name
 	
+	DeRailsApp(name) {
+		this.name = name
+	}
+	
 	void run() {
 		bootstrap()
 		
 		println name
 		
+		print '> '
 		System.in.eachLine { line ->
-			if(line == "exit") {
-				println "bye"
-				System.exit(0)
+			try {
+				if(line == "exit") {
+					println "bye"
+					System.exit(0)
+				}
+				
+				routeRequest(line)
+				
+				print '> '
+			} catch(e) {
+				println "(error) $e.message"
 			}
-			
-			routeRequest(line)
 		}
 	}
 	

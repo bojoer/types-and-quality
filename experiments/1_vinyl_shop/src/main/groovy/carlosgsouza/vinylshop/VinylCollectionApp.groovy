@@ -10,6 +10,10 @@ class VinylCollectionApp extends DeRailsApp {
 	VinylController vinylController = new VinylController()
 	VinylView vinylView = new VinylView()
 	
+	VinylCollectionApp() {
+		super("DJ PopCorn - Amazing Vinyl Collection")
+	}
+	
 	void routeRequest(String controller, String action, String parameter) {
 		if(controller == "vinyl") {
 			switch(action) {
@@ -18,7 +22,16 @@ class VinylCollectionApp extends DeRailsApp {
 					return
 				case "create":
 					def id = vinylController.create(vinylView.create())
+					vinylView.show(vinylController.show(id))
 					return
+				case "show":
+					def id = Integer.valueOf parameter
+					vinylView.show(vinylController.show(id))
+					return
+				case "delete":
+					def id = Integer.valueOf parameter
+					vinylController.delete(id)
+					vinylView.delete()
 			}
 				
 		}
@@ -35,6 +48,6 @@ class VinylCollectionApp extends DeRailsApp {
 	}
 	
 	public static void main(String[] args) {
-		new VinylCollectionApp(name: "DJ Pop Corn - Amazing Vinyl Collection").run()
+		new VinylCollectionApp().run()
 	}
 }

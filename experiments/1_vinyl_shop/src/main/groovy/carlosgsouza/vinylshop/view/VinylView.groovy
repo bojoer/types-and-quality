@@ -10,6 +10,14 @@ public class VinylView {
 		}
 	}
 	
+	public void show(Vinyl vinyl) {
+		println vinyl
+	}
+	
+	public void delete() {
+		println "Vinyl deleted"
+	}
+	
 	public Vinyl create() {
 		println "Please enter the vinyl details below"
 		
