@@ -155,7 +155,7 @@ class VinylControllerSpec extends Specification {
 		def result = controller.search("vinyl title")
 		
 		then:
-		db.searchVinyl("vinyl title") >> [vinylA, vinylB]
+		db.searchVinylByTitle("vinyl title") >> [vinylA, vinylB]
 		
 		and:
 		result == [vinylA, vinylB]

@@ -62,7 +62,7 @@ class VinylController {
 			throw new IllegalArgumentException("Must provide a title for the vinyl search")
 		}
 		
-		db.searchVinyl(title)
+		db.searchVinylByTitle(title)
 	}
 	
 }
