@@ -174,6 +174,75 @@ class DBSpec extends Specification {
 		result == ["A"]
 	}
 	
+	
+	def "should list the set of all Genres"() {
+		given:
+		db.vinyls = [vinylA, vinylB, vinylC]
+		
+		when:
+		def result = db.allGenres
+		
+		then:
+		result == ["A", "B", "C"]
+	}
+	
+	def "should not repeat an Genre on the list of Genres"() {
+		given:
+		db.vinyls = [vinylA, vinylA, vinylA, vinylA, vinylA]
+		
+		when:
+		def result = db.allGenres
+		
+		then:
+		result == ["A"]
+	}
+	
+	def "should list the set of all Years"() {
+		given:
+		db.vinyls = [vinylA, vinylB, vinylC]
+		
+		when:
+		def result = db.allYears
+		
+		then:
+		result == ["2001", "2002", "2003"]
+	}
+	
+	def "should not repeat an Year on the list of Years"() {
+		given:
+		db.vinyls = [vinylA, vinylA, vinylA, vinylA, vinylA]
+		
+		when:
+		def result = db.allYears
+		
+		then:
+		result == ["2001"]
+	}
+	
+	
+	def "should list the set of all Songs"() {
+		given:
+		db.vinyls = [vinylA, vinylB, vinylC]
+		
+		when:
+		def result = db.allSongs
+		
+		then:
+		result == ["A1", "A2", "A3", "B1", "B2", "B3", "C1", "C2", "C3"]
+	}
+	
+	def "should not repeat an Song on the list of Songs"() {
+		given:
+		db.vinyls = [vinylA, vinylA, vinylA, vinylA, vinylA]
+		
+		when:
+		def result = db.allSongs
+		
+		then:
+		result == ["A1", "A2", "A3"]
+	}
+	
+	
 	def "should search for vinyls by artist"() {
 		given:
 		db.vinyls = [vinylA, vinylB, vinylC]

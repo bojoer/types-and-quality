@@ -28,6 +28,18 @@ class DB {
 		vinyls*.artist.unique()
 	}
 	
+	List<String> getAllYears() {
+		vinyls*.year.unique()
+	}
+	
+	List<String> getAllGenres() {
+		vinyls*.genre.unique()
+	}
+	
+	List<String> getAllSongs() {
+		vinyls*.songs.flatten().unique()
+	}
+	
 	void remove(Integer id) {
 		vinyls.remove(vinyls.find{it.id == id})
 	}

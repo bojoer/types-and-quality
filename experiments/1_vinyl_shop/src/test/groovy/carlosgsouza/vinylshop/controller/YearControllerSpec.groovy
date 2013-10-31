@@ -6,9 +6,9 @@ import carlosgsouza.vinylshop.database.DB
 import carlosgsouza.vinylshop.model.Vinyl
 
 
-class ArtistControllerSpec extends Specification {
+class YearControllerSpec extends Specification {
 	
-	ArtistController controller
+	YearController controller
 	
 	DB db
 	
@@ -23,32 +23,29 @@ class ArtistControllerSpec extends Specification {
 		
 		db = Mock(DB)
 		
-		controller = new ArtistController(db:db)
+		controller = new YearController(db:db)
 	}
 	
-	def "should list tall artists of all vinyls on the database"() {
+	def "should list tall Years of all vinyls on the database"() {
 		when:
 		def all = controller.list()
 		
 		then:
-		1 * db.allArtists >> ["A", "B", "C"]
+		1 * db.allYears >> ["A", "B", "C"]
 		
 		and:
 		all == ["A", "B", "C"]
 	}
 	
-	def "should search for vinyls by artist"() {
+	def "should search for vinyls by Year"() {
 		when:
-		def all = controller.search("artist name")
+		def all = controller.search("Year name")
 		
 		then:
-		1 * db.searchVinylByArtist("artist name") >> [vinylA, vinylB]
+		1 * db.searchVinylByYear("Year name") >> [vinylA, vinylB]
 		
 		and:
 		all == [vinylA, vinylB]
 	}
-	
-	
-	
 	
 }
