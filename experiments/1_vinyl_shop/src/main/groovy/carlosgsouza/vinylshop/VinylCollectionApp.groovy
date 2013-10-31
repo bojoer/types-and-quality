@@ -1,7 +1,7 @@
 package carlosgsouza.vinylshop
 
 import carlosgsouza.derails.App
-import carlosgsouza.derails.Form
+import carlosgsouza.vinylshop.controller.ArtistController
 import carlosgsouza.vinylshop.controller.VinylController
 import carlosgsouza.vinylshop.model.Vinyl
 import carlosgsouza.vinylshop.view.UiFactory
@@ -9,6 +9,7 @@ import carlosgsouza.vinylshop.view.UiFactory
 class VinylCollectionApp extends App {
 	
 	VinylController vinylController = new VinylController()
+	ArtistController artistController = new ArtistController()
 	UiFactory uiFactory = new UiFactory()
 	
 	VinylCollectionApp() {
@@ -20,7 +21,7 @@ class VinylCollectionApp extends App {
 			switch(action) {
 				case "list":
 					def vinyls = vinylController.list()
-					console.render uiFactory.list(vinyls)
+					console.render uiFactory.listVinyls(vinyls)
 					return
 				case "create":
 					def form = uiFactory.vinylForm()
@@ -28,26 +29,33 @@ class VinylCollectionApp extends App {
 					def id = vinylController.create(form.fields)
 					def createdVinyl = vinylController.get(id)
 					
-					console.render uiFactory.show(createdVinyl)
+					console.render uiFactory.showVinyl(createdVinyl)
 					return
 				case "show":
 					def id = Integer.valueOf parameter
 					def vinyl = vinylController.get(id)
 					
-					console.render uiFactory.show(vinyl)
+					console.render uiFactory.showVinyl(vinyl)
 					return
 				case "delete":
 					def id = Integer.valueOf parameter
 					vinylController.delete(id)
 					
-					console.render uiFactory.delete()
+					console.render uiFactory.deleteVinyls()
 					return
-				case "find":
-					def result = vinylController.find(parameter)
-					console.render uiFactory.list(result)
+				case "search":
+					def result = vinylController.search(parameter)
+					console.render uiFactory.searchVinyls(parameter, result)
 					return
 			}
-		}
+		} else if(controller == "artist") {
+			switch(action) {
+				case "list":
+					def artists = artistController.list()
+					console.render uiFactory.listArtists(artists)
+					return
+			}
+		} 
 		
 		println "command not found"
 	}
@@ -56,7 +64,7 @@ class VinylCollectionApp extends App {
 		vinylController.create new Vinyl(artist:"Lana Del Rey", title:"Born to Dei", songs:["Off to Races", "Radio", "Carmen"], year:"2012", genre:"Pop")
 		vinylController.create new Vinyl(artist:"Bruno Mars", title:"Unorthodox Jukebox", songs:["Gorilla", "Treasure", "Young Girls"], year:"2012", genre:"Pop")
 		vinylController.create new Vinyl(artist:"Pearl Jam", title:"Lightning Bolt", songs:["Getaway", "Mind Your Manners", "Young Sirens"], year:"2013", genre:"Rock")
-		vinylController.create new Vinyl(artist:"Temple of Shadows", title:"Angra", songs:["Spread Your Fire", "Deus Le Volt!", "Waiting Silence"], year:"2004", genre:"Metal")
+		vinylController.create new Vinyl(artist:"Angra", title:"Temple of Shadows", songs:["Spread Your Fire", "Deus Le Volt!", "Waiting Silence"], year:"2004", genre:"Metal")
 		vinylController.create new Vinyl(artist:"Luan Santana", title:"Quando Chega a Noite", songs:["Te Esperando", "Te vivo", "Química do Amor"], year:"2010", genre:"Rock")
 		vinylController.create new Vinyl(artist:"Coldplay", title:"Parachutes", songs:["Don't Panic", "Shiver", "Spies"], year:"2000", genre:"Alternative")
 		vinylController.create new Vinyl(artist:"Pearl Jam", title:"Backspacer", songs:["Just Breathe", "Mind Your Amongst the Waves", "Supersonic"], year:"2009", genre:"Rock")

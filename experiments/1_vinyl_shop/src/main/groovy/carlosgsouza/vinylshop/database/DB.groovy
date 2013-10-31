@@ -3,7 +3,11 @@ package carlosgsouza.vinylshop.database
 import carlosgsouza.vinylshop.model.Vinyl
 
 class DB {
-	private List<DB> vinyls = []
+	private List<Vinyl> vinyls = []
+	
+	private static DB instance = new DB()
+	
+	private DB() {}
 	
 	List<Vinyl> getAll() {
 		vinyls
@@ -20,6 +24,10 @@ class DB {
 		return vinyl.id
 	}
 	
+	List<String> getAllArtists() {
+		vinyls*.artist.unique()
+	}
+	
 	void remove(Integer id) {
 		vinyls.remove(vinyls.find{it.id == id})
 	}
@@ -34,5 +42,9 @@ class DB {
 	
 	public List<Vinyl> searchVinyl(title) {
 		vinyls.findAll{ it.title.toLowerCase().contains(title.toLowerCase()) }
+	}
+	
+	public static DB connect() {
+		instance
 	}
 }

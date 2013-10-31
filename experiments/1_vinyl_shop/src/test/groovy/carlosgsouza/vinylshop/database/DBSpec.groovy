@@ -21,6 +21,15 @@ class DBSpec extends Specification {
 		vinylC = new Vinyl(id:3, artist:"C", title:"C", songs:["C1", "C2", "C3"], year:"C", genre:"C")
 	}
 	
+	def "should return the same DB instance for multiple connections"() {
+		when:
+		def db1 = DB.connect()
+		def db2 = DB.connect()
+		
+		then:
+		db1.is db2
+	}
+	
 	def "should auto generate an id and add it to the database"() {
 		given:
 		db.vinyls = [vinylA, vinylB, vinylC]
@@ -141,5 +150,27 @@ class DBSpec extends Specification {
 		
 		then:
 		result == [vinylA]
+	}
+	
+	def "should list the set of all artists"() {
+		given:
+		db.vinyls = [vinylA, vinylB, vinylC]
+		
+		when:
+		def result = db.allArtists
+		
+		then:
+		result == ["A", "B", "C"]
+	}
+	
+	def "should not repeat an artist on the list of artists"() {
+		given:
+		db.vinyls = [vinylA, vinylA, vinylA, vinylA, vinylA]
+		
+		when:
+		def result = db.allArtists
+		
+		then:
+		result == ["A"]
 	}
 }

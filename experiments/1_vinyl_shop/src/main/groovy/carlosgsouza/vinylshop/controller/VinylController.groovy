@@ -5,7 +5,7 @@ import carlosgsouza.vinylshop.model.Vinyl
 
 class VinylController {
 	
-	DB db = new DB()
+	DB db = DB.connect()
 	
 	List<Vinyl> list() {
 		db.all
@@ -57,7 +57,7 @@ class VinylController {
 		db.remove(id)
 	}
 	
-	List<Vinyl> find(String title) {
+	List<Vinyl> search(String title) {
 		if(!title) {
 			throw new IllegalArgumentException("Must provide a title for the vinyl search")
 		}

@@ -150,9 +150,9 @@ class VinylControllerSpec extends Specification {
 		thrown IllegalArgumentException
 	}
 	
-	def "should find a vinyl"() {
+	def "should search a vinyl"() {
 		when:
-		def result = controller.find("vinyl title")
+		def result = controller.search("vinyl title")
 		
 		then:
 		db.searchVinyl("vinyl title") >> [vinylA, vinylB]
@@ -164,7 +164,7 @@ class VinylControllerSpec extends Specification {
 	@Unroll
 	def "should fail when trying to search for a vinyl with an empty or null title"(title) {
 		when:
-		controller.find(title)
+		controller.search(title)
 		
 		then:
 		thrown IllegalArgumentException
