@@ -4,13 +4,13 @@ import spock.lang.Specification
 import carlosgsouza.vinylshop.controller.VinylController
 import carlosgsouza.vinylshop.database.DB
 import carlosgsouza.vinylshop.model.Vinyl
-import carlosgsouza.vinylshop.view.VinylView
+import carlosgsouza.vinylshop.view.ViewFactory
 
 
 class VinylCollectionAppSpec extends Specification {
 	
 	VinylController vinylController
-	VinylView vinylView
+	ViewFactory vinylView
 	
 	Vinyl vinylA
 	Vinyl vinylB
@@ -25,9 +25,9 @@ class VinylCollectionAppSpec extends Specification {
 		
 		
 		vinylController = Mock(VinylController)
-		vinylView = Mock(VinylView)
+		vinylView = Mock(ViewFactory)
 		
-		app = new VinylCollectionApp(vinylController:vinylController, vinylView:vinylView)
+		app = new VinylCollectionApp(vinylController:vinylController, viewFactory:vinylView)
 	}
 	
 	def "should create a bunch of vinyl during bootstrap"() {

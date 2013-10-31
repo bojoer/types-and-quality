@@ -1,14 +1,15 @@
 package carlosgsouza.vinylshop
 
-import jline.console.ConsoleReader
+import carlosgsouza.derails.App
+import carlosgsouza.derails.Form
 import carlosgsouza.vinylshop.controller.VinylController
 import carlosgsouza.vinylshop.model.Vinyl
-import carlosgsouza.vinylshop.view.VinylView
+import carlosgsouza.vinylshop.view.ViewFactory
 
-class VinylCollectionApp extends DeRailsApp {
+class VinylCollectionApp extends App {
 	
 	VinylController vinylController = new VinylController()
-	VinylView vinylView = new VinylView()
+	ViewFactory viewFactory = new ViewFactory()
 	
 	VinylCollectionApp() {
 		super("DJ PopCorn - Amazing Vinyl Collection")
@@ -18,24 +19,40 @@ class VinylCollectionApp extends DeRailsApp {
 		if(controller == "vinyl") {
 			switch(action) {
 				case "list":
-					vinylView.list(vinylController.list())
+					def vinyls = vinylController.list()
+					console.render viewFactory.list(vinyls)
 					return
 				case "create":
-					def id = vinylController.create(vinylView.create())
-					vinylView.show(vinylController.get(id))
+					def form = new Form("Please enter the vinyl details below", "Artist", "Title", "Songs", "Year", "Genre")
+					console.apply form
+					
+					def vinyl = new Vinyl(
+						artist:form.field["Artist"],
+						title:form.field["Title"],
+						songs:form.field["Songs"].split(",")*.trim(),
+						year:form.field["Year"],
+						genre:form.field["Genre"])
+					
+					def id = vinylController.create(vinyl)
+					def createdVinyl = vinylController.get(id)
+					
+					console.render viewFactory.show(createdVinyl)
 					return
 				case "show":
 					def id = Integer.valueOf parameter
-					vinylView.show(vinylController.get(id))
+					def vinyl = vinylController.get(id)
+					
+					console.render viewFactory.show(vinyl)
 					return
 				case "delete":
 					def id = Integer.valueOf parameter
 					vinylController.delete(id)
-					vinylView.delete()
+					
+					console.render viewFactory.delete()
 					return
 				case "find":
 					def result = vinylController.find(parameter)
-					vinylView.list(result)
+					console.render viewFactory.list(result)
 					return
 			}
 		}

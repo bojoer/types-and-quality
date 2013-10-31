@@ -10,7 +10,7 @@ class Vinyl {
 	
 	@Override
 	public String toString() {
-		"(Vinyl | id:$id, artist:$artist, title:$title, songs:$songs, year:$year, genre:$genre)"
+		"id:$id, artist:$artist, title:$title, songs:$songs, year:$year, genre:$genre"
 	}
 
 	boolean isValid() {

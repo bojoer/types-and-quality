@@ -103,6 +103,6 @@ class VinylSpec extends Specification {
 		def string = new Vinyl(id:1, artist:"The Artist", title:"The Title", songs:["A1", "A2", "A3"], year:"1985", genre:"Samba").toString()
 		
 		then:
-		string == '(Vinyl | id:1, artist:The Artist, title:The Title, songs:[A1, A2, A3], year:1985, genre:Samba)'
+		string == 'id:1, artist:The Artist, title:The Title, songs:[A1, A2, A3], year:1985, genre:Samba'
 	}
 }

@@ -1,14 +1,12 @@
-package carlosgsouza.vinylshop
+package carlosgsouza.derails
 
-import jline.console.ConsoleReader
-import carlosgsouza.vinylshop.controller.VinylController
-import carlosgsouza.vinylshop.view.VinylView
 
-abstract class DeRailsApp {
+abstract class App {
 	
-	String name
+	String name = "DeRails App"
+	Console console = new Console()
 	
-	DeRailsApp(name) {
+	App(name) {
 		this.name = name
 	}
 	
@@ -29,7 +27,7 @@ abstract class DeRailsApp {
 				
 				print '> '
 			} catch(e) {
-				println "(error) $e.message"
+				console.render new View("(error) $e.message")
 			}
 		}
 	}
