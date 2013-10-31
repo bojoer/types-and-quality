@@ -4,12 +4,12 @@ import carlosgsouza.derails.App
 import carlosgsouza.derails.Form
 import carlosgsouza.vinylshop.controller.VinylController
 import carlosgsouza.vinylshop.model.Vinyl
-import carlosgsouza.vinylshop.view.ViewFactory
+import carlosgsouza.vinylshop.view.UiFactory
 
 class VinylCollectionApp extends App {
 	
 	VinylController vinylController = new VinylController()
-	ViewFactory viewFactory = new ViewFactory()
+	UiFactory uiFactory = new UiFactory()
 	
 	VinylCollectionApp() {
 		super("DJ PopCorn - Amazing Vinyl Collection")
@@ -20,39 +20,31 @@ class VinylCollectionApp extends App {
 			switch(action) {
 				case "list":
 					def vinyls = vinylController.list()
-					console.render viewFactory.list(vinyls)
+					console.render uiFactory.list(vinyls)
 					return
 				case "create":
-					def form = new Form("Please enter the vinyl details below", "Artist", "Title", "Songs", "Year", "Genre")
+					def form = uiFactory.vinylForm()
 					console.apply form
-					
-					def vinyl = new Vinyl(
-						artist:form.field["Artist"],
-						title:form.field["Title"],
-						songs:form.field["Songs"].split(",")*.trim(),
-						year:form.field["Year"],
-						genre:form.field["Genre"])
-					
-					def id = vinylController.create(vinyl)
+					def id = vinylController.create(form.fields)
 					def createdVinyl = vinylController.get(id)
 					
-					console.render viewFactory.show(createdVinyl)
+					console.render uiFactory.show(createdVinyl)
 					return
 				case "show":
 					def id = Integer.valueOf parameter
 					def vinyl = vinylController.get(id)
 					
-					console.render viewFactory.show(vinyl)
+					console.render uiFactory.show(vinyl)
 					return
 				case "delete":
 					def id = Integer.valueOf parameter
 					vinylController.delete(id)
 					
-					console.render viewFactory.delete()
+					console.render uiFactory.delete()
 					return
 				case "find":
 					def result = vinylController.find(parameter)
-					console.render viewFactory.list(result)
+					console.render uiFactory.list(result)
 					return
 			}
 		}

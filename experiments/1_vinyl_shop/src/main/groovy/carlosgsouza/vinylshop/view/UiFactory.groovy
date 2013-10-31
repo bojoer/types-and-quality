@@ -1,11 +1,12 @@
 package carlosgsouza.vinylshop.view
 
+import carlosgsouza.derails.Form
 import carlosgsouza.derails.View
 import carlosgsouza.vinylshop.model.Vinyl
 
 
 
-public class ViewFactory {
+public class UiFactory {
 	
 	public View list(List<Vinyl> vinylList) {
 		def items = []
@@ -28,5 +29,7 @@ public class ViewFactory {
 		new View("Item created")
 	}
 	
-	
+	public Form vinylForm() {
+		new Form("Please enter the vinyl details below", "Artist", "Title", "Songs", "Year", "Genre")
+	}
 }

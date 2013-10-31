@@ -1,20 +1,25 @@
 package carlosgsouza.vinylshop
 
 import spock.lang.Specification
+import carlosgsouza.derails.Console
+import carlosgsouza.derails.Form
+import carlosgsouza.derails.View
 import carlosgsouza.vinylshop.controller.VinylController
-import carlosgsouza.vinylshop.database.DB
 import carlosgsouza.vinylshop.model.Vinyl
-import carlosgsouza.vinylshop.view.ViewFactory
-
+import carlosgsouza.vinylshop.view.UiFactory
 
 class VinylCollectionAppSpec extends Specification {
 	
 	VinylController vinylController
-	ViewFactory vinylView
+	UiFactory uiFactory
+	Console console
 	
 	Vinyl vinylA
 	Vinyl vinylB
 	Vinyl vinylC
+	
+	View view
+	Form vinylForm
 	
 	VinylCollectionApp app
 	
@@ -23,11 +28,15 @@ class VinylCollectionAppSpec extends Specification {
 		vinylB = new Vinyl(id:2, artist:"B", title:"B", songs:["B1", "B2", "B3"], year:"B", genre:"B")
 		vinylC = new Vinyl(id:3, artist:"C", title:"C", songs:["C1", "C2", "C3"], year:"C", genre:"C")
 		
+		view = new View()
+		
+		vinylForm = new UiFactory().vinylForm()
 		
 		vinylController = Mock(VinylController)
-		vinylView = Mock(ViewFactory)
+		uiFactory = Mock(UiFactory)
+		console = Mock(Console)
 		
-		app = new VinylCollectionApp(vinylController:vinylController, viewFactory:vinylView)
+		app = new VinylCollectionApp(vinylController:vinylController, uiFactory:uiFactory, console:console)
 	}
 	
 	def "should create a bunch of vinyl during bootstrap"() {
@@ -44,18 +53,24 @@ class VinylCollectionAppSpec extends Specification {
 		
 		then:
 		1 * vinylController.list() >> [vinylA, vinylB]
-		1 * vinylView.list([vinylA, vinylB])
+		1 * uiFactory.list([vinylA, vinylB]) >> view
+		1 * console.render(view)
 	}
 	
 	def "should create a vinyl"() {
+		given:
+		vinylForm.fields = ["artist":"", "title":"", "songs":"", "year":"", "genre":""]
+		
 		when:
 		app.routeRequest("vinyl", "create", null)
 		
 		then:
-		1 * vinylView.create() >> vinylA
-		1 * vinylController.create(vinylA) >> 1
+		1 * uiFactory.vinylForm() >> vinylForm
+		1 * console.apply(vinylForm)
+		1 * vinylController.create(vinylForm.fields) >> 1
 		1 * vinylController.get(1) >> vinylA
-		1 * vinylView.show(vinylA)
+		1 * uiFactory.show(vinylA) >> view
+		1 * console.render(view)
 	}
 	
 	def "should delete a vinyl"() {
@@ -64,7 +79,7 @@ class VinylCollectionAppSpec extends Specification {
 		
 		then:
 		1 * vinylController.delete(1)
-		1 * vinylView.delete()
+		1 * uiFactory.delete()
 	}
 	
 	def "should show a vinyl"() {
@@ -73,7 +88,7 @@ class VinylCollectionAppSpec extends Specification {
 		
 		then:
 		1 * vinylController.get(1) >> vinylA
-		1 * vinylView.show(vinylA)
+		1 * uiFactory.show(vinylA)
 	}
 	
 	def "should find a vinyl"() {
@@ -82,7 +97,7 @@ class VinylCollectionAppSpec extends Specification {
 		
 		then:
 		1 * vinylController.find("Album Title") >> [vinylA, vinylB]
-		1 * vinylView.list([vinylA, vinylB])
+		1 * uiFactory.list([vinylA, vinylB])
 	}
 	
 	

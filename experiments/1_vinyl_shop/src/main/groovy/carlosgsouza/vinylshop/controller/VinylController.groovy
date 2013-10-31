@@ -23,6 +23,21 @@ class VinylController {
 		db.get(id)
 	}
 	
+	Integer create(Map fields) {
+		if(!fields) {
+			throw new IllegalArgumentException("Can't create invalid vinyl")
+		}
+		
+		def vinyl = new Vinyl(
+			artist:fields["artist"],
+			title:fields["title"],
+			songs:fields["songs"].split(",")*.trim(),
+			year:fields["year"],
+			genre:fields["genre"])
+		
+		return create(vinyl)
+	}
+	
 	Integer create(Vinyl vinyl) {
 		if(!vinyl?.valid) {
 			throw new IllegalArgumentException("Can't create invalid vinyl")

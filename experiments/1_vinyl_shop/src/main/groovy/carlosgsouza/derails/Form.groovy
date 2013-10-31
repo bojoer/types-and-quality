@@ -3,7 +3,7 @@ package carlosgsouza.derails;
 class Form {
 	
 	String title
-	Map<String, String> field = [:]
+	Map<String, String> fields = [:]
 	Collection<String> fieldName = []
 	
 	public Form(String title, String... fieldName) {

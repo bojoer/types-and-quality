@@ -11,7 +11,7 @@ class Console {
 	public apply(Form form) {
 		println form.title
 		form.fieldName.each { name ->
-			form.field[name] = readText(name)
+			form.fields[name] = readText(name)
 		}
 	}
 	
