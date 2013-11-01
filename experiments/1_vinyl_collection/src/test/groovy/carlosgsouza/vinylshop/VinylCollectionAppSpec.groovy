@@ -5,10 +5,12 @@ import carlosgsouza.derails.Console
 import carlosgsouza.derails.Form
 import carlosgsouza.derails.View
 import carlosgsouza.vinylshop.controller.ArtistController
-import carlosgsouza.vinylshop.controller.GenreController;
-import carlosgsouza.vinylshop.controller.SongController;
+import carlosgsouza.vinylshop.controller.GenreController
+import carlosgsouza.vinylshop.controller.SongController
+import carlosgsouza.vinylshop.controller.SummaryController
 import carlosgsouza.vinylshop.controller.VinylController
-import carlosgsouza.vinylshop.controller.YearController;
+import carlosgsouza.vinylshop.controller.YearController
+import carlosgsouza.vinylshop.model.Summary
 import carlosgsouza.vinylshop.model.Vinyl
 import carlosgsouza.vinylshop.view.UiFactory
 
@@ -19,6 +21,7 @@ class VinylCollectionAppSpec extends Specification {
 	YearController yearController
 	GenreController genreController
 	SongController songController 
+	SummaryController summaryController
 	
 	UiFactory uiFactory
 	Console console
@@ -26,6 +29,8 @@ class VinylCollectionAppSpec extends Specification {
 	Vinyl vinylA
 	Vinyl vinylB
 	Vinyl vinylC
+	
+	Summary summary
 	
 	View view
 	Form vinylForm
@@ -37,6 +42,8 @@ class VinylCollectionAppSpec extends Specification {
 		vinylB = new Vinyl(id:2, artist:"B", title:"B", songs:["B1", "B2", "B3"], year:"B", genre:"B")
 		vinylC = new Vinyl(id:3, artist:"C", title:"C", songs:["C1", "C2", "C3"], year:"C", genre:"C")
 		
+		summary = new Summary(vinylCount:10, artistCount:5, songCount:23, genreCount:6)
+		
 		view = new View()
 		
 		vinylForm = new UiFactory().vinylForm()
@@ -46,12 +53,20 @@ class VinylCollectionAppSpec extends Specification {
 		yearController = Mock(YearController)
 		genreController = Mock(GenreController)
 		songController = Mock(SongController)
-		
+		summaryController = Mock(SummaryController)
 		
 		uiFactory = Mock(UiFactory)
 		console = Mock(Console)
 		
-		app = new VinylCollectionApp(yearController:yearController, genreController:genreController, songController:songController, artistController: artistController, vinylController:vinylController, uiFactory:uiFactory, console:console)
+		app = new VinylCollectionApp(
+						summaryController : summaryController,
+						yearController:yearController, 
+						genreController:genreController, 
+						songController:songController, 
+						artistController: artistController, 
+						vinylController:vinylController, 
+						uiFactory:uiFactory, 
+						console:console)
 	}
 	
 	def "should create a bunch of vinyl during bootstrap"() {
@@ -194,6 +209,16 @@ class VinylCollectionAppSpec extends Specification {
 		then:
 		1 * songController.list() >> ["Song 1", "Song 2"]
 		1 * uiFactory.listSongs(["Song 1", "Song 2"]) >> view
+		1 * console.render(view)
+	}
+	
+	def "should show a summary of the data"() {
+		when:
+		app.routeRequest("summary", "show", null)
+		
+		then:
+		1 * summaryController.show() >> summary
+		1 * uiFactory.showSummary(summary) >> view
 		1 * console.render(view)
 	}
 	

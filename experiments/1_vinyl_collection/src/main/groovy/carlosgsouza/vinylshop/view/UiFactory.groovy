@@ -116,4 +116,13 @@ public class UiFactory {
 		
 		new View(items)
 	}
+	
+	public View showSummary(summary) {
+		def items = []
+		
+		items << "Collection Summary"
+		items << summary
+		
+		new View(items)
+	}
 }

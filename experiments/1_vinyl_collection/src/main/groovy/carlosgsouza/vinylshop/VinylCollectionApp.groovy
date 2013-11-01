@@ -4,6 +4,7 @@ import carlosgsouza.derails.App
 import carlosgsouza.vinylshop.controller.ArtistController
 import carlosgsouza.vinylshop.controller.GenreController
 import carlosgsouza.vinylshop.controller.SongController
+import carlosgsouza.vinylshop.controller.SummaryController
 import carlosgsouza.vinylshop.controller.VinylController
 import carlosgsouza.vinylshop.controller.YearController
 import carlosgsouza.vinylshop.model.Vinyl
@@ -16,6 +17,7 @@ class VinylCollectionApp extends App {
 	YearController yearController = new YearController()
 	GenreController genreController = new GenreController()
 	SongController songController = new SongController()
+	SummaryController summaryController = new SummaryController()
 	
 	UiFactory uiFactory = new UiFactory()
 	
@@ -99,7 +101,14 @@ class VinylCollectionApp extends App {
 					console.render uiFactory.searchByGenre(parameter, genres)
 					return
 			}
-		} 
+		}  else if(controller == "summary") {
+			switch(action) {
+				case "show":
+					def summary = summaryController.show()
+					console.render uiFactory.showSummary(summary)
+					return
+			}
+		}
 		
 		println "command not found"
 	}
