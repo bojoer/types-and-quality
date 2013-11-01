@@ -1,7 +1,5 @@
 package carlosgsouza.vinylshop.controller
 
-import java.lang.invoke.MethodHandleImpl.BindCaller.T
-
 import spock.lang.Specification
 import carlosgsouza.vinylshop.database.DB
 import carlosgsouza.vinylshop.model.Vinyl
