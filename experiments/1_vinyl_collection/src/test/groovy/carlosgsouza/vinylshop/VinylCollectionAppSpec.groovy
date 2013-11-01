@@ -6,10 +6,12 @@ import carlosgsouza.derails.Form
 import carlosgsouza.derails.View
 import carlosgsouza.vinylshop.controller.ArtistController
 import carlosgsouza.vinylshop.controller.GenreController
+import carlosgsouza.vinylshop.controller.ReportController
 import carlosgsouza.vinylshop.controller.SongController
 import carlosgsouza.vinylshop.controller.SummaryController
 import carlosgsouza.vinylshop.controller.VinylController
 import carlosgsouza.vinylshop.controller.YearController
+import carlosgsouza.vinylshop.model.Report
 import carlosgsouza.vinylshop.model.Summary
 import carlosgsouza.vinylshop.model.Vinyl
 import carlosgsouza.vinylshop.view.UiFactory
@@ -22,6 +24,7 @@ class VinylCollectionAppSpec extends Specification {
 	GenreController genreController
 	SongController songController 
 	SummaryController summaryController
+	ReportController reportController
 	
 	UiFactory uiFactory
 	Console console
@@ -31,6 +34,7 @@ class VinylCollectionAppSpec extends Specification {
 	Vinyl vinylC
 	
 	Summary summary
+	Report report
 	
 	View view
 	Form vinylForm
@@ -43,6 +47,7 @@ class VinylCollectionAppSpec extends Specification {
 		vinylC = new Vinyl(id:3, artist:"C", title:"C", songs:["C1", "C2", "C3"], year:"C", genre:"C")
 		
 		summary = new Summary(vinylCount:10, artistCount:5, songCount:23, genreCount:6)
+		report = new Report(data:["data description":"value"])
 		
 		view = new View()
 		
@@ -54,12 +59,14 @@ class VinylCollectionAppSpec extends Specification {
 		genreController = Mock(GenreController)
 		songController = Mock(SongController)
 		summaryController = Mock(SummaryController)
+		reportController = Mock(ReportController)
 		
 		uiFactory = Mock(UiFactory)
 		console = Mock(Console)
 		
 		app = new VinylCollectionApp(
-						summaryController : summaryController,
+						reportController:reportController,
+						summaryController:summaryController,
 						yearController:yearController, 
 						genreController:genreController, 
 						songController:songController, 
@@ -219,6 +226,26 @@ class VinylCollectionAppSpec extends Specification {
 		then:
 		1 * summaryController.show() >> summary
 		1 * uiFactory.showSummary(summary) >> view
+		1 * console.render(view)
+	}
+	
+	def "should show an artist report"() {
+		when:
+		app.routeRequest("report", "artist", null)
+		
+		then:
+		1 * reportController.artist() >> report
+		1 * uiFactory.showReport("Artist", report) >> view
+		1 * console.render(view)
+	}
+	
+	def "should show a genre report"() {
+		when:
+		app.routeRequest("report", "genre", null)
+		
+		then:
+		1 * reportController.genre() >> report
+		1 * uiFactory.showReport("Genre", report) >> view
 		1 * console.render(view)
 	}
 	

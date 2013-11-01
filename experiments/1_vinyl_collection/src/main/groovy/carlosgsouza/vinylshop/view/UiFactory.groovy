@@ -2,6 +2,8 @@ package carlosgsouza.vinylshop.view
 
 import carlosgsouza.derails.Form
 import carlosgsouza.derails.View
+import carlosgsouza.vinylshop.model.Report
+import carlosgsouza.vinylshop.model.Summary
 import carlosgsouza.vinylshop.model.Vinyl
 
 
@@ -117,11 +119,20 @@ public class UiFactory {
 		new View(items)
 	}
 	
-	public View showSummary(summary) {
+	public View showSummary(Summary summary) {
 		def items = []
 		
 		items << "Collection Summary"
 		items << summary
+		
+		new View(items)
+	}
+	
+	public View showReport(String name, Report report) {
+		def items = []
+		
+		items << "$name Report"
+		items << report
 		
 		new View(items)
 	}

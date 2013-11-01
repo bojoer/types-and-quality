@@ -3,6 +3,7 @@ package carlosgsouza.vinylshop
 import carlosgsouza.derails.App
 import carlosgsouza.vinylshop.controller.ArtistController
 import carlosgsouza.vinylshop.controller.GenreController
+import carlosgsouza.vinylshop.controller.ReportController;
 import carlosgsouza.vinylshop.controller.SongController
 import carlosgsouza.vinylshop.controller.SummaryController
 import carlosgsouza.vinylshop.controller.VinylController
@@ -18,6 +19,7 @@ class VinylCollectionApp extends App {
 	GenreController genreController = new GenreController()
 	SongController songController = new SongController()
 	SummaryController summaryController = new SummaryController()
+	ReportController reportController = new ReportController()
 	
 	UiFactory uiFactory = new UiFactory()
 	
@@ -101,11 +103,22 @@ class VinylCollectionApp extends App {
 					console.render uiFactory.searchByGenre(parameter, genres)
 					return
 			}
-		}  else if(controller == "summary") {
+		} else if(controller == "summary") {
 			switch(action) {
 				case "show":
 					def summary = summaryController.show()
 					console.render uiFactory.showSummary(summary)
+					return
+			}
+		} else if(controller == "report") {
+			switch(action) {
+				case "artist":
+					def report = reportController.artist()
+					console.render uiFactory.showReport("Artist", report)
+					return
+				case "genre":
+					def report = reportController.genre()
+					console.render uiFactory.showReport("Genre", report)
 					return
 			}
 		}
