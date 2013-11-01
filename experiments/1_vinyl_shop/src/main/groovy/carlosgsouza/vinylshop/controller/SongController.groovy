@@ -2,16 +2,16 @@ package carlosgsouza.vinylshop.controller
 
 import carlosgsouza.vinylshop.database.DB
 
-class ArtistController {
+class SongController {
 	
 	DB db = DB.connect()
 	
 	List<String> list() {
-		db.allArtists
+		db.allSongs
 	}
 	
-	List<String> search(String artist) {
-		db.searchVinylByArtist(artist)
+	List<String> search(String Song) {
+		db.searchVinylBySong(Song)
 	}
 	
 }

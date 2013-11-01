@@ -16,9 +16,9 @@ class DBSpec extends Specification {
 	def setup() {
 		db = new DB()
 		
-		vinylA = new Vinyl(id:1, artist:"A", title:"A", songs:["A1", "A2", "A3"], year:"A", genre:"A")
-		vinylB = new Vinyl(id:2, artist:"B", title:"B", songs:["B1", "B2", "B3"], year:"B", genre:"B")
-		vinylC = new Vinyl(id:3, artist:"C", title:"C", songs:["C1", "C2", "C3"], year:"C", genre:"C")
+		vinylA = new Vinyl(id:1, artist:"A", title:"A", songs:["A1", "A2", "A3"], year:"2001", genre:"A")
+		vinylB = new Vinyl(id:2, artist:"B", title:"B", songs:["B1", "B2", "B3"], year:"2002", genre:"B")
+		vinylC = new Vinyl(id:3, artist:"C", title:"C", songs:["C1", "C2", "C3"], year:"2003", genre:"C")
 	}
 	
 	def "should return the same DB instance for multiple connections"() {
@@ -113,7 +113,7 @@ class DBSpec extends Specification {
 		db.vinyls = [vinylA, vinylB, vinylC]
 		
 		when:
-		def result = db.searchVinyl("A")
+		def result = db.searchVinylByTitle("A")
 		
 		then:
 		result == [vinylA]
@@ -124,7 +124,7 @@ class DBSpec extends Specification {
 		db.vinyls = [vinylA, vinylB, vinylC]
 		
 		when:
-		def result = db.searchVinyl("wont match")
+		def result = db.searchVinylByTitle("wont match")
 		
 		then:
 		result == []
@@ -135,7 +135,7 @@ class DBSpec extends Specification {
 		db.vinyls = [vinylA, vinylA, vinylC]
 		
 		when:
-		def result = db.searchVinyl("A")
+		def result = db.searchVinylByTitle("A")
 		
 		then:
 		result == [vinylA, vinylA]
@@ -146,7 +146,7 @@ class DBSpec extends Specification {
 		db.vinyls = [vinylA, vinylB, vinylC]
 		
 		when:
-		def result = db.searchVinyl("a")
+		def result = db.searchVinylByTitle("a")
 		
 		then:
 		result == [vinylA]
@@ -172,5 +172,206 @@ class DBSpec extends Specification {
 		
 		then:
 		result == ["A"]
+	}
+	
+	
+	def "should list the set of all Genres"() {
+		given:
+		db.vinyls = [vinylA, vinylB, vinylC]
+		
+		when:
+		def result = db.allGenres
+		
+		then:
+		result == ["A", "B", "C"]
+	}
+	
+	def "should not repeat an Genre on the list of Genres"() {
+		given:
+		db.vinyls = [vinylA, vinylA, vinylA, vinylA, vinylA]
+		
+		when:
+		def result = db.allGenres
+		
+		then:
+		result == ["A"]
+	}
+	
+	def "should list the set of all Years"() {
+		given:
+		db.vinyls = [vinylA, vinylB, vinylC]
+		
+		when:
+		def result = db.allYears
+		
+		then:
+		result == ["2001", "2002", "2003"]
+	}
+	
+	def "should not repeat an Year on the list of Years"() {
+		given:
+		db.vinyls = [vinylA, vinylA, vinylA, vinylA, vinylA]
+		
+		when:
+		def result = db.allYears
+		
+		then:
+		result == ["2001"]
+	}
+	
+	
+	def "should list the set of all Songs"() {
+		given:
+		db.vinyls = [vinylA, vinylB, vinylC]
+		
+		when:
+		def result = db.allSongs
+		
+		then:
+		result == ["A1", "A2", "A3", "B1", "B2", "B3", "C1", "C2", "C3"]
+	}
+	
+	def "should not repeat an Song on the list of Songs"() {
+		given:
+		db.vinyls = [vinylA, vinylA, vinylA, vinylA, vinylA]
+		
+		when:
+		def result = db.allSongs
+		
+		then:
+		result == ["A1", "A2", "A3"]
+	}
+	
+	
+	def "should search for vinyls by artist"() {
+		given:
+		db.vinyls = [vinylA, vinylB, vinylC]
+		
+		when:
+		def result = db.searchVinylByArtist("A")
+		
+		then:
+		result == [vinylA]
+	}
+	
+	def "should return an empty list if the search for vinyls by artist doesn't match any elements"() {
+		given:
+		db.vinyls = [vinylA, vinylB, vinylC]
+		
+		when:
+		def result = db.searchVinylByArtist("wont match")
+		
+		then:
+		result == []
+	}
+	
+	def "should return multiple vinyls if the search by artist matches multiple items"() {
+		given:
+		db.vinyls = [vinylA, vinylA, vinylC]
+		
+		when:
+		def result = db.searchVinylByArtist("A")
+		
+		then:
+		result == [vinylA, vinylA]
+	}
+	
+	def "should search for vinyls by year"() {
+		given:
+		db.vinyls = [vinylA, vinylB, vinylC]
+		
+		when:
+		def result = db.searchVinylByYear("2001")
+		
+		then:
+		result == [vinylA]
+	}
+	
+	def "should return an empty list if the search for vinyls by year doesn't match any elements"() {
+		given:
+		db.vinyls = [vinylA, vinylB, vinylC]
+		
+		when:
+		def result = db.searchVinylByYear("3379")
+		
+		then:
+		result == []
+	}
+	
+	def "should return multiple vinyls if the search by year matches multiple items"() {
+		given:
+		db.vinyls = [vinylA, vinylA, vinylC]
+		
+		when:
+		def result = db.searchVinylByYear("2001")
+		
+		then:
+		result == [vinylA, vinylA]
+	}
+	
+	def "should search for vinyls by Genre"() {
+		given:
+		db.vinyls = [vinylA, vinylB, vinylC]
+		
+		when:
+		def result = db.searchVinylByGenre("A")
+		
+		then:
+		result == [vinylA]
+	}
+	
+	def "should return an empty list if the search for vinyls by Genre doesn't match any elements"() {
+		given:
+		db.vinyls = [vinylA, vinylB, vinylC]
+		
+		when:
+		def result = db.searchVinylByGenre("no match")
+		
+		then:
+		result == []
+	}
+	
+	def "should return multiple vinyls if the search by Genre matches multiple items"() {
+		given:
+		db.vinyls = [vinylA, vinylA, vinylC]
+		
+		when:
+		def result = db.searchVinylByGenre("A")
+		
+		then:
+		result == [vinylA, vinylA]
+	}
+	
+	def "should search for vinyls by Song"() {
+		given:
+		db.vinyls = [vinylA, vinylB, vinylC]
+		
+		when:
+		def result = db.searchVinylBySong("A1")
+		
+		then:
+		result == [vinylA]
+	}
+	
+	def "should return an empty list if the search for vinyls by Song doesn't match any elements"() {
+		given:
+		db.vinyls = [vinylA, vinylB, vinylC]
+		
+		when:
+		def result = db.searchVinylBySong("no match")
+		
+		then:
+		result == []
+	}
+	
+	def "should return multiple vinyls if the search by Song matches multiple items"() {
+		given:
+		db.vinyls = [vinylA, vinylA, vinylC]
+		
+		when:
+		def result = db.searchVinylBySong("A1")
+		
+		then:
+		result == [vinylA, vinylA]
 	}
 }

@@ -2,7 +2,10 @@ package carlosgsouza.vinylshop
 
 import carlosgsouza.derails.App
 import carlosgsouza.vinylshop.controller.ArtistController
+import carlosgsouza.vinylshop.controller.GenreController
+import carlosgsouza.vinylshop.controller.SongController
 import carlosgsouza.vinylshop.controller.VinylController
+import carlosgsouza.vinylshop.controller.YearController
 import carlosgsouza.vinylshop.model.Vinyl
 import carlosgsouza.vinylshop.view.UiFactory
 
@@ -10,6 +13,10 @@ class VinylCollectionApp extends App {
 	
 	VinylController vinylController = new VinylController()
 	ArtistController artistController = new ArtistController()
+	YearController yearController = new YearController()
+	GenreController genreController = new GenreController()
+	SongController songController = new SongController()
+	
 	UiFactory uiFactory = new UiFactory()
 	
 	VinylCollectionApp() {
@@ -45,7 +52,7 @@ class VinylCollectionApp extends App {
 					return
 				case "search":
 					def result = vinylController.search(parameter)
-					console.render uiFactory.searchVinyls(parameter, result)
+					console.render uiFactory.searchByTitle(parameter, result)
 					return
 			}
 		} else if(controller == "artist") {
@@ -53,6 +60,43 @@ class VinylCollectionApp extends App {
 				case "list":
 					def artists = artistController.list()
 					console.render uiFactory.listArtists(artists)
+					return
+				case "search":
+					def artists = artistController.search(parameter)
+					console.render uiFactory.searchByArtist(parameter, artists)
+					return
+			}
+		} else if(controller == "song") {
+			switch(action) {
+				case "list":
+					def artists = songController.list()
+					console.render uiFactory.listSongs(artists)
+					return
+				case "search":
+					def artists = songController.search(parameter)
+					console.render uiFactory.searchBySong(parameter, artists)
+					return
+			}
+		} else if(controller == "year") {
+			switch(action) {
+				case "list":
+					def years = yearController.list()
+					console.render uiFactory.listYears(years)
+					return
+				case "search":
+					def years = yearController.search(parameter)
+					console.render uiFactory.searchByYear(parameter, years)
+					return
+			}
+		} else if(controller == "genre") {
+			switch(action) {
+				case "list":
+					def genres = genreController.list()
+					console.render uiFactory.listGenres(genres)
+					return
+				case "search":
+					def genres = genreController.search(parameter)
+					console.render uiFactory.searchByGenre(parameter, genres)
 					return
 			}
 		} 

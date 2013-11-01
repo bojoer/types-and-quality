@@ -17,10 +17,49 @@ public class UiFactory {
 		new View(items)
 	}
 	
-	public View searchVinyls(String query, List<Vinyl> vinylList) {
+	public View searchByTitle(String query, List<Vinyl> vinylList) {
 		def items = []
 		
 		items.add "Listing $vinylList.size items matching '$query'"
+		items.addAll vinylList
+		
+		new View(items)
+	}
+	
+	public View searchByGenre(String query, List<Vinyl> vinylList) {
+		def items = []
+		
+		items.add "Listing $vinylList.size with genre matching '$query'"
+		items.addAll vinylList
+		
+		new View(items)
+	}
+	
+	
+	public View searchByYear(String query, List<Vinyl> vinylList) {
+		def items = []
+		
+		items.add "Listing $vinylList.size with year matching '$query'"
+		items.addAll vinylList
+		
+		new View(items)
+	}
+	
+	
+	public View searchBySong(String query, List<Vinyl> vinylList) {
+		def items = []
+		
+		items.add "Listing $vinylList.size with song matching '$query'"
+		items.addAll vinylList
+		
+		new View(items)
+	}
+	
+	
+	public View searchByArtist(String query, List<Vinyl> vinylList) {
+		def items = []
+		
+		items.add "Listing $vinylList.size with artist matching '$query'"
 		items.addAll vinylList
 		
 		new View(items)
@@ -42,11 +81,38 @@ public class UiFactory {
 		new Form("Please enter the vinyl details below", "Artist", "Title", "Songs", "Year", "Genre")
 	}
 	
-	public View listArtists(List<String> artists) {
+	public View listArtists(List<String> list) {
 		def items = []
 		
-		items.add "Listing $artists.size artists"
-		items.addAll artists
+		items.add "Listing $list.size artists"
+		items.addAll list
+		
+		new View(items)
+	}
+	
+	public View listSongs(List<String> list) {
+		def items = []
+		
+		items.add "Listing $list.size songs"
+		items.addAll list
+		
+		new View(items)
+	}
+	
+	public View listGenres(List<String> list) {
+		def items = []
+		
+		items.add "Listing $list.size genres"
+		items.addAll list
+		
+		new View(items)
+	}
+	
+	public View listYears(List<String> list) {
+		def items = []
+		
+		items.add "Listing $list.size years"
+		items.addAll list
 		
 		new View(items)
 	}
