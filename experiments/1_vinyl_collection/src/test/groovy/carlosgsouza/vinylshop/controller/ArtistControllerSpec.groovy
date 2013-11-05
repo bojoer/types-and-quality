@@ -31,7 +31,7 @@ class ArtistControllerSpec extends Specification {
 		def all = controller.list()
 		
 		then:
-		1 * db.allArtists >> ["A", "B", "C"]
+		1 * db.artists >> ["A", "B", "C"]
 		
 		and:
 		all == ["A", "B", "C"]

@@ -10,7 +10,7 @@ class SummaryController {
 	Summary show() {
 		Summary result = new Summary()
 		
-		def vinyls = db.all
+		def vinyls = db.vinyls
 		
 		result.vinylCount = vinyls.size()
 		result.artistCount = vinyls*.artist.unique().size()

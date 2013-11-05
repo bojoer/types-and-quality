@@ -31,7 +31,7 @@ class VinylControllerSpec extends Specification {
 		def all = controller.list()
 		
 		then:
-		1 * db.all >> [vinylA, vinylB, vinylC]
+		1 * db.vinyls >> [vinylA, vinylB, vinylC]
 		
 		and:
 		all == [vinylA, vinylB, vinylC]
@@ -39,13 +39,13 @@ class VinylControllerSpec extends Specification {
 	
 	def "should get one vinyl given its id"() {
 		given:
-		db.contains(2) >> true
+		db.containsVinyl(2) >> true
 		
 		when:
 		def shownVinyl = controller.get(2)
 		
 		then:
-		1 * db.get(2) >> vinylB
+		1 * db.getVinyl(2) >> vinylB
 		
 		and:
 		shownVinyl == vinylB
@@ -56,7 +56,7 @@ class VinylControllerSpec extends Specification {
 		controller.get(47)
 		
 		then:
-		1 * db.contains(47) >> false
+		1 * db.containsVinyl(47) >> false
 		
 		and:
 		thrown IllegalArgumentException
@@ -64,13 +64,13 @@ class VinylControllerSpec extends Specification {
 	
 	def "should delete a vinyl"() {
 		given:
-		db.contains(2) >> true
+		db.containsVinyl(2) >> true
 		
 		when:
 		controller.delete(2)
 		
 		then:
-		db.remove(2)
+		db.removeVinyl(2)
 	}
 	
 	def "should thrown an exception when trying to delete a non existent vinyl"() {
@@ -78,7 +78,7 @@ class VinylControllerSpec extends Specification {
 		controller.delete(198)
 		
 		then:
-		db.contains(198) >> false
+		db.containsVinyl(198) >> false
 		
 		and:
 		thrown IllegalArgumentException
@@ -118,7 +118,7 @@ class VinylControllerSpec extends Specification {
 		def id = controller.create(newVinyl)
 		
 		then:
-		db.add(newVinyl) >> 4
+		db.addVinyl(newVinyl) >> 4
 		
 		and:
 		id == 4

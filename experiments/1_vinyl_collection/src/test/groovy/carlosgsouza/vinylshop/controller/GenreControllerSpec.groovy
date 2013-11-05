@@ -30,7 +30,7 @@ class GenreControllerSpec extends Specification {
 		def all = controller.list()
 		
 		then:
-		1 * db.allGenres >> ["A", "B", "C"]
+		1 * db.genres >> ["A", "B", "C"]
 		
 		and:
 		all == ["A", "B", "C"]

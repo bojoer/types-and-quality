@@ -30,7 +30,7 @@ class ReportControllerSpec extends Specification {
 	
 	def "should generate a report about the artists"() {
 		given:
-		db.all >> [vinylA, vinylB, vinylC, vinylD]
+		db.vinyls >> [vinylA, vinylB, vinylC, vinylD]
 		
 		when:
 		def report = controller.artist()
@@ -43,7 +43,7 @@ class ReportControllerSpec extends Specification {
 	}
 	def "should generate an artist report even when we have no vinyls on the DB"() {
 		given:
-		db.all >> []
+		db.vinyls >> []
 		
 		when:
 		def report = controller.artist()
@@ -54,7 +54,7 @@ class ReportControllerSpec extends Specification {
 	
 	def "should generate a report about the genres"() {
 		given:
-		db.all >> [vinylA, vinylB, vinylC, vinylD]
+		db.vinyls >> [vinylA, vinylB, vinylC, vinylD]
 		
 		when:
 		def report = controller.genre()
@@ -68,7 +68,7 @@ class ReportControllerSpec extends Specification {
 	
 	def "should generate genre report even when we have no vinyls on the DB"() {
 		given:
-		db.all >> []
+		db.vinyls >> []
 		
 		when:
 		def report = controller.genre()

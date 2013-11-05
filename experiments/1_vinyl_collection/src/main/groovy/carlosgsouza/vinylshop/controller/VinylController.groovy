@@ -8,7 +8,7 @@ class VinylController {
 	DB db = DB.connect()
 	
 	List<Vinyl> list() {
-		db.all
+		db.vinyls
 	}
 	
 	Vinyl get(Integer id) {
@@ -16,11 +16,11 @@ class VinylController {
 			throw new IllegalArgumentException("Can't show vinyl with null id")
 		}
 		
-		if(!db.contains(id)) {
+		if(!db.containsVinyl(id)) {
 			throw new IllegalArgumentException("Vinyl doesn't exist")
 		}
 		
-		db.get(id)
+		db.getVinyl(id)
 	}
 	
 	Integer create(Map fields) {
@@ -43,18 +43,18 @@ class VinylController {
 			throw new IllegalArgumentException("Can't create invalid vinyl")
 		}
 		
-		db.add(vinyl)
+		db.addVinyl(vinyl)
 	}
 	
 	void delete(Integer id) {
 		if(!id) {
 			throw new IllegalArgumentException("Can't delete null vinyl")
 		}
-		if(!db.contains(id)) {
+		if(!db.containsVinyl(id)) {
 			throw new IllegalArgumentException("Vinyl doesn't exist")
 		}
 		
-		db.remove(id)
+		db.removeVinyl(id)
 	}
 	
 	List<Vinyl> search(String title) {

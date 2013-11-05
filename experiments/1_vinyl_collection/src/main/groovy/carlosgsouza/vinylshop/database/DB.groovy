@@ -1,50 +1,60 @@
 package carlosgsouza.vinylshop.database
 
+import carlosgsouza.vinylshop.model.Artist
 import carlosgsouza.vinylshop.model.Vinyl
 
 class DB {
-	private List<Vinyl> vinyls = []
+	List<Vinyl> vinyls = []
+	List<Artist> artists = []
 	
 	private static DB instance = new DB()
 	
 	private DB() {}
 	
-	List<Vinyl> getAll() {
-		vinyls
-	}
-	
-	Vinyl get(id) {
+	Vinyl getVinyl(id) {
 		vinyls.find{ it?.id == id }
 	}
 	
-	Integer add(Vinyl vinyl) {
+	Integer addVinyl(Vinyl vinyl) {
 		vinyl.id = vinyl.id ?: maxId + 1
 		vinyls << vinyl
+		
+		def existingArtist = artists.find{ it.name == vinyl.artist }
+		if(existingArtist) {
+			existingArtist.vinyls << vinyl
+		} else {
+			artists << new Artist(name:vinyl.artist, vinyls:[vinyl])
+		}
 		
 		return vinyl.id
 	}
 	
-	List<String> getAllArtists() {
-		vinyls*.artist.unique()
-	}
-	
-	List<String> getAllYears() {
+	List<String> getYears() {
 		vinyls*.year.unique()
 	}
 	
-	List<String> getAllGenres() {
+	List<String> getGenres() {
 		vinyls*.genre.unique()
 	}
 	
-	List<String> getAllSongs() {
+	List<String> getSongs() {
 		vinyls*.songs.flatten().unique()
 	}
 	
-	void remove(Integer id) {
-		vinyls.remove(vinyls.find{it.id == id})
+	void removeVinyl(Integer id) {
+		Vinyl vinyl = vinyls.find{it.id == id}
+		
+		vinyls.remove(vinyl)
+		
+		Artist artist = artists.find{it.name == vinyl.artist}
+		if(artist.vinyls.size() == 1) {
+			artists.remove(artist)
+		} else {
+			artist.vinyls.remove(vinyl)
+		}
 	}
 	
-	boolean contains(id) {
+	boolean containsVinyl(id) {
 		vinyls.find{it.id == id} != null
 	}
 	

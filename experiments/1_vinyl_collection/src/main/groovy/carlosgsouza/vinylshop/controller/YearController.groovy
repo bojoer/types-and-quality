@@ -7,7 +7,7 @@ class YearController {
 	DB db = DB.connect()
 	
 	List<String> list() {
-		db.allYears
+		db.years
 	}
 	
 	List<String> search(String Year) {

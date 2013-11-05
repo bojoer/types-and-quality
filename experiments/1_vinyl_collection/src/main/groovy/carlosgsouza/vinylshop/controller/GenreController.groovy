@@ -7,7 +7,7 @@ class GenreController {
 	DB db = DB.connect()
 	
 	List<String> list() {
-		db.allGenres
+		db.genres
 	}
 	
 	List<String> search(String Genre) {

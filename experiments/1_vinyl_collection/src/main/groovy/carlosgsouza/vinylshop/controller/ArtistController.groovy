@@ -7,7 +7,7 @@ class ArtistController {
 	DB db = DB.connect()
 	
 	List<String> list() {
-		db.allArtists
+		db.artists
 	}
 	
 	List<String> search(String artist) {

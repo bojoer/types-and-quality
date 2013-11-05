@@ -29,7 +29,7 @@ class SongControllerSpec extends Specification {
 		def all = controller.list()
 		
 		then:
-		1 * db.allSongs >> ["A", "B", "C"]
+		1 * db.songs >> ["A", "B", "C"]
 		
 		and:
 		all == ["A", "B", "C"]

@@ -10,7 +10,7 @@ class ReportController {
 	Report artist() {
 		Report result = new Report()
 		
-		def artistCount = db.all*.artist.unique().size()
+		def artistCount = db.vinyls*.artist.unique().size()
 		result.data["Number of artists"] = artistCount.toString()
 		
 		if(artistCount == 0) {
@@ -19,7 +19,7 @@ class ReportController {
 		
 		def artist_vinylCount = [:]
 		def artist_songCount = [:]
-		db.all.each { vinyl ->
+		db.vinyls.each { vinyl ->
 			if(!artist_vinylCount[vinyl.artist]) {
 				artist_vinylCount[vinyl.artist] = 0
 				artist_songCount[vinyl.artist] = 0
@@ -41,7 +41,7 @@ class ReportController {
 	Report genre() {
 		Report result = new Report()
 		
-		def genreCount = db.all*.genre.unique().size()
+		def genreCount = db.vinyls*.genre.unique().size()
 		result.data["Number of genres"] = genreCount.toString()
 		
 		if(genreCount == 0) {
@@ -50,7 +50,7 @@ class ReportController {
 		
 		def genre_vinylCount = [:]
 		def genre_songCount = [:]
-		db.all.each { vinyl ->
+		db.vinyls.each { vinyl ->
 			if(!genre_vinylCount[vinyl.genre]) {
 				genre_vinylCount[vinyl.genre] = 0
 				genre_songCount[vinyl.genre] = 0

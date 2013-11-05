@@ -31,7 +31,7 @@ class YearControllerSpec extends Specification {
 		def all = controller.list()
 		
 		then:
-		1 * db.allYears >> ["A", "B", "C"]
+		1 * db.years >> ["A", "B", "C"]
 		
 		and:
 		all == ["A", "B", "C"]

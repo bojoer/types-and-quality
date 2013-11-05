@@ -2,6 +2,7 @@ package carlosgsouza.vinylshop.database
 
 import spock.lang.Specification
 import spock.lang.Unroll
+import carlosgsouza.vinylshop.model.Artist
 import carlosgsouza.vinylshop.model.Vinyl
 
 class DBSpec extends Specification {
@@ -11,7 +12,14 @@ class DBSpec extends Specification {
 	Vinyl vinylA
 	Vinyl vinylB
 	Vinyl vinylC
+	Vinyl vinylD1
+	Vinyl vinylD2
 	
+	Artist artistA
+	Artist artistB
+	Artist artistC
+	Artist artistD
+	Artist artistDWithVinylD1
 	
 	def setup() {
 		db = new DB()
@@ -19,6 +27,14 @@ class DBSpec extends Specification {
 		vinylA = new Vinyl(id:1, artist:"A", title:"A", songs:["A1", "A2", "A3"], year:"2001", genre:"A")
 		vinylB = new Vinyl(id:2, artist:"B", title:"B", songs:["B1", "B2", "B3"], year:"2002", genre:"B")
 		vinylC = new Vinyl(id:3, artist:"C", title:"C", songs:["C1", "C2", "C3"], year:"2003", genre:"C")
+		vinylD1 = new Vinyl(id:4, artist:"D", title:"D1", songs:["D11", "D12", "D13"], year:"2003", genre:"D")
+		vinylD2 = new Vinyl(id:5, artist:"D", title:"D2", songs:["D21", "D22", "D23"], year:"2003", genre:"D")
+		
+		artistA = new Artist(name:"A", vinyls:[vinylA])
+		artistB = new Artist(name:"B", vinyls:[vinylA])
+		artistC = new Artist(name:"C", vinyls:[vinylA])
+		artistDWithVinylD1 = new Artist(name:"D", vinyls:[vinylD1])
+		artistD = new Artist(name:"D", vinyls:[vinylD1, vinylD2])
 	}
 	
 	def "should return the same DB instance for multiple connections"() {
@@ -38,7 +54,7 @@ class DBSpec extends Specification {
 		Vinyl newVinyl = new Vinyl(artist:"A", title:"A", songs:["A1", "A2", "A3"], year:"A", genre:"A")
 		
 		when:
-		def id = db.add(newVinyl)
+		def id = db.addVinyl(newVinyl)
 		
 		then:
 		id == 4
@@ -52,7 +68,7 @@ class DBSpec extends Specification {
 		db.vinyls == []
 		
 		when:
-		def id = db.add(newVinyl)
+		def id = db.addVinyl(newVinyl)
 		
 		then:
 		id == 1
@@ -60,10 +76,12 @@ class DBSpec extends Specification {
 	
 	def "should return all vinyls on the database"() {
 		given:
-		db.vinyls = [vinylA, vinylB, vinylC]
+		db.addVinyl(vinylA)
+		db.addVinyl(vinylB)
+		db.addVinyl(vinylC)
 		
 		when:
-		def all = db.all
+		def all = db.vinyls
 		
 		then:
 		all == [vinylA, vinylB, vinylC]
@@ -71,22 +89,26 @@ class DBSpec extends Specification {
 	
 	def "should remove a vinyl from the database"() {
 		given:
-		db.vinyls = [vinylA, vinylB, vinylC]
+		db.addVinyl(vinylA)
+		db.addVinyl(vinylB)
+		db.addVinyl(vinylC)
 		
 		when:
-		db.remove(2)
+		db.removeVinyl(2)
 		
 		then:
-		db.all == [vinylA, vinylC]
+		db.vinyls == [vinylA, vinylC]
 	}
 	
 	@Unroll
 	def "should tell if a vinyl exists or not in the database"(id, exists) {
 		given:
-		db.vinyls = [vinylA, vinylB, vinylC]
+		db.addVinyl(vinylA)
+		db.addVinyl(vinylB)
+		db.addVinyl(vinylC)
 		
 		expect:
-		def all = db.contains(2)
+		def all = db.containsVinyl(2)
 		
 		where:
 		id		| exists
@@ -99,10 +121,10 @@ class DBSpec extends Specification {
 	
 	def "should return null if a non existent vinyl is requested"() {
 		expect:
-		db.all == []
+		db.vinyls == []
 		
 		when:
-		def vinyl = db.get(89)
+		def vinyl = db.getVinyl(89)
 		
 		then:
 		vinyl == null
@@ -110,7 +132,9 @@ class DBSpec extends Specification {
 	
 	def "should search for vinyls"() {
 		given:
-		db.vinyls = [vinylA, vinylB, vinylC]
+		db.addVinyl(vinylA)
+		db.addVinyl(vinylB)
+		db.addVinyl(vinylC)
 		
 		when:
 		def result = db.searchVinylByTitle("A")
@@ -121,7 +145,9 @@ class DBSpec extends Specification {
 	
 	def "should return an empty list if the search for vinyls doesn't match any elements"() {
 		given:
-		db.vinyls = [vinylA, vinylB, vinylC]
+		db.addVinyl(vinylA)
+		db.addVinyl(vinylB)
+		db.addVinyl(vinylC)
 		
 		when:
 		def result = db.searchVinylByTitle("wont match")
@@ -132,7 +158,9 @@ class DBSpec extends Specification {
 	
 	def "should return multiple vinyls if the search matches multiple items"() {
 		given:
-		db.vinyls = [vinylA, vinylA, vinylC]
+		db.addVinyl(vinylA)
+		db.addVinyl(vinylA)
+		db.addVinyl(vinylC)
 		
 		when:
 		def result = db.searchVinylByTitle("A")
@@ -143,7 +171,9 @@ class DBSpec extends Specification {
 	
 	def "should match vinyls without considering the case"() {
 		given:
-		db.vinyls = [vinylA, vinylB, vinylC]
+		db.addVinyl(vinylA)
+		db.addVinyl(vinylB)
+		db.addVinyl(vinylC)
 		
 		when:
 		def result = db.searchVinylByTitle("a")
@@ -152,35 +182,14 @@ class DBSpec extends Specification {
 		result == [vinylA]
 	}
 	
-	def "should list the set of all artists"() {
-		given:
-		db.vinyls = [vinylA, vinylB, vinylC]
-		
-		when:
-		def result = db.allArtists
-		
-		then:
-		result == ["A", "B", "C"]
-	}
-	
-	def "should not repeat an artist on the list of artists"() {
-		given:
-		db.vinyls = [vinylA, vinylA, vinylA, vinylA, vinylA]
-		
-		when:
-		def result = db.allArtists
-		
-		then:
-		result == ["A"]
-	}
-	
-	
 	def "should list the set of all Genres"() {
 		given:
-		db.vinyls = [vinylA, vinylB, vinylC]
+		db.addVinyl(vinylA)
+		db.addVinyl(vinylB)
+		db.addVinyl(vinylC)
 		
 		when:
-		def result = db.allGenres
+		def result = db.genres
 		
 		then:
 		result == ["A", "B", "C"]
@@ -188,10 +197,10 @@ class DBSpec extends Specification {
 	
 	def "should not repeat an Genre on the list of Genres"() {
 		given:
-		db.vinyls = [vinylA, vinylA, vinylA, vinylA, vinylA]
+		3.times{ db.addVinyl(vinylA) }
 		
 		when:
-		def result = db.allGenres
+		def result = db.genres
 		
 		then:
 		result == ["A"]
@@ -199,10 +208,12 @@ class DBSpec extends Specification {
 	
 	def "should list the set of all Years"() {
 		given:
-		db.vinyls = [vinylA, vinylB, vinylC]
+		db.addVinyl(vinylA)
+		db.addVinyl(vinylB)
+		db.addVinyl(vinylC)
 		
 		when:
-		def result = db.allYears
+		def result = db.years
 		
 		then:
 		result == ["2001", "2002", "2003"]
@@ -210,10 +221,10 @@ class DBSpec extends Specification {
 	
 	def "should not repeat an Year on the list of Years"() {
 		given:
-		db.vinyls = [vinylA, vinylA, vinylA, vinylA, vinylA]
+		5.times{ db.addVinyl(vinylA) }
 		
 		when:
-		def result = db.allYears
+		def result = db.years
 		
 		then:
 		result == ["2001"]
@@ -222,10 +233,12 @@ class DBSpec extends Specification {
 	
 	def "should list the set of all Songs"() {
 		given:
-		db.vinyls = [vinylA, vinylB, vinylC]
+		db.addVinyl(vinylA)
+		db.addVinyl(vinylB)
+		db.addVinyl(vinylC)
 		
 		when:
-		def result = db.allSongs
+		def result = db.songs
 		
 		then:
 		result == ["A1", "A2", "A3", "B1", "B2", "B3", "C1", "C2", "C3"]
@@ -233,10 +246,10 @@ class DBSpec extends Specification {
 	
 	def "should not repeat an Song on the list of Songs"() {
 		given:
-		db.vinyls = [vinylA, vinylA, vinylA, vinylA, vinylA]
+		3.times{ db.addVinyl(vinylA) }
 		
 		when:
-		def result = db.allSongs
+		def result = db.songs
 		
 		then:
 		result == ["A1", "A2", "A3"]
@@ -245,7 +258,9 @@ class DBSpec extends Specification {
 	
 	def "should search for vinyls by artist"() {
 		given:
-		db.vinyls = [vinylA, vinylB, vinylC]
+		db.addVinyl(vinylA)
+		db.addVinyl(vinylB)
+		db.addVinyl(vinylC)
 		
 		when:
 		def result = db.searchVinylByArtist("A")
@@ -256,7 +271,9 @@ class DBSpec extends Specification {
 	
 	def "should return an empty list if the search for vinyls by artist doesn't match any elements"() {
 		given:
-		db.vinyls = [vinylA, vinylB, vinylC]
+		db.addVinyl(vinylA)
+		db.addVinyl(vinylB)
+		db.addVinyl(vinylC)
 		
 		when:
 		def result = db.searchVinylByArtist("wont match")
@@ -267,7 +284,9 @@ class DBSpec extends Specification {
 	
 	def "should return multiple vinyls if the search by artist matches multiple items"() {
 		given:
-		db.vinyls = [vinylA, vinylA, vinylC]
+		db.addVinyl(vinylA)
+		db.addVinyl(vinylA)
+		db.addVinyl(vinylC)
 		
 		when:
 		def result = db.searchVinylByArtist("A")
@@ -278,7 +297,9 @@ class DBSpec extends Specification {
 	
 	def "should search for vinyls by year"() {
 		given:
-		db.vinyls = [vinylA, vinylB, vinylC]
+		db.addVinyl(vinylA)
+		db.addVinyl(vinylB)
+		db.addVinyl(vinylC)
 		
 		when:
 		def result = db.searchVinylByYear("2001")
@@ -289,7 +310,9 @@ class DBSpec extends Specification {
 	
 	def "should return an empty list if the search for vinyls by year doesn't match any elements"() {
 		given:
-		db.vinyls = [vinylA, vinylB, vinylC]
+		db.addVinyl(vinylA)
+		db.addVinyl(vinylB)
+		db.addVinyl(vinylC)
 		
 		when:
 		def result = db.searchVinylByYear("3379")
@@ -300,7 +323,9 @@ class DBSpec extends Specification {
 	
 	def "should return multiple vinyls if the search by year matches multiple items"() {
 		given:
-		db.vinyls = [vinylA, vinylA, vinylC]
+		db.addVinyl(vinylA)
+		db.addVinyl(vinylA)
+		db.addVinyl(vinylC)
 		
 		when:
 		def result = db.searchVinylByYear("2001")
@@ -311,7 +336,9 @@ class DBSpec extends Specification {
 	
 	def "should search for vinyls by Genre"() {
 		given:
-		db.vinyls = [vinylA, vinylB, vinylC]
+		db.addVinyl(vinylA)
+		db.addVinyl(vinylB)
+		db.addVinyl(vinylC)
 		
 		when:
 		def result = db.searchVinylByGenre("A")
@@ -322,7 +349,9 @@ class DBSpec extends Specification {
 	
 	def "should return an empty list if the search for vinyls by Genre doesn't match any elements"() {
 		given:
-		db.vinyls = [vinylA, vinylB, vinylC]
+		db.addVinyl(vinylA)
+		db.addVinyl(vinylB)
+		db.addVinyl(vinylC)
 		
 		when:
 		def result = db.searchVinylByGenre("no match")
@@ -333,7 +362,9 @@ class DBSpec extends Specification {
 	
 	def "should return multiple vinyls if the search by Genre matches multiple items"() {
 		given:
-		db.vinyls = [vinylA, vinylA, vinylC]
+		db.addVinyl(vinylA)
+		db.addVinyl(vinylA)
+		db.addVinyl(vinylC)
 		
 		when:
 		def result = db.searchVinylByGenre("A")
@@ -344,7 +375,9 @@ class DBSpec extends Specification {
 	
 	def "should search for vinyls by Song"() {
 		given:
-		db.vinyls = [vinylA, vinylB, vinylC]
+		db.addVinyl(vinylA)
+		db.addVinyl(vinylB)
+		db.addVinyl(vinylC)
 		
 		when:
 		def result = db.searchVinylBySong("A1")
@@ -355,7 +388,9 @@ class DBSpec extends Specification {
 	
 	def "should return an empty list if the search for vinyls by Song doesn't match any elements"() {
 		given:
-		db.vinyls = [vinylA, vinylB, vinylC]
+		db.addVinyl(vinylA)
+		db.addVinyl(vinylB)
+		db.addVinyl(vinylC)
 		
 		when:
 		def result = db.searchVinylBySong("no match")
@@ -366,12 +401,64 @@ class DBSpec extends Specification {
 	
 	def "should return multiple vinyls if the search by Song matches multiple items"() {
 		given:
-		db.vinyls = [vinylA, vinylA, vinylC]
+		db.addVinyl(vinylA)
+		db.addVinyl(vinylA)
+		db.addVinyl(vinylC)
 		
 		when:
 		def result = db.searchVinylBySong("A1")
 		
 		then:
 		result == [vinylA, vinylA]
+	}
+	
+	def "should add an artist to the database whenever an album with a new artist is added"() {
+		given:
+		db.vinyls = []
+		db.artists = []
+		
+		when:
+		db.addVinyl(vinylA)
+		
+		then:
+		db.artists == [new Artist(name:"A", vinyls:[vinylA])]
+	}
+	
+	def "should update an artist whenever a new vinyl by that artist is added"() {
+		given:
+		def artistDWithVinylD1 = new Artist(name:"D", vinyls:[vinylD1])
+		
+		when:
+		db.addVinyl(vinylD1)
+		
+		then:
+		db.artists == [artistDWithVinylD1] 
+		
+		when:
+		db.addVinyl(vinylD2)
+		
+		then:
+		db.artists == [artistD]
+	}
+	
+	def "should update an artist whenever a new vinyl by that artist is removed"() {
+		given:
+		db.addVinyl(vinylD1)
+		db.addVinyl(vinylD2)
+		
+		expect:
+		db.artists == [artistD] 
+		
+		when:
+		db.removeVinyl(vinylD2.id)
+		
+		then:
+		db.artists == [artistDWithVinylD1]
+		
+		when:
+		db.removeVinyl(vinylD1.id)
+		
+		then:
+		db.artists == []
 	}
 }

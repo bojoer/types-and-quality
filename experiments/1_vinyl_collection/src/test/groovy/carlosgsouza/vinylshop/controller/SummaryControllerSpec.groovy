@@ -31,7 +31,7 @@ class SummaryControllerSpec extends Specification {
 		def summary = controller.show()
 		
 		then:
-		1 * db.all >> [vinylA, vinylB, vinylC]
+		1 * db.vinyls >> [vinylA, vinylB, vinylC]
 		
 		and:
 		summary.vinylCount == 3
@@ -45,7 +45,7 @@ class SummaryControllerSpec extends Specification {
 		def summary = controller.show()
 		
 		then:
-		1 * db.all >> [vinylA, vinylA, vinylA]
+		1 * db.vinyls >> [vinylA, vinylA, vinylA]
 		
 		and:
 		summary.vinylCount == 3
@@ -59,7 +59,7 @@ class SummaryControllerSpec extends Specification {
 		def summary = controller.show()
 		
 		then:
-		1 * db.all >> [vinylA, vinylA, vinylA]
+		1 * db.vinyls >> [vinylA, vinylA, vinylA]
 		
 		and:
 		summary.vinylCount == 3
