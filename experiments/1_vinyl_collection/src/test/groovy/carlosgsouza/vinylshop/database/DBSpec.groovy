@@ -269,6 +269,30 @@ class DBSpec extends Specification {
 		result == [vinylA]
 	}
 	
+	def "should match an artist if the vinyl artist contains part of the query"() {
+		given:
+		def vinyl = new Vinyl(artist:"Artist")
+		db.addVinyl(vinyl)
+		
+		when:
+		def result = db.searchVinylByArtist("Art")
+		
+		then:
+		result == [vinyl]
+	}
+	
+	def "should match an artist if the query case doesnt match the artist name case"() {
+		given:
+		def vinyl = new Vinyl(artist:"artist")
+		db.addVinyl(vinyl)
+		
+		when:
+		def result = db.searchVinylByArtist("ARTIST")
+		
+		then:
+		result == [vinyl]
+	}
+	
 	def "should return an empty list if the search for vinyls by artist doesn't match any elements"() {
 		given:
 		db.addVinyl(vinylA)
