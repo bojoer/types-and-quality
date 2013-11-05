@@ -1,15 +1,19 @@
 apply plugin: "groovy"
 apply plugin: "eclipse"
 
-buildscript { 
-	apply from: 'https://github.com/valkolovos/gradle_cobertura/raw/master/repo/gradle_cobertura/gradle_cobertura/1.0/coberturainit.gradle'
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "net.saliman:gradle-cobertura-plugin:2.1.0"
+    }
 }
+apply plugin: 'cobertura'
 
-repositories { 
-	mavenCentral() 
+repositories {
+	mavenCentral()
 }
-
-
 
 dependencies {
 	groovy 'org.codehaus.groovy:groovy-all:1.8.8'
@@ -20,8 +24,9 @@ dependencies {
 }
 
 cobertura {
-	coverageSourceDirs = [sourceSets.main.groovy.srcDirs]
-	excude = ".*Spec.groovy"
+	includes = ['**/*.groovy']
+	excludes = ['**/*Spec.groovy', '**/derails/**/*.groovy']
+	coverageExcludes = ['.*derails.*']
 }
 
 task(run, dependsOn: 'classes', type: JavaExec) {
