@@ -71,7 +71,7 @@ class DB {
 	}
 	
 	public List<Vinyl> searchVinylByArtist(artist) {
-		vinyls.findAll{ it.artist.toLowerCase().contains(artist.toLowerCase()) }
+		artists.find{it.name == artist}?.vinyls ?: []
 	}
 	
 	public List<Vinyl> searchVinylByYear(year) {
