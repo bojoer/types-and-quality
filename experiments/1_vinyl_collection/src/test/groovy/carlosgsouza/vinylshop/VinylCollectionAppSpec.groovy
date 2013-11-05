@@ -116,7 +116,7 @@ class VinylCollectionAppSpec extends Specification {
 		
 		then:
 		1 * vinylController.delete(1)
-		1 * uiFactory.deleteVinyls()
+		1 * uiFactory.deleteVinyl()
 	}
 	
 	def "should show a vinyl"() {

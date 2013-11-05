@@ -52,7 +52,7 @@ class VinylCollectionApp extends App {
 					def id = Integer.valueOf parameter
 					vinylController.delete(id)
 					
-					console.render uiFactory.deleteVinyls()
+					console.render uiFactory.deleteVinyl()
 					return
 				case "search":
 					def result = vinylController.search(parameter)

@@ -71,7 +71,7 @@ public class UiFactory {
 		new View(vinyl)
 	}
 	
-	public View deleteVinyls() {
+	public View deleteVinyl() {
 		new View("Vinyl deleted")
 	}
 	
