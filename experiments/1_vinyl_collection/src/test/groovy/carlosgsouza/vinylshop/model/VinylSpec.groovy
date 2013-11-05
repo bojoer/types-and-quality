@@ -1,9 +1,12 @@
 package carlosgsouza.vinylshop.model
 
+import spock.lang.Shared
 import spock.lang.Specification
 import spock.lang.Unroll
 
 class VinylSpec extends Specification {
+	
+	@Shared def aVinyl = new Vinyl()
 	
 	def "should validate a valid vinyl"() {
 		given:
@@ -23,6 +26,8 @@ class VinylSpec extends Specification {
 		
 		where:
 		equals	| vinyl1																			| vinyl2
+		false	| new Vinyl(id:1, artist:"A", title:"A", songs:["A"], year:"A", genre:"A")			| null
+		true	| aVinyl																			| aVinyl
 		// id
 		true	| new Vinyl(id:1, artist:"A", title:"A", songs:["A"], year:"A", genre:"A")			| new Vinyl(id:1, artist:"A", title:"A", songs:["A"], year:"A", genre:"A")
 		true	| new Vinyl(id:1, artist:"A", title:"A", songs:["A"], year:"A", genre:"A")			| new Vinyl(id:2, artist:"A", title:"A", songs:["A"], year:"A", genre:"A")
@@ -33,11 +38,12 @@ class VinylSpec extends Specification {
 		false	| new Vinyl(id:1, artist:"A", title:"A", songs:["A"], year:"A", genre:"A")			| new Vinyl(id:1, artist:"BBB", title:"A", songs:["A"], year:"A", genre:"A")
 		false	| new Vinyl(id:1, artist:"A", title:"A", songs:["A"], year:"A", genre:"A")			| new Vinyl(id:1, artist:null, title:"A", songs:["A"], year:"A", genre:"A")
 		false	| new Vinyl(id:1, artist:null, title:"A", songs:["A"], year:"A", genre:"A")			| new Vinyl(id:1, artist:"A", title:"A", songs:["A"], year:"A", genre:"A")
+		false	| new Vinyl(id:1, artist:"A", title:"A", songs:["A"], year:"A", genre:"A")			| new Vinyl(id:1, artist:null, title:"A", songs:["A"], year:"A", genre:"A")
 		true	| new Vinyl(id:1, artist:null, title:"A", songs:["A"], year:"A", genre:"A")			| new Vinyl(id:1, artist:null, title:"A", songs:["A"], year:"A", genre:"A")
 		// title                                                                                	
 		false	| new Vinyl(id:1, artist:"A", title:"A", songs:["A"], year:"A", genre:"A")			| new Vinyl(id:2, artist:"A", title:"BBB", songs:["A"], year:"A", genre:"A")
 		false	| new Vinyl(id:1, artist:"A", title:"A", songs:["A"], year:"A", genre:"A")			| new Vinyl(id:2, artist:"A", title:null, songs:["BBB"], year:"A", genre:"A")
-		false	| new Vinyl(id:1, artist:"A", title:null, songs:["A"], year:"A", genre:"A")			| new Vinyl(id:2, artist:"A", title:"A", songs:[""], year:"A", genre:"A")
+		false	| new Vinyl(id:1, artist:"A", title:null, songs:[""], year:"A", genre:"A")			| new Vinyl(id:2, artist:"A", title:"A", songs:[""], year:"A", genre:"A")
 		true	| new Vinyl(id:1, artist:"A", title:null, songs:["A"], year:"A", genre:"A")			| new Vinyl(id:2, artist:"A", title:null, songs:["A"], year:"A", genre:"A")
 		// songs                                                                                	
 		false	| new Vinyl(id:1, artist:"A", title:"A", songs:["A"], year:"A", genre:"A")			| new Vinyl(id:2, artist:"A", title:"A", songs:["BBB"], year:"A", genre:"A")
@@ -47,6 +53,7 @@ class VinylSpec extends Specification {
 		false	| new Vinyl(id:1, artist:"A", title:"A", songs:["BBB"], year:"A", genre:"A")		| new Vinyl(id:2, artist:"A", title:"A", songs:["A"], year:"A", genre:"A")
 		false	| new Vinyl(id:1, artist:"A", title:"A", songs:["A", "BBB"], year:"A", genre:"A")	| new Vinyl(id:2, artist:"A", title:"A", songs:["A"], year:"A", genre:"A")
 		false	| new Vinyl(id:1, artist:"A", title:"A", songs:[""], year:"A", genre:"A")			| new Vinyl(id:2, artist:"A", title:"A", songs:["A"], year:"A", genre:"A")
+		false	| new Vinyl(id:1, artist:"A", title:"A", songs:[""], year:"A", genre:"A")			| new Vinyl(id:2, artist:"A", title:"A", songs:null, year:"A", genre:"A")
 		false	| new Vinyl(id:1, artist:"A", title:"A", songs:null, year:"A", genre:"A")			| new Vinyl(id:2, artist:"A", title:"A", songs:["A"], year:"A", genre:"A")
 		true	| new Vinyl(id:1, artist:"A", title:"A", songs:null, year:"A", genre:"A")			| new Vinyl(id:2, artist:"A", title:"A", songs:null, year:"A", genre:"A")
 		// year                                                                                      	
@@ -54,8 +61,10 @@ class VinylSpec extends Specification {
 		false	| new Vinyl(id:1, artist:"A", title:"A", songs:["A"], year:"A", genre:"A")			| new Vinyl(id:2, artist:"A", title:"A", songs:["A"], year:null, genre:"A")
 		false	| new Vinyl(id:1, artist:"A", title:"A", songs:["A"], year:"BBB", genre:"A")		| new Vinyl(id:2, artist:"A", title:"A", songs:["A"], year:"A", genre:"A")
 		true	| new Vinyl(id:1, artist:"A", title:"A", songs:["A"], year:null, genre:"A")			| new Vinyl(id:2, artist:"A", title:"A", songs:["A"], year:null, genre:"A")
+		false	| new Vinyl(id:1, artist:"A", title:"A", songs:["A"], year:null, genre:"A")			| new Vinyl(id:2, artist:"A", title:"A", songs:["A"], year:"B", genre:"A")
 		// genre
 		false	| new Vinyl(id:1, artist:"A", title:"A", songs:["A"], year:"A", genre:"A")			| new Vinyl(id:2, artist:"A", title:"A", songs:["A"], year:"A", genre:"BBB")
+		false	| new Vinyl(id:1, artist:"A", title:"A", songs:["A"], year:"A", genre:null)			| new Vinyl(id:2, artist:"A", title:"A", songs:["A"], year:"A", genre:"BBB")
 		false	| new Vinyl(id:1, artist:"A", title:"A", songs:["A"], year:"A", genre:"A")			| new Vinyl(id:2, artist:"A", title:"A", songs:["A"], year:"A", genre:null)
 		false	| new Vinyl(id:1, artist:"A", title:"A", songs:["A"], year:"A", genre:"BBB")		| new Vinyl(id:2, artist:"A", title:"A", songs:["A"], year:"A", genre:"A")
 		true	| new Vinyl(id:1, artist:"A", title:"A", songs:["A"], year:"A", genre:null)			| new Vinyl(id:2, artist:"A", title:"A", songs:["A"], year:"A", genre:null)

@@ -9,14 +9,6 @@ class Artist {
 		"$name, Vinyls:${vinyls*.title}"
 	}
 	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + ((vinyls == null) ? 0 : vinyls.hashCode());
-		return result;
-	}
-	@Override
 	public boolean equals(Object obj) {
 		if (this.is(obj))
 			return true;
