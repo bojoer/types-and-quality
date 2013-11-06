@@ -29,6 +29,11 @@ cobertura {
 	coverageExcludes = ['.*derails.*']
 }
 
+task wrapper(type: Wrapper) {
+	gradleVersion = '1.8'
+	scriptFile = "experiment"
+}
+
 task(run, dependsOn: 'classes', type: JavaExec) {
 	main = 'carlosgsouza.vinylshop.VinylCollectionApp'
 	standardInput = System.in
