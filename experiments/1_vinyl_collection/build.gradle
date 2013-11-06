@@ -30,6 +30,7 @@ cobertura {
 }
 
 task(run, dependsOn: 'classes', type: JavaExec) {
-	main = 'carlosgsouza.vinylshop.App'
+	main = 'carlosgsouza.vinylshop.VinylCollectionApp'
+	standardInput = System.in
 	classpath = sourceSets.main.runtimeClasspath
 }
