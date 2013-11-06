@@ -70,7 +70,7 @@ class VinylControllerSpec extends Specification {
 		controller.delete(2)
 		
 		then:
-		db.removeVinyl(2)
+		1 * db.removeVinyl(2)
 	}
 	
 	def "should thrown an exception when trying to delete a non existent vinyl"() {
@@ -78,7 +78,7 @@ class VinylControllerSpec extends Specification {
 		controller.delete(198)
 		
 		then:
-		db.containsVinyl(198) >> false
+		1 * db.containsVinyl(198) >> false
 		
 		and:
 		thrown IllegalArgumentException
@@ -118,7 +118,18 @@ class VinylControllerSpec extends Specification {
 		def id = controller.create(newVinyl)
 		
 		then:
-		db.addVinyl(newVinyl) >> 4
+		1 * db.addVinyl(newVinyl) >> 4
+		
+		and:
+		id == 4
+	}
+	
+	def "should create a new vinyl form a mao"() {
+		when:
+		def id = controller.create([artist:"D", title:"D", songs:"D1, D2, D3", year:"D", genre:"D"])
+		
+		then:
+		1 * db.addVinyl(_) >> 4
 		
 		and:
 		id == 4
@@ -155,7 +166,7 @@ class VinylControllerSpec extends Specification {
 		def result = controller.search("vinyl title")
 		
 		then:
-		db.searchVinylByTitle("vinyl title") >> [vinylA, vinylB]
+		1 * db.searchVinylByTitle("vinyl title") >> [vinylA, vinylB]
 		
 		and:
 		result == [vinylA, vinylB]

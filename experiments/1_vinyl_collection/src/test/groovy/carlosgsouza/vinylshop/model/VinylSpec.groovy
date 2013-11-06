@@ -22,7 +22,7 @@ class VinylSpec extends Specification {
 	@Unroll
 	def "should consider two vinyls equal to each other if they have the same attributes but the id"(equals, vinyl1, vinyl2) {
 		expect:
-		equals == (vinyl1 == vinyl2)
+		equals == (vinyl1.equals(vinyl2))
 		
 		where:
 		equals	| vinyl1																			| vinyl2

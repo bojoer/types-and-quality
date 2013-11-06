@@ -1,9 +1,10 @@
 package carlosgsouza.vinylshop
 
 import carlosgsouza.derails.App
+import carlosgsouza.derails.View
 import carlosgsouza.vinylshop.controller.ArtistController
 import carlosgsouza.vinylshop.controller.GenreController
-import carlosgsouza.vinylshop.controller.ReportController;
+import carlosgsouza.vinylshop.controller.ReportController
 import carlosgsouza.vinylshop.controller.SongController
 import carlosgsouza.vinylshop.controller.SummaryController
 import carlosgsouza.vinylshop.controller.VinylController
@@ -12,6 +13,8 @@ import carlosgsouza.vinylshop.model.Vinyl
 import carlosgsouza.vinylshop.view.UiFactory
 
 class VinylCollectionApp extends App {
+	
+	static VinylCollectionApp app = new VinylCollectionApp()
 	
 	VinylController vinylController = new VinylController()
 	ArtistController artistController = new ArtistController()
@@ -123,7 +126,7 @@ class VinylCollectionApp extends App {
 			}
 		}
 		
-		println "command not found"
+		console.render(new View("command not found"))
 	}
 	
 	void bootstrap() {
@@ -137,6 +140,6 @@ class VinylCollectionApp extends App {
 	}
 	
 	public static void main(String[] args) {
-		new VinylCollectionApp().run()
+		app.run()
 	}
 }

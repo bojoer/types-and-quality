@@ -249,6 +249,24 @@ class VinylCollectionAppSpec extends Specification {
 		1 * console.render(view)
 	}
 	
+	def "should print an error message when the user types an invalid command"() {
+		when:
+		app.routeRequest("a", "invalid", "command")
+		
+		then:
+		1 * console.render({it.items == ["command not found"]})
+	}
 	
+	def "should start the application from the main method"() {
+		given:
+		VinylCollectionApp app = Mock(VinylCollectionApp)
+		VinylCollectionApp.app = app
+		
+		when:
+		VinylCollectionApp.main(null) 
+		
+		then:
+		1 * app.run()
+	}
 	
 }
