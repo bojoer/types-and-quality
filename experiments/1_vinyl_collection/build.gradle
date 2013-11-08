@@ -36,42 +36,47 @@ task wrapper(type: Wrapper) {
 	scriptFile = "experiment"
 }
 
-task(run, dependsOn: 'classes', type: JavaExec) {
+task(copySrc, type:Copy) {
+	from 'src'
+	into "data/src/$timestamp"
+}
+
+task(run, dependsOn: ['copySrc', 'sendRunEvent', 'classes'], type: JavaExec) {
 	main = 'carlosgsouza.vinylshop.VinylCollectionApp'
 	standardInput = System.in
 	classpath = sourceSets.main.runtimeClasspath
 }
-
-
 	
 	
-	def setup() {
-		File dataFolder = new File("data")
-		if(dataFolder.exists()) {
-			println "Experiment already started"
-			return false
-		}
-		dataFolder.mkdirs()
+def setup() {
+	File dataFolder = new File("data")
+	if(dataFolder.exists()) {
+		println "Experiment already started"
+		return false
+	}
+	dataFolder.mkdirs()
+	
+	return true
+}
+
+def sendEvent(event, message=null) { 
+	File dataFolder = new File("data")
+	if(!dataFolder.exists()) {
+		println "Experiment not started yet"
 		
-		return true
+		return
 	}
 	
-	def sendEvent(event, message) { 
-		File dataFolder = new File("data")
-		if(!dataFolder.exists()) {
-			println "Experiment not started yet"
-			
-			return
-		}
-		
-		dataFolder.mkdirs()
-		
-		File eventsFile = new File(dataFolder, "events.txt")
-		eventsFile << "$event\t$project.timestamp\n"
-		
+	dataFolder.mkdirs()
+	
+	File eventsFile = new File(dataFolder, "events.txt")
+	eventsFile << "$event\t$project.timestamp\n"
+	
+	if(message) {
 		println message
 	}
-	
+}
+
 		
 task('start') << { 
 	def setupOk = setup()
@@ -91,6 +96,10 @@ task('resume') << {
 
 task('sendFinishEvent') << { 
 	sendEvent("FINISH", "Finished") 
+}
+
+task('sendRunEvent') << {
+	sendEvent("RUN")
 }
 
 task('packageData', type:Zip, dependsOn:'sendFinishEvent') {
