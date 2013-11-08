@@ -8,15 +8,15 @@ import carlosgsouza.derails.View
 
 public class UiFactory {
 	
-	View bye(String name) {
+	def bye(String name) {
 		new View("Bye, $name!")
 	}
 	
-	Form nameForm() {
+	def nameForm() {
 		new Form("My name is Jack Johnson and I am a talking robot. Who are you?", "name")
 	}
 	
-	View hi(String name) {
+	def hi(name) {
 		new View("Hello, $name!")
 	}
 	

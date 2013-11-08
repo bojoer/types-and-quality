@@ -7,16 +7,16 @@ import carlosgsouza.talkingrobot.view.UiFactory
 
 class TalkingRobotApp extends App {
 	
-	static TalkingRobotApp app = new TalkingRobotApp()
-	UiFactory uiFactory = new UiFactory()
+	static def app = new TalkingRobotApp()
+	def uiFactory = new UiFactory()
 	
-	String userName 
+	def userName 
 	
 	TalkingRobotApp() {
 		super("Talking Robot - The future is now")
 	}
 	
-	void routeRequest(String controller, String action, String parameter) {
+	void routeRequest(controller, action, parameter) {
 		if(controller == "robot") {
 			switch(action) {
 				case "bye":
@@ -44,7 +44,7 @@ class TalkingRobotApp extends App {
 		userName = null
 	}
 	
-	public static void main(String[] args) {
+	public static main(args) {
 		app.run()
 	}
 }
