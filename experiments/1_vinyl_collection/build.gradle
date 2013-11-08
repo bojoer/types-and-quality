@@ -31,6 +31,20 @@ cobertura {
 	coverageExcludes = ['.*derails.*']
 }
 
+sourceSets {
+	functionalTest {
+		compileClasspath = sourceSets.main.output + configurations.testRuntime
+		runtimeClasspath = output + sourceSets.main.output + configurations.testRuntime
+
+		groovy { srcDir "src/test/functional" }
+	}
+}
+
+task functionalTest(type: Test) {
+	testClassesDir = sourceSets.functionalTest.output.classesDir
+	classpath = sourceSets.functionalTest.runtimeClasspath
+}
+
 task wrapper(type: Wrapper) {
 	gradleVersion = '1.8'
 	scriptFile = "experiment"
@@ -78,7 +92,6 @@ def sendEvent(event, message=null) {
 		println message
 	}
 }
-
 		
 task('start') << { 
 	def setupOk = setup()
@@ -117,5 +130,3 @@ project.task('finish', dependsOn:'packageData') << {
 	println "\n\n>>> ONE LAST THING! I have created a zip file here: /build/distributions/experiment-data.zip. Please send it to carlosgsouza@gmail.com <<<"
 	println "ps: You are a good person. Thanks for helping me"
 }
-
-
