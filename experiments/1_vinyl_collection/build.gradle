@@ -1,6 +1,9 @@
 apply plugin: "groovy"
 apply plugin: "eclipse"
-apply plugin: ExperimentPlugin
+
+ext {
+	timestamp = String.valueOf System.currentTimeMillis()
+}
 
 buildscript {
     repositories {
@@ -33,26 +36,28 @@ task wrapper(type: Wrapper) {
 	scriptFile = "experiment"
 }
 
+task(run, dependsOn: 'classes', type: JavaExec) {
+	main = 'carlosgsouza.vinylshop.VinylCollectionApp'
+	standardInput = System.in
+	classpath = sourceSets.main.runtimeClasspath
+}
 
 
-
-class ExperimentPlugin implements Plugin<Project> {
 	
-	File dataFolder = new File("data")
-	File eventsFile = new File(dataFolder, "events.txt")
-	
-	Long lastEventTimestamp = ""
 	
 	def setup() {
+		File dataFolder = new File("data")
 		if(dataFolder.exists()) {
 			println "Experiment already started"
-			return
+			return false
 		}
 		dataFolder.mkdirs()
+		
+		return true
 	}
 	
-	def sendEvent(event, message) {
-		def dataFolder = new File("data")
+	def sendEvent(event, message) { 
+		File dataFolder = new File("data")
 		if(!dataFolder.exists()) {
 			println "Experiment not started yet"
 			
@@ -61,50 +66,41 @@ class ExperimentPlugin implements Plugin<Project> {
 		
 		dataFolder.mkdirs()
 		
-		def eventsFile = new File(dataFolder, "events.txt")
-		eventsFile << "$event\t${System.currentTimeMillis()}\n"
+		File eventsFile = new File(dataFolder, "events.txt")
+		eventsFile << "$event\t$project.timestamp\n"
 		
 		println message
 	}
 	
-	void apply(Project project) {
-		project.plugins.apply(BasePlugin.class)
 		
-		project.task('start') << { 
-			setup(); 
-			sendEvent("START", "Experiment started. Time to get your hands dirty!\nps: Thank you for doing this for me. I promise I will get you a beer when this is over.")
-		}
-		
-		project.task('pause') << { 
-			sendEvent("PAUSE", "You are working for too long. Please have some rest.\nRemember to invoke the 'resume' task when you come back.") 
-		}
-		
-		project.task('resume') << { 
-			sendEvent("RESUME", "Already back to work? ALL RIGHT!!! Let's do it") 
-		}
-		
-		project.task('sendFinishEvent') << { 
-			sendEvent("FINISH", "Finished") 
-		}
-		
-		project.configure(project) {
-			task('packageData', type:Zip, dependsOn:'sendFinishEvent') {
-				from 'data'
-				baseName 'experiment-data'
-			}
-			
-			task(run, dependsOn: 'classes', type: JavaExec) {
-				main = 'carlosgsouza.vinylshop.VinylCollectionApp'
-				standardInput = System.in
-				classpath = sourceSets.main.runtimeClasspath
-			}
-		}
-		
-		project.task('finish', dependsOn:'packageData') << {
-			println "\n\n>>> ONE LAST THING! I have created a zip file here: /build/distributions/experiment-data.zip. Please send it to carlosgsouza@gmail.com <<<"
-			println "ps: You are a good person. Thanks for helping me"
-		}
+task('start') << { 
+	def setupOk = setup()
+	
+	if(setupOk) {
+		sendEvent("START", "Experiment started. Time to get your hands dirty!\nps: Thank you for doing this for me. I promise I will get you a beer when this is over.")
 	}
-
 }
+
+task('pause') << { 
+	sendEvent("PAUSE", "You are working for too long. Please have some rest.\nRemember to invoke the 'resume' task when you come back.") 
+}
+
+task('resume') << { 
+	sendEvent("RESUME", "Already back to work? ALL RIGHT!!! Let's do it") 
+}
+
+task('sendFinishEvent') << { 
+	sendEvent("FINISH", "Finished") 
+}
+
+task('packageData', type:Zip, dependsOn:'sendFinishEvent') {
+	from 'data'
+	baseName 'experiment-data'
+}
+
+project.task('finish', dependsOn:'packageData') << {
+	println "\n\n>>> ONE LAST THING! I have created a zip file here: /build/distributions/experiment-data.zip. Please send it to carlosgsouza@gmail.com <<<"
+	println "ps: You are a good person. Thanks for helping me"
+}
+
 
