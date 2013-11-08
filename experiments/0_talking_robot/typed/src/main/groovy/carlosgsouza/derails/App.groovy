@@ -4,7 +4,7 @@ package carlosgsouza.derails
 abstract class App {
 	
 	String name = "DeRails App"
-	Console console = new Console()
+	public Console console = new Console()
 	
 	App(name) {
 		this.name = name
