@@ -46,7 +46,9 @@ task(run, dependsOn: ['copySrc', 'sendRunEvent', 'classes'], type: JavaExec) {
 	standardInput = System.in
 	classpath = sourceSets.main.runtimeClasspath
 }
-	
+
+task(compile, dependsOn: ['copySrc', 'sendCompileEvent', 'compileGroovy', 'compileJava']) {
+}	
 	
 def setup() {
 	File dataFolder = new File("data")
@@ -100,6 +102,10 @@ task('sendFinishEvent') << {
 
 task('sendRunEvent') << {
 	sendEvent("RUN")
+}
+
+task('sendCompileEvent') << {
+	sendEvent("COMPILE")
 }
 
 task('packageData', type:Zip, dependsOn:'sendFinishEvent') {
