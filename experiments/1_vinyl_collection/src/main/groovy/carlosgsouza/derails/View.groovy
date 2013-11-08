@@ -6,4 +6,9 @@ class View {
 	public View(items) {
 		this.items = (items instanceof Collection) ? items : [items]
 	}
+	
+	@Override
+	public String toString() {
+		"View: ${items.toString()}"
+	}
 }

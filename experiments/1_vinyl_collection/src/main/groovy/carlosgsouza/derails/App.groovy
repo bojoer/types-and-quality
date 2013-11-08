@@ -23,7 +23,7 @@ abstract class App {
 					System.exit(0)
 				}
 				
-				routeRequest(line)
+				execute(line)
 				
 				print '> '
 			} catch(e) {
@@ -32,7 +32,7 @@ abstract class App {
 		}
 	}
 	
-	void routeRequest(String command) {
+	void execute(String command) {
 		def tokens = command.tokenize()
 		
 		if(tokens.size() < 2) {

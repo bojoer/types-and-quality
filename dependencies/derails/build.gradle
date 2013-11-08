@@ -1,6 +1,9 @@
 apply plugin: "groovy"
 apply plugin: "eclipse"
 
+group = 'carlosgsouza'
+version = '1.0'
+
 buildscript {
     repositories {
         mavenCentral()

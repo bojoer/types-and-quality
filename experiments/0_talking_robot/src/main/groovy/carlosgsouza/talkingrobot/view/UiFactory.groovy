@@ -13,7 +13,7 @@ public class UiFactory {
 	}
 	
 	Form nameForm() {
-		new Form("My name is Marvin. Who are you?", "name")
+		new Form("My name is Jack Johnson and I am a talking robot. Who are you?", "name")
 	}
 	
 	View hi(String name) {
