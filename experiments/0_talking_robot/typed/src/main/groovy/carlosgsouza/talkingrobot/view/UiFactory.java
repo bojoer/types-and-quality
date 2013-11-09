@@ -6,7 +6,7 @@ import carlosgsouza.derails.View;
 public class UiFactory {
 	
 	public View bye(String name) {
-		return new View("Bye, $name!");
+		return new View(String.format("Bye, %s!", name));
 	}
 	
 	public Form nameForm() {
@@ -14,7 +14,7 @@ public class UiFactory {
 	}
 	
 	public View hi(String name) {
-		return new View("Hello, $name!");
+		return new View(String.format("Hello, %s!", name));
 	}
 	
 }

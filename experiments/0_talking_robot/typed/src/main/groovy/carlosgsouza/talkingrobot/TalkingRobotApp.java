@@ -18,22 +18,21 @@ public class TalkingRobotApp extends App {
 	
 	public void routeRequest(String controller, String action, String parameter) {
 		if(controller.equals("robot")) {
-			switch(action) {
-				case "bye":
-					if(userName != null) {
-						console.render(uiFactory.bye(userName));
-					} else {
-						console.render(uiFactory.bye("stranger"));
-					}
-					return;
-				case "hello":
-					if(userName != null) {
-						Form form = uiFactory.nameForm();
-						console.apply(form);
-						userName = form.fields.get("name");
-					}
-					console.render(uiFactory.hi(userName));
-					return;
+			if(action.equals("bye")) {
+				if(userName != null) {
+					console.render(uiFactory.bye(userName));
+				} else {
+					console.render(uiFactory.bye("stranger"));
+				}
+				return;
+			} else if(action.equals("hello")) {
+				if(userName == null) {
+					Form form = uiFactory.nameForm();
+					console.apply(form);
+					userName = form.fields.get("name");
+				}
+				console.render(uiFactory.hi(userName));
+				return;
 			}
 		}
 		
