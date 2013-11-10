@@ -29,11 +29,11 @@ class VinylController {
 		}
 		
 		def vinyl = new Vinyl(
-			artist:fields["artist"],
-			title:fields["title"],
-			songs:fields["songs"].split(",")*.trim(),
-			year:fields["year"],
-			genre:fields["genre"])
+			artist:fields["Artist"],
+			title:fields["Title"],
+			songs:fields["Songs"].split(",")*.trim(),
+			year:fields["Year"],
+			genre:fields["Genre"])
 		
 		return create(vinyl)
 	}
