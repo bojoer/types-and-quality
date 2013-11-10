@@ -126,7 +126,7 @@ class VinylControllerSpec extends Specification {
 	
 	def "should create a new vinyl form a mao"() {
 		when:
-		def id = controller.create([artist:"D", title:"D", songs:"D1, D2, D3", year:"D", genre:"D"])
+		def id = controller.create([Artist:"D", Title:"D", Songs:"D1, D2, D3", Year:"D", Genre:"D"])
 		
 		then:
 		1 * db.addVinyl(_) >> 4

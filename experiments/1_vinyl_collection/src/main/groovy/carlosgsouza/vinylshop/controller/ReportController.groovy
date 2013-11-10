@@ -2,6 +2,7 @@ package carlosgsouza.vinylshop.controller
 
 import carlosgsouza.vinylshop.database.DB
 import carlosgsouza.vinylshop.model.Report
+import carlosgsouza.vinylshop.model.Vinyl
 
 class ReportController {
 	
@@ -10,7 +11,9 @@ class ReportController {
 	Report artist() {
 		Report result = new Report()
 		
-		def artistCount = db.vinyls*.artist.unique().size()
+		List<String> artists = db.artists
+		int artistCount = artists.size()
+		
 		result.data["Number of artists"] = artistCount.toString()
 		
 		if(artistCount == 0) {
@@ -19,17 +22,19 @@ class ReportController {
 		
 		def artist_vinylCount = [:]
 		def artist_songCount = [:]
-		db.vinyls.each { vinyl ->
-			if(!artist_vinylCount[vinyl.artist]) {
-				artist_vinylCount[vinyl.artist] = 0
-				artist_songCount[vinyl.artist] = 0
+		
+		artists.each { artist ->
+			List<Vinyl> artistVinyls = db.searchVinylByArtist(artist)
+			
+			artist_vinylCount[artist] = artistVinyls.size()
+			artist_songCount[artist] = 0
+			
+			artistVinyls.each { vinyl ->
+				artist_songCount[artist] += vinyl.songs.size()
 			}
-			artist_vinylCount[vinyl.artist]++
-			artist_songCount[vinyl.artist] += vinyl.songs.size()
 		}
 		
 		def topArtist = artist_vinylCount.max{it.value}.key
-		
 		
 		result.data["Top artist"] = topArtist
 		result.data["Number of vinyls by $topArtist"] = artist_vinylCount[topArtist].toString()

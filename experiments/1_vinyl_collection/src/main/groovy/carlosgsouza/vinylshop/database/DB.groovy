@@ -181,6 +181,12 @@ class DB {
 		return result
 	}
 	
+	
+	public List getArtists() {
+		List result = artists
+		return artists*.name
+	}
+	
 	public static DB connect() {
 		instance
 	}

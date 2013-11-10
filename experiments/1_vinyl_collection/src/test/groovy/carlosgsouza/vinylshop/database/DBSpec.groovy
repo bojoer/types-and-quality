@@ -445,6 +445,61 @@ class DBSpec extends Specification {
 		db.addVinyl(vinylA)
 		
 		then:
+		db.artists == ["A"]
+	}
+	
+	def "should update an artist whenever a new vinyl by that artist is added"() {
+		given:
+		def artistDWithVinylD1 = new Artist(name:"D", vinyls:[vinylD1])
+		
+		when:
+		db.addVinyl(vinylD1)
+		
+		then:
+		db.artists == [artistDWithVinylD1.name] 
+		
+		when:
+		db.addVinyl(vinylD2)
+		
+		then:
+		db.artists == [artistD.name]
+	}
+	
+	def "should update an artist whenever a new vinyl by that artist is removed"() {
+		given:
+		db.addVinyl(vinylD1)
+		db.addVinyl(vinylD2)
+		
+		expect:
+		db.artists == [artistD.name] 
+		
+		when:
+		db.removeVinyl(vinylD2.id)
+		
+		then:
+		db.artists == [artistDWithVinylD1.name]
+		
+		when:
+		db.removeVinyl(vinylD1.id)
+		
+		then:
+		db.artists == []
+	}
+	
+	
+	/*
+	 * Tests with DB.artists returning artists instead of their names
+	 *
+	 
+	 def "should add an artist to the database whenever an album with a new artist is added"() {
+		given:
+		db.vinyls = []
+		db.artists = []
+		
+		when:
+		db.addVinyl(vinylA)
+		
+		then:
 		db.artists == [new Artist(name:"A", vinyls:[vinylA])]
 	}
 	
@@ -485,4 +540,5 @@ class DBSpec extends Specification {
 		then:
 		db.artists == []
 	}
+	 */
 }
