@@ -4,6 +4,7 @@ import carlosgsouza.vinylshop.database.DB
 import carlosgsouza.vinylshop.model.Report
 import carlosgsouza.vinylshop.model.Vinyl
 
+
 class ReportController {
 	
 	DB db = DB.connect()
@@ -23,13 +24,13 @@ class ReportController {
 		def artist_vinylCount = [:]
 		def artist_songCount = [:]
 		
-		artists.each { artist ->
+		for(artist in artists) {
 			List<Vinyl> artistVinyls = db.searchVinylByArtist(artist)
 			
 			artist_vinylCount[artist] = artistVinyls.size()
 			artist_songCount[artist] = 0
 			
-			artistVinyls.each { vinyl ->
+			for(vinyl in artistVinyls) {
 				artist_songCount[artist] += vinyl.songs.size()
 			}
 		}
@@ -46,16 +47,20 @@ class ReportController {
 	Report genre() {
 		Report result = new Report()
 		
-		def genreCount = db.vinyls*.genre.unique().size()
-		result.data["Number of genres"] = genreCount.toString()
+		Set<String> genres = new HashSet<String>() 
+		for(vinyl in db.vinyls) {
+			genres.add(vinyl.genre)	
+		}
 		
-		if(genreCount == 0) {
+		result.data["Number of genres"] = genres.size().toString()
+		
+		if(genres.size() == 0) {
 			return result
 		}
 		
 		def genre_vinylCount = [:]
 		def genre_songCount = [:]
-		db.vinyls.each { vinyl ->
+		for(vinyl in db.vinyls) {
 			if(!genre_vinylCount[vinyl.genre]) {
 				genre_vinylCount[vinyl.genre] = 0
 				genre_songCount[vinyl.genre] = 0
