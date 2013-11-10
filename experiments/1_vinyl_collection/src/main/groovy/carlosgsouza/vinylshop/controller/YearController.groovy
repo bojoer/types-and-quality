@@ -1,6 +1,7 @@
 package carlosgsouza.vinylshop.controller
 
 import carlosgsouza.vinylshop.database.DB
+import carlosgsouza.vinylshop.model.Vinyl
 
 class YearController {
 	
@@ -10,7 +11,7 @@ class YearController {
 		db.years
 	}
 	
-	List<String> search(String Year) {
+	List<Vinyl> search(String Year) {
 		db.searchVinylByYear(Year)
 	}
 	

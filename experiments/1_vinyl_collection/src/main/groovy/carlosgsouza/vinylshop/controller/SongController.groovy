@@ -1,6 +1,7 @@
 package carlosgsouza.vinylshop.controller
 
 import carlosgsouza.vinylshop.database.DB
+import carlosgsouza.vinylshop.model.Vinyl
 
 class SongController {
 	
@@ -10,7 +11,7 @@ class SongController {
 		db.songs
 	}
 	
-	List<String> search(String Song) {
+	List<Vinyl> search(String Song) {
 		db.searchVinylBySong(Song)
 	}
 	

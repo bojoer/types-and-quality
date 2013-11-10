@@ -1,6 +1,7 @@
 package carlosgsouza.vinylshop.controller
 
 import carlosgsouza.vinylshop.database.DB
+import carlosgsouza.vinylshop.model.Vinyl
 
 class GenreController {
 	
@@ -10,7 +11,7 @@ class GenreController {
 		db.genres
 	}
 	
-	List<String> search(String Genre) {
+	List<Vinyl> search(String Genre) {
 		db.searchVinylByGenre(Genre)
 	}
 	
