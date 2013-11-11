@@ -17,38 +17,37 @@ abstract class App {
 		
 		print '> '
 		System.in.eachLine { line ->
-			try {
-				if(line == "exit") {
-					println "bye"
-					System.exit(0)
-				}
-				
-				execute(line)
-				
-				print '> '
-			} catch(e) {
-				console.render new View("(error) $e.message")
-			}
+			execute(line)
+			print '> '
 		}
 	}
 	
 	void execute(String command) {
-		def tokens = command.tokenize()
-		
-		if(tokens.size() < 2) {
-			println "Unreckognized command"
-			return
+		try {
+			if(command == "exit") {
+				println "bye"
+				System.exit(0)
+			}
+			
+			def tokens = command.tokenize()
+			
+			if(tokens.size() < 2) {
+				println "Unreckognized command"
+				return
+			}
+			
+			def controller = tokens[1].toLowerCase()
+			def action = tokens[0].toLowerCase()
+			
+			tokens.remove(0)
+			tokens.remove(0)
+			
+			def parameter = tokens.join(" ")
+			
+			routeRequest(controller, action, parameter)
+		} catch(e) {
+			console.render new View("(error) $e.message")
 		}
-		
-		def controller = tokens[1].toLowerCase()
-		def action = tokens[0].toLowerCase()
-		
-		tokens.remove(0)
-		tokens.remove(0)
-		
-		def parameter = tokens.join(" ")
-		
-		routeRequest(controller, action, parameter)
 	}
 	
 	abstract void routeRequest(String controller, String action, String parameter);

@@ -9,6 +9,7 @@ import carlosgsouza.vinylshop.controller.SongController
 import carlosgsouza.vinylshop.controller.SummaryController
 import carlosgsouza.vinylshop.controller.VinylController
 import carlosgsouza.vinylshop.controller.YearController
+import carlosgsouza.vinylshop.database.DB
 import carlosgsouza.vinylshop.model.Vinyl
 import carlosgsouza.vinylshop.view.UiFactory
 
@@ -24,7 +25,18 @@ class VinylCollectionApp extends App {
 	SummaryController summaryController = new SummaryController()
 	ReportController reportController = new ReportController()
 	
+	DB db = DB.connect()
+	
 	UiFactory uiFactory = new UiFactory()
+	
+	List<Vinyl> preloadedVinyls = [
+			new Vinyl(artist:"Lana Del Rey", title:"Born to Die", songs:["Off to Races", "Radio", "Carmen"], year:"2012", genre:"Pop"),
+			new Vinyl(artist:"Bruno Mars", title:"Unorthodox Jukebox", songs:["Gorilla", "Treasure", "Young Girls"], year:"2012", genre:"Pop"),
+			new Vinyl(artist:"Pearl Jam", title:"Lightning Bolt", songs:["Getaway", "Mind Your Manners", "Young Sirens"], year:"2013", genre:"Rock"),
+			new Vinyl(artist:"Angra", title:"Temple of Shadows", songs:["Deus Le Volt!", "Waiting Silence"], year:"2004", genre:"Metal"),
+			new Vinyl(artist:"Luan Santana", title:"Quando Chega a Noite", songs:["Te vivo", "Quimica do Amor"], year:"2010", genre:"Rock"),
+			new Vinyl(artist:"Coldplay", title:"Parachutes", songs:["Don't Panic", "Shiver", "Spies"], year:"2000", genre:"Alternative"),
+			new Vinyl(artist:"Pearl Jam", title:"Backspacer", songs:["Just Breathe", "Supersonic"], year:"2009", genre:"Rock")]
 	
 	VinylCollectionApp() {
 		super("DJ PopCorn - Amazing Vinyl Collection")
@@ -130,13 +142,9 @@ class VinylCollectionApp extends App {
 	}
 	
 	void bootstrap() {
-		vinylController.create new Vinyl(artist:"Lana Del Rey", title:"Born to Die", songs:["Off to Races", "Radio", "Carmen"], year:"2012", genre:"Pop")
-		vinylController.create new Vinyl(artist:"Bruno Mars", title:"Unorthodox Jukebox", songs:["Gorilla", "Treasure", "Young Girls"], year:"2012", genre:"Pop")
-		vinylController.create new Vinyl(artist:"Pearl Jam", title:"Lightning Bolt", songs:["Getaway", "Mind Your Manners", "Young Sirens"], year:"2013", genre:"Rock")
-		vinylController.create new Vinyl(artist:"Angra", title:"Temple of Shadows", songs:["Deus Le Volt!", "Waiting Silence"], year:"2004", genre:"Metal")
-		vinylController.create new Vinyl(artist:"Luan Santana", title:"Quando Chega a Noite", songs:["Te vivo", "Quimica do Amor"], year:"2010", genre:"Rock")
-		vinylController.create new Vinyl(artist:"Coldplay", title:"Parachutes", songs:["Don't Panic", "Shiver", "Spies"], year:"2000", genre:"Alternative")
-		vinylController.create new Vinyl(artist:"Pearl Jam", title:"Backspacer", songs:["Just Breathe", "Supersonic"], year:"2009", genre:"Rock")
+		db.reset()
+		
+		preloadedVinyls.each { vinylController.create it }
 	}
 	
 	public static void main(String[] args) {

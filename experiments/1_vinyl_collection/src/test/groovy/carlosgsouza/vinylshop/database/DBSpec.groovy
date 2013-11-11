@@ -46,6 +46,22 @@ class DBSpec extends Specification {
 		db1.is db2
 	}
 	
+	def "should reset the DB"() {
+		given:
+		db.addVinyl(vinylA)
+		
+		expect:
+		db.artists != []
+		db.vinyls != []
+		
+		when:
+		db.reset()
+		
+		then:
+		db.artists == []
+		db.vinyls == []
+	}
+	
 	def "should auto generate an id and add it to the database"() {
 		given:
 		db.vinyls = [vinylA, vinylB, vinylC]

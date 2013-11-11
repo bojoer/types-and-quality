@@ -190,4 +190,9 @@ class DB {
 	public static DB connect() {
 		instance
 	}
+	
+	public void reset() {
+		artists = []
+		vinyls = []
+	}
 }

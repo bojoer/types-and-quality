@@ -1,5 +1,8 @@
 package carlosgsouza.derails;
 
+import groovy.transform.ToString;
+
+@ToString
 class Form {
 	
 	String title

@@ -11,6 +11,7 @@ import carlosgsouza.vinylshop.controller.SongController
 import carlosgsouza.vinylshop.controller.SummaryController
 import carlosgsouza.vinylshop.controller.VinylController
 import carlosgsouza.vinylshop.controller.YearController
+import carlosgsouza.vinylshop.database.DB
 import carlosgsouza.vinylshop.model.Report
 import carlosgsouza.vinylshop.model.Summary
 import carlosgsouza.vinylshop.model.Vinyl
@@ -41,6 +42,8 @@ class VinylCollectionAppSpec extends Specification {
 	
 	VinylCollectionApp app
 	
+	DB db
+	
 	def setup() {
 		vinylA = new Vinyl(id:1, artist:"A", title:"A", songs:["A1", "A2", "A3"], year:"A", genre:"A")
 		vinylB = new Vinyl(id:2, artist:"B", title:"B", songs:["B1", "B2", "B3"], year:"B", genre:"B")
@@ -64,6 +67,8 @@ class VinylCollectionAppSpec extends Specification {
 		uiFactory = Mock(UiFactory)
 		console = Mock(Console)
 		
+		db = Mock(DB)
+		
 		app = new VinylCollectionApp(
 						reportController:reportController,
 						summaryController:summaryController,
@@ -73,10 +78,11 @@ class VinylCollectionAppSpec extends Specification {
 						artistController: artistController, 
 						vinylController:vinylController, 
 						uiFactory:uiFactory, 
-						console:console)
+						console:console,
+						db:db)
 	}
 	
-	def "should create a bunch of vinyl during bootstrap"() {
+	def "should reset the db and create a bunch of vinyl during bootstrap"() {
 		when:
 		app.bootstrap()
 		
