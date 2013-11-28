@@ -42,6 +42,7 @@ sourceSets {
 
 task functionalTest(type: Test) {
 	testClassesDir = sourceSets.functionalTest.output.classesDir
+	reports.html.destination = new File("build/reports/functional-tests")
 	classpath = sourceSets.functionalTest.runtimeClasspath
 }
 
