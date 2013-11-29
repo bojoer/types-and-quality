@@ -1,17 +1,29 @@
-task execute() {
-	dependsOn tasks.matching { it.name.startsWith("process_") }
-}
+
 
 task createProcessTasks() {
+	createSnapshotCommandTask 'execute', 'test'
+}
+
+task createCleanTasks() {
+	createSnapshotCommandTask 'reset', 'clean'	
+}
+
+def createSnapshotCommandTask(taskName, command) {
+	def prefix = "${command}_"
+
 	eachSnapshot { snapshotDir ->
 		def normalizedPath = snapshotDir.path.replaceAll(/[\., \/]/, "")
 
-		tasks.create(type:Exec, name:"process_$normalizedPath") {
+		tasks.create(type:Exec, name:"${prefix}$normalizedPath") {
 			workingDir snapshotDir.absolutePath
-			commandLine 'gradle', 'test'
+			commandLine '../../../../analysis', command
 
 			ignoreExitValue true			
 		}
+	}
+
+	tasks.create(name:taskName) {
+		dependsOn tasks.matching { it.name.startsWith(prefix) }
 	}
 }
 
@@ -32,7 +44,7 @@ task clean << {
 }
 
 def eachSnapshot(Closure closure) {
-	def dataFolder = new File(".")
+	def dataFolder = new File("data")
 	dataFolder.eachDir { devFolder ->
 		def srcDevFolder = new File(devFolder, "src")
 
