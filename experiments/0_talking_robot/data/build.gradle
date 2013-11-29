@@ -1,32 +1,31 @@
-apply plugin: "groovy"
-apply plugin: "java"
-
-repositories {
-	mavenCentral()
+task process() {
+	dependsOn tasks.matching { it.name.startsWith("process_") }
 }
 
-dependencies {
-	compile 'org.codehaus.groovy:groovy-all:1.8.8'
-
-	testCompile "org.spockframework:spock-core:0.7-groovy-1.8"
-	testCompile "cglib:cglib-nodep:2.2.2"
-	testCompile "org.objenesis:objenesis:1.2"
-}
-
-sourceSets {
-	test.groovy.srcDir "../../../../original/src/test/functional"
-	main.groovy.srcDir 'main/groovy/'
-}
-
-task prepareSnapshotBuilds() {
-	def buildFile = new File("build.gradle")
-
+task createProcessTasks() {
 	eachSnapshot { snapshotDir ->
-		copyFile(buildFile, new File(snapshotDir, "build.gradle"))
+		def normalizedPath = snapshotDir.path.replaceAll(/[\., \/]/, "")
+
+		tasks.create(type:Exec, name:"process_$normalizedPath") {
+			workingDir snapshotDir.absolutePath
+			commandLine 'gradle', 'test'
+
+			ignoreExitValue true			
+		}
 	}
 }
 
-task cleanSnapshotBuilds() {
+task prepareSnapshotBuilds << {
+	def buildFile = new File("snapshot-build.gradle")
+
+	eachSnapshot { snapshotDir ->
+		def writer = new File(snapshotDir, "build.gradle").newWriter()
+		writer << buildFile.text
+		writer.close()
+	}
+}
+
+task cleanSnapshotBuilds << {
 	eachSnapshot { snapshotDir ->
 		new File(snapshotDir, "build.gradle").delete()
 	}
@@ -45,14 +44,4 @@ def eachSnapshot(Closure closure) {
 			closure(snapshotDir)
 		}
 	}	
-}
-
-def copyFile(File src,File dest) {
-	def input = src.newDataInputStream()
-	def output = dest.newDataOutputStream()
- 
-	output << input 
- 
-	input.close()
-	output.close()
 }
