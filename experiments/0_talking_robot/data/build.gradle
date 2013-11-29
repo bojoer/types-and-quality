@@ -1,4 +1,4 @@
-task process() {
+task execute() {
 	dependsOn tasks.matching { it.name.startsWith("process_") }
 }
 
@@ -15,7 +15,7 @@ task createProcessTasks() {
 	}
 }
 
-task prepareSnapshotBuilds << {
+task setup << {
 	def buildFile = new File("snapshot-build.gradle")
 
 	eachSnapshot { snapshotDir ->
@@ -25,7 +25,7 @@ task prepareSnapshotBuilds << {
 	}
 }
 
-task cleanSnapshotBuilds << {
+task clean << {
 	eachSnapshot { snapshotDir ->
 		new File(snapshotDir, "build.gradle").delete()
 	}
@@ -44,4 +44,9 @@ def eachSnapshot(Closure closure) {
 			closure(snapshotDir)
 		}
 	}	
+}
+
+task wrapper(type: Wrapper) {
+	gradleVersion = '1.8'
+	scriptFile = "analysis"
 }
