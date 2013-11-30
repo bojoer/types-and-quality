@@ -23,7 +23,7 @@ class GenreFunctionalSpec extends Specification {
 		
 		then:
 		1 * app.console.render { View view ->
-			view.items == ["Listing 4 genres", "Alternative", "Metal", "Pop", "Rock"]
+			view.items == ["Listing 4 genres", "Pop", "Rock", "Metal", "Alternative"]
 		}
 	}
 	

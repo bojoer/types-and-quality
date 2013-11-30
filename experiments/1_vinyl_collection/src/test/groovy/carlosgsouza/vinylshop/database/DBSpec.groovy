@@ -3,6 +3,7 @@ package carlosgsouza.vinylshop.database
 import spock.lang.Specification
 import spock.lang.Unroll
 import carlosgsouza.vinylshop.model.Artist
+import carlosgsouza.vinylshop.model.Genre
 import carlosgsouza.vinylshop.model.Vinyl
 
 class DBSpec extends Specification {
@@ -21,6 +22,12 @@ class DBSpec extends Specification {
 	Artist artistD
 	Artist artistDWithVinylD1
 	
+	Genre genreA
+	Genre genreB
+	Genre genreC
+	Genre genreD
+	Genre genreDWithVinylD1
+	
 	def setup() {
 		db = new DB()
 		
@@ -35,6 +42,12 @@ class DBSpec extends Specification {
 		artistC = new Artist(name:"C", vinyls:[vinylA])
 		artistDWithVinylD1 = new Artist(name:"D", vinyls:[vinylD1])
 		artistD = new Artist(name:"D", vinyls:[vinylD1, vinylD2])
+		
+		genreA = new Genre(name:"A", vinyls:[vinylA])
+		genreB = new Genre(name:"B", vinyls:[vinylA])
+		genreC = new Genre(name:"C", vinyls:[vinylA])
+		genreDWithVinylD1 = new Genre(name:"D", vinyls:[vinylD1])
+		genreD = new Genre(name:"D", vinyls:[vinylD1, vinylD2])
 	}
 	
 	def "should return the same DB instance for multiple connections"() {
@@ -198,30 +211,6 @@ class DBSpec extends Specification {
 		result == [vinylA]
 	}
 	
-	def "should list the set of all Genres"() {
-		given:
-		db.addVinyl(vinylA)
-		db.addVinyl(vinylB)
-		db.addVinyl(vinylC)
-		
-		when:
-		def result = db.genres
-		
-		then:
-		result == ["A", "B", "C"]
-	}
-	
-	def "should not repeat an Genre on the list of Genres"() {
-		given:
-		3.times{ db.addVinyl(vinylA) }
-		
-		when:
-		def result = db.genres
-		
-		then:
-		result == ["A"]
-	}
-	
 	def "should list the set of all Years"() {
 		given:
 		db.addVinyl(vinylA)
@@ -272,7 +261,7 @@ class DBSpec extends Specification {
 	}
 	
 	
-	def "should search for vinyls by artist"() {
+	def "should search for vinyls by Artist"() {
 		given:
 		db.addVinyl(vinylA)
 		db.addVinyl(vinylB)
@@ -500,6 +489,56 @@ class DBSpec extends Specification {
 		
 		then:
 		db.artists == []
+	}
+	
+	def "should add an genre to the database whenever an album with a new genre is added"() {
+		given:
+		db.vinyls = []
+		db.genres = []
+		
+		when:
+		db.addVinyl(vinylA)
+		
+		then:
+		db.genres == ["A"]
+	}
+	
+	def "should update an genre whenever a new vinyl by that genre is added"() {
+		given:
+		def genreDWithVinylD1 = new Genre(name:"D", vinyls:[vinylD1])
+		
+		when:
+		db.addVinyl(vinylD1)
+		
+		then:
+		db.genres == [genreDWithVinylD1.name]
+		
+		when:
+		db.addVinyl(vinylD2)
+		
+		then:
+		db.genres == [genreD.name]
+	}
+	
+	def "should update an genre whenever a new vinyl by that genre is removed"() {
+		given:
+		db.addVinyl(vinylD1)
+		db.addVinyl(vinylD2)
+		
+		expect:
+		db.genres == [genreD.name]
+		
+		when:
+		db.removeVinyl(vinylD2.id)
+		
+		then:
+		db.genres == [genreDWithVinylD1.name]
+		
+		when:
+		db.removeVinyl(vinylD1.id)
+		
+		then:
+		db.genres == []
 	}
 	
 	

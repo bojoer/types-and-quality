@@ -1,11 +1,13 @@
 package carlosgsouza.vinylshop.database
 
 import carlosgsouza.vinylshop.model.Artist
+import carlosgsouza.vinylshop.model.Genre
 import carlosgsouza.vinylshop.model.Vinyl
 
 class DB {
 	List<Vinyl> vinyls = []
 	List<Artist> artists = []
+	List<Genre> genres = []
 	
 	private static DB instance = new DB()
 	
@@ -28,37 +30,47 @@ class DB {
 		}
 	}
 	
+	private Genre findGenre(String name) {
+		for(genre in genres) {
+			if(genre && genre.name == name) {
+				return genre
+			}
+		}
+	}
+	
 	Integer addVinyl(Vinyl vinyl) {
 		vinyl.id = vinyl.id ?: maxId + 1
 		vinyls << vinyl
 		
-		def existingArtist = findArtist(vinyl.artist) 
+		addOrUpdateArtist(vinyl)
+		addOrUpdateGenre(vinyl)
+		
+		return vinyl.id
+	}
+	
+	private void addOrUpdateArtist(Vinyl vinyl) {
+		def existingArtist = findArtist(vinyl.artist)
 		if(existingArtist) {
 			existingArtist.vinyls << vinyl
 		} else {
 			artists << new Artist(name:vinyl.artist, vinyls:[vinyl])
 		}
-		
-		return vinyl.id
 	}
 	
-	
+	private void addOrUpdateGenre(Vinyl vinyl) {
+		def existingGenre = findGenre(vinyl.genre)
+		if(existingGenre) {
+			existingGenre.vinyls << vinyl
+		} else {
+			genres << new Genre(name:vinyl.genre, vinyls:[vinyl])
+		}
+	}
 	
 	List<String> getYears() {
 		Set<String> uniqueEntries = new TreeSet<String>()
 		
 		for(vinyl in vinyls) {
 			uniqueEntries.add(vinyl.year)	
-		}
-		
-		return new ArrayList<String>(uniqueEntries)
-	}
-	
-	List<String> getGenres() {
-		Set<String> uniqueEntries = new TreeSet<String>()
-		
-		for(vinyl in vinyls) {
-			uniqueEntries.add(vinyl.genre)	
 		}
 		
 		return new ArrayList<String>(uniqueEntries)
@@ -81,11 +93,25 @@ class DB {
 		
 		vinyls.remove(vinyl)
 		
-		Artist artist = artists.find{it.name == vinyl.artist}
+		removeOrUpdateArtist(vinyl)
+		removeOrUpdateGenre(vinyl)
+	}
+	
+	private removeOrUpdateArtist(Vinyl vinyl) {
+		Artist artist = findArtist(vinyl.artist)
 		if(artist.vinyls.size() == 1) {
 			artists.remove(artist)
 		} else {
 			artist.vinyls.remove(vinyl)
+		}
+	}
+	
+	private removeOrUpdateGenre(Vinyl vinyl) {
+		Genre genre = findGenre(vinyl.genre)
+		if(genre.vinyls.size() == 1) {
+			genres.remove(genre)
+		} else {
+			genre.vinyls.remove(vinyl)
 		}
 	}
 	
@@ -120,33 +146,33 @@ class DB {
 		return result
 	}
 	
-	public List<Vinyl> searchVinylByGenre(String genre) {
-		List<Vinyl> result = new ArrayList<Vinyl>()
-		
-		
-		if(genre) {
-			for(vinyl in vinyls) {
-				if(vinyl.genre && vinyl.genre.toLowerCase().contains(genre.toLowerCase())) {
-					result.add(vinyl)
-				}
-			}
-		}
-		
-		return result
+	public List<Vinyl> searchVinylByGenre(String name) {
+        List<Vinyl> result = new ArrayList<Vinyl>()
+        
+        
+        if(name) {
+                for(vinyl in vinyls) {
+                        if(vinyl.genre && vinyl.genre.toLowerCase().contains(name.toLowerCase())) {
+                                result.add(vinyl)
+                        }
+                }
+        }
+        
+        return result
 	}
 	
 	public List<Vinyl> searchVinylByArtist(String name) {
 		List<Vinyl> result = new ArrayList<Vinyl>()
-		
-		if(name) {
-			for(vinyl in vinyls) {
-				if(vinyl.artist && vinyl.artist.toLowerCase().contains(name.toLowerCase())) {
-					result.add(vinyl)
-				}
-			}
-		}
-		
-		return result
+                
+        if(name) {
+                for(vinyl in vinyls) {
+                        if(vinyl.artist && vinyl.artist.toLowerCase().contains(name.toLowerCase())) {
+                                result.add(vinyl)
+                        }
+                }
+        }
+        
+        return result
 	}
 	
 	public List<Vinyl> searchVinylByYear(year) {
@@ -185,6 +211,12 @@ class DB {
 	public List getArtists() {
 		List result = artists
 		return artists*.name
+	}
+	
+	
+	public List getGenres() {
+		List result = genres
+		return genres*.name
 	}
 	
 	public static DB connect() {
