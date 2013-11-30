@@ -144,7 +144,9 @@ class VinylCollectionApp extends App {
 	void bootstrap() {
 		db.reset()
 		
-		preloadedVinyls.each { vinylController.create it }
+		for(vinyl in preloadedVinyls) {
+			vinylController.create(vinyl)
+		}
 	}
 	
 	public static void main(String[] args) {
