@@ -29,4 +29,13 @@ class ReportSpec extends Specification {
 		then:
 		report.data == [:]
 	}
+	
+	def "should consider two reports equals if they have the same data"() {
+		when:
+		def report1 = new Report(data:["a":1, "b":2])
+		def report2 = new Report(data:["a":1, "b":2])
+		
+		then:
+		report1 == report2
+	}
 }

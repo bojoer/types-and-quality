@@ -9,4 +9,5 @@
 **/.settings/
 **/.project
 **/*typed/data
+**/original/data
 **/data/**/build.gradle

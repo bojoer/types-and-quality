@@ -77,7 +77,7 @@ class DB {
 	}
 	
 	void removeVinyl(Integer id) {
-		Vinyl vinyl = vinyls.find{it.id == id}
+		Vinyl vinyl = getVinyl(id)
 		
 		vinyls.remove(vinyl)
 		

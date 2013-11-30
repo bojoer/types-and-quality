@@ -100,7 +100,9 @@ class VinylFunctionalSpec extends Specification {
 		1 * app.console.render { View view ->
 			view.items == ["Listing 1 items matching 'chu'", app.preloadedVinyls[5]]
 		}
-		
+	}
+	
+	def "should not find an uniexistant vinyl"() {
 		when:
 		app.execute "search vinyl UNEXISTENT"
 		
@@ -113,7 +115,6 @@ class VinylFunctionalSpec extends Specification {
 	def "should create a vinyl"() {
 		given:
 		def newVinyl = new Vinyl(artist:"Artist", title:"Title", songs:["Song 1", "Song 2"], year:"1990", genre:"Genre")
-		def expectedForm = new Form("Please enter the vinyl details below", "Artist", "Title", "Songs", "Year", "Genre")
 		
 		when:
 		app.execute "create vinyl"
@@ -135,7 +136,6 @@ class VinylFunctionalSpec extends Specification {
 		app.execute "list vinyl"
 		
 		then:
-		then:
 		1 * app.console.render { View view ->
 			view.items == ["Listing 8 items"] + app.preloadedVinyls + newVinyl
 		}
@@ -149,7 +149,7 @@ class VinylFunctionalSpec extends Specification {
 		}
 	}
 	
-	def "should note create an invalid vinyl"() {
+	def "should not create an invalid vinyl"() {
 		given:
 		app.console.apply(_) >> { Form form -> form.fields = ["Artist":"", "Title":"", "Songs":"", "Year":"", "Genre":""] }
 		
