@@ -4,9 +4,9 @@ import spock.lang.Specification
 import carlosgsouza.derails.Console
 import carlosgsouza.derails.View
 import carlosgsouza.vinylshop.VinylCollectionApp
-import carlosgsouza.vinylshop.model.Report
 
 class YearFunctionalSpec extends Specification {
+	
 	
 	VinylCollectionApp app 
 	
