@@ -17,11 +17,16 @@ class SummarySpec extends Specification {
 	}
 	
 	def "should consider two summary to be equal if their fields have the same values"() {
-		when:
-		def summary1 = new Summary(vinylCount:7, artistCount: 6, songCount:18, genreCount:4)
-		def summary2 = new Summary(vinylCount:7, artistCount: 6, songCount:18, genreCount:4)
+		expect:
+		equals == summary1.equals(summary2)
 		
-		then:
-		summary1 == summary2
+		where:
+		equals	| summary1																| summary2
+		true	| new Summary(vinylCount:7, artistCount: 6, songCount:1, genreCount:4)	| new Summary(vinylCount:7, artistCount: 6, songCount:1, genreCount:4)
+		false	| new Summary(vinylCount:0, artistCount: 6, songCount:1, genreCount:4)	| new Summary(vinylCount:7, artistCount: 6, songCount:1, genreCount:4)
+		false	| new Summary(vinylCount:7, artistCount: 0, songCount:1, genreCount:4)	| new Summary(vinylCount:7, artistCount: 6, songCount:1, genreCount:4)
+		false	| new Summary(vinylCount:7, artistCount: 6, songCount:0, genreCount:4)	| new Summary(vinylCount:7, artistCount: 6, songCount:1, genreCount:4)
+		false	| new Summary(vinylCount:7, artistCount: 6, songCount:1, genreCount:0)	| new Summary(vinylCount:7, artistCount: 6, songCount:1, genreCount:4)
+		false	| new Summary(vinylCount:0, artistCount: 0, songCount:0, genreCount:0)	| new Summary(vinylCount:7, artistCount: 6, songCount:1, genreCount:4)
 	}
 }
