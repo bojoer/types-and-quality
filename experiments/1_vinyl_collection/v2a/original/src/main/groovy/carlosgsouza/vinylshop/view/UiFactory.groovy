@@ -100,15 +100,6 @@ public class UiFactory {
 		new View(items)
 	}
 	
-	public View listYears(List<String> list) {
-		def items = []
-		
-		items.add "Listing $list.size years"
-		items.addAll list
-		
-		new View(items)
-	}
-	
 	public View showSummary(Summary summary) {
 		def items = []
 		

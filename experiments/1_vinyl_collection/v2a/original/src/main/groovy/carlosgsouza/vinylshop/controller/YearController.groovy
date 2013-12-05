@@ -7,10 +7,6 @@ class YearController {
 	
 	DB db = DB.connect()
 	
-	List<String> list() {
-		db.years
-	}
-	
 	List<Vinyl> search(String Year) {
 		db.searchVinylByYear(Year)
 	}

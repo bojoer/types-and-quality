@@ -195,16 +195,6 @@ class VinylCollectionAppSpec extends Specification {
 		1 * console.render(view)
 	}
 	
-	def "should list all years"() {
-		when:
-		app.routeRequest("year", "list", null)
-		
-		then:
-		1 * yearController.list() >> ["Year 1", "Year 2"]
-		1 * uiFactory.listYears(["Year 1", "Year 2"]) >> view
-		1 * console.render(view)
-	}
-	
 	def "should list all songs"() {
 		when:
 		app.routeRequest("song", "list", null)

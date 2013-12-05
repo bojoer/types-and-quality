@@ -40,8 +40,6 @@ public class UiFactorySpec extends Specification {
 		uiFactory.listSongs(["1", "2"]).items.size() ==  1 + 2
 		uiFactory.listGenres([]).items.size() ==  1    
 		uiFactory.listGenres(["1", "2"]).items.size() ==  1 + 2
-		uiFactory.listYears([]).items.size() ==  1    
-		uiFactory.listYears(["1", "2"]).items.size() ==  1 + 2
 		uiFactory.showSummary(summary).items.size() ==  2
 		uiFactory.showReport("", report).items.size() ==  2
 		

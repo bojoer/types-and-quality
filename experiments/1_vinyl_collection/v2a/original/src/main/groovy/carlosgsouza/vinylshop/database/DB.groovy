@@ -66,16 +66,6 @@ class DB {
 		}
 	}
 	
-	List<String> getYears() {
-		Set<String> uniqueEntries = new TreeSet<String>()
-		
-		for(vinyl in vinyls) {
-			uniqueEntries.add(vinyl.year)	
-		}
-		
-		return new ArrayList<String>(uniqueEntries)
-	}
-	
 	List<String> getSongs() {
 		Set<String> uniqueEntries = new TreeSet<String>()
 		

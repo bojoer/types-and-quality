@@ -213,31 +213,6 @@ class DBSpec extends Specification {
 		result == [vinylA]
 	}
 	
-	def "should list the set of all Years"() {
-		given:
-		db.addVinyl(vinylA)
-		db.addVinyl(vinylB)
-		db.addVinyl(vinylC)
-		
-		when:
-		def result = db.years
-		
-		then:
-		result == ["2001", "2002", "2003"]
-	}
-	
-	def "should not repeat an Year on the list of Years"() {
-		given:
-		5.times{ db.addVinyl(vinylA) }
-		
-		when:
-		def result = db.years
-		
-		then:
-		result == ["2001"]
-	}
-	
-	
 	def "should list the set of all Songs"() {
 		given:
 		db.addVinyl(vinylA)

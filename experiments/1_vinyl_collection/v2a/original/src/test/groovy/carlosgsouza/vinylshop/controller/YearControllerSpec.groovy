@@ -26,17 +26,6 @@ class YearControllerSpec extends Specification {
 		controller = new YearController(db:db)
 	}
 	
-	def "should list tall Years of all vinyls on the database"() {
-		when:
-		def all = controller.list()
-		
-		then:
-		1 * db.years >> ["A", "B", "C"]
-		
-		and:
-		all == ["A", "B", "C"]
-	}
-	
 	def "should search for vinyls by Year"() {
 		when:
 		def all = controller.search("Year name")

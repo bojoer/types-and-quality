@@ -9,13 +9,16 @@ import carlosgsouza.vinylshop.model.Vinyl
 
 class VinylFunctionalSpec extends Specification {
 	
-	VinylCollectionApp app 
+	VinylCollectionApp app
+	def vinylsSortedByYear
 	
 	def setup() {
 		app = new VinylCollectionApp()
 		app.console = Mock(Console)
 		
 		app.bootstrap()
+		
+		vinylsSortedByYear = app.preloadedVinyls.sort{ it.year}
 	}
 	
 	def "should list vinyls"() {
@@ -24,7 +27,7 @@ class VinylFunctionalSpec extends Specification {
 		
 		then:
 		1 * app.console.render { View view ->
-			view.items == ["Listing 7 items"] + app.preloadedVinyls
+			view.items == ["Listing 7 items"] + vinylsSortedByYear
 		}
 	}
 	
@@ -62,7 +65,7 @@ class VinylFunctionalSpec extends Specification {
 		
 		then:
 		1 * app.console.render { View view ->
-			view.items == ["Listing 6 items"] + app.preloadedVinyls - app.preloadedVinyls[6]
+			view.items == ["Listing 6 items"] + vinylsSortedByYear - app.preloadedVinyls[6]
 		}
 	}
 	
@@ -114,7 +117,7 @@ class VinylFunctionalSpec extends Specification {
 	
 	def "should create a vinyl"() {
 		given:
-		def newVinyl = new Vinyl(artist:"Artist", title:"Title", songs:["Song 1", "Song 2"], year:"1990", genre:"Genre")
+		def newVinyl = new Vinyl(artist:"Artist", title:"Title", songs:["Song 1", "Song 2"], year:"2013", genre:"Genre")
 		
 		when:
 		app.execute "create vinyl"
@@ -137,7 +140,7 @@ class VinylFunctionalSpec extends Specification {
 		
 		then:
 		1 * app.console.render { View view ->
-			view.items == ["Listing 8 items"] + app.preloadedVinyls + newVinyl
+			view.items == ["Listing 8 items"] + vinylsSortedByYear + newVinyl
 		}
 			
 		when:
