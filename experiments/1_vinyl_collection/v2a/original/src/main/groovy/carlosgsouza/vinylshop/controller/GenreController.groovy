@@ -21,7 +21,7 @@ class GenreController {
 			}
 		}
 		
-		if(!itemExists) {
+		if(itemExists) {
 			db.searchVinylByGenre(genreName)
 		} else {
 			return []

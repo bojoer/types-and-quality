@@ -196,7 +196,7 @@ class DB {
 			genreNames.add(genre.name)
 		}
 
-		return result
+		return genreNames
 	}
 
 	public static DB connect() {

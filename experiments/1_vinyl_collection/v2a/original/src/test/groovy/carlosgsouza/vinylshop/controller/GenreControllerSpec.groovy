@@ -45,7 +45,8 @@ class GenreControllerSpec extends Specification {
 	
 	def "should search for vinyls by Genre"() {
 		given:
-		db.getGenres() >> [genreA, genreB]
+		// this behavior is incorrect. This should actually return the genre model objects
+		db.getGenres() >> ["A", "B"] 
 		
 		when:
 		def all = controller.search("B")
@@ -54,7 +55,7 @@ class GenreControllerSpec extends Specification {
 		1 * db.searchVinylByGenre("B") >> [vinylB1, vinylB2]
 		
 		and:
-		all == [vinylA]
+		all == [vinylB1, vinylB2]
 	}
 	
 	
