@@ -14,10 +14,13 @@ class GenreController {
 	
 	List<Genre> search(String genreName) {
 		boolean itemExists = false
-		for(item in db.getGenres()) {
-			if(item.toLowerCase().equals(genreName.toLowerCase())) {
-				itemExists = true
-				break
+		
+		if(!itemExists) {
+			for(item in db.getGenres()) {
+				if(item.toLowerCase().equals(genreName.toLowerCase())) {
+					itemExists = true
+					break
+				}
 			}
 		}
 		

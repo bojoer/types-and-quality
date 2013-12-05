@@ -17,7 +17,7 @@ class GenreFunctionalSpec extends Specification {
 		
 		app.bootstrap()
 		
-		app.db.genres.each {
+		app.db.@genres.each {
 			genres[it.name] = it
 		}
 	}
