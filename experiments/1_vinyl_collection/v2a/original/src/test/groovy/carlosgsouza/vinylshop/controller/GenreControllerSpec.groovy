@@ -2,6 +2,7 @@ package carlosgsouza.vinylshop.controller
 
 import spock.lang.Specification
 import carlosgsouza.vinylshop.database.DB
+import carlosgsouza.vinylshop.model.Genre
 import carlosgsouza.vinylshop.model.Vinyl
 
 
@@ -12,13 +13,19 @@ class GenreControllerSpec extends Specification {
 	DB db
 	
 	Vinyl vinylA
-	Vinyl vinylB
-	Vinyl vinylC
+	Vinyl vinylB1
+	Vinyl vinylB2
+	
+	Genre genreA
+	Genre genreB
 	
 	def setup() {
-		vinylA = new Vinyl(id:1, artist:"A", title:"A", songs:["A1", "A2", "A3"], year:"A", genre:"A")
-		vinylB = new Vinyl(id:2, artist:"B", title:"B", songs:["B1", "B2", "B3"], year:"B", genre:"B")
-		vinylC = new Vinyl(id:3, artist:"C", title:"C", songs:["C1", "C2", "C3"], year:"C", genre:"C")
+		vinylA = new Vinyl(id:1, artist:"A", title:"A", songs:["A1", "A2", "A3"], year:"0", genre:"A")
+		vinylB1 = new Vinyl(id:2, artist:"B1", title:"B1", songs:["B11", "B12", "B13"], year:"1", genre:"B")
+		vinylB2 = new Vinyl(id:3, artist:"B2", title:"B2", songs:["B21", "B22", "B23"], year:"2", genre:"B")
+		
+		genreA = new Genre(name:"A", vinyls:[vinylA])
+		genreB = new Genre(name:"B", vinyls:[vinylB1, vinylB2])
 		
 		db = Mock(DB)
 		
@@ -37,14 +44,17 @@ class GenreControllerSpec extends Specification {
 	}
 	
 	def "should search for vinyls by Genre"() {
+		given:
+		db.getGenres() >> [genreA, genreB]
+		
 		when:
-		def all = controller.search("Genre name")
+		def all = controller.search("B")
 		
 		then:
-		1 * db.searchVinylByGenre("Genre name") >> [vinylA, vinylB]
+		1 * db.searchVinylByGenre("B") >> [vinylB1, vinylB2]
 		
 		and:
-		all == [vinylA, vinylB]
+		all == [vinylA]
 	}
 	
 	
