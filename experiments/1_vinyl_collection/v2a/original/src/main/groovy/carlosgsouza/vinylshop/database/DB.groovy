@@ -189,7 +189,13 @@ class DB {
 	
 	public List getGenres() {
 		List result = genres
-		return genres*.name
+		
+		List<String> genreNames = new ArrayList<String>()
+		for(Genre genre : genres) {
+			genreNames.add(genre.name)
+		}
+		
+		return genreNames
 	}
 	
 	public static DB connect() {
