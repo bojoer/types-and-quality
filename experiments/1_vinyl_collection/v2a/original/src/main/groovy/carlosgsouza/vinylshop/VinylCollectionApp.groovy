@@ -94,10 +94,6 @@ class VinylCollectionApp extends App {
 			}
 		} else if(controller == "year") {
 			switch(action) {
-				case "list":
-					def years = yearController.list()
-					console.render uiFactory.listYears(years)
-					return
 				case "search":
 					def years = yearController.search(parameter)
 					console.render uiFactory.searchByYear(parameter, years)
