@@ -31,8 +31,6 @@ public class UiFactorySpec extends Specification {
 		uiFactory.searchByYear("", [vinylA]).items.size() ==  1 + 1
 		uiFactory.searchByArtist("", []).items.size() ==  1
 		uiFactory.searchByArtist("", [vinylA]).items.size() ==  1 + 1
-		uiFactory.searchBySong("", []).items.size() ==  1
-		uiFactory.searchBySong("", [vinylA]).items.size() ==  1 + 1
 		uiFactory.showVinyl(vinylA).items.size() ==  1
 		uiFactory.deleteVinyl().items.size() ==  1
 		uiFactory.createVinyl().items.size() ==  1

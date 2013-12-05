@@ -91,10 +91,6 @@ class VinylCollectionApp extends App {
 					def artists = songController.list()
 					console.render uiFactory.listSongs(artists)
 					return
-				case "search":
-					def artists = songController.search(parameter)
-					console.render uiFactory.searchBySong(parameter, artists)
-					return
 			}
 		} else if(controller == "year") {
 			switch(action) {

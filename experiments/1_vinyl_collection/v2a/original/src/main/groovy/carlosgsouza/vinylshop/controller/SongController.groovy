@@ -11,8 +11,4 @@ class SongController {
 		db.songs
 	}
 	
-	List<Vinyl> search(String Song) {
-		db.searchVinylBySong(Song)
-	}
-	
 }

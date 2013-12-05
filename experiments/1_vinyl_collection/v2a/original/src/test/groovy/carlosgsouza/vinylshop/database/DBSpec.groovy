@@ -66,6 +66,7 @@ class DBSpec extends Specification {
 		expect:
 		db.artists != []
 		db.vinyls != []
+		db.genres != []
 		
 		when:
 		db.reset()
@@ -73,6 +74,7 @@ class DBSpec extends Specification {
 		then:
 		db.artists == []
 		db.vinyls == []
+		db.genres == []
 	}
 	
 	def "should auto generate an id and add it to the database"() {
@@ -402,44 +404,6 @@ class DBSpec extends Specification {
 		result == [vinylA, vinylA]
 	}
 	
-	def "should search for vinyls by Song"() {
-		given:
-		db.addVinyl(vinylA)
-		db.addVinyl(vinylB)
-		db.addVinyl(vinylC)
-		
-		when:
-		def result = db.searchVinylBySong("A1")
-		
-		then:
-		result == [vinylA]
-	}
-	
-	def "should return an empty list if the search for vinyls by Song doesn't match any elements"() {
-		given:
-		db.addVinyl(vinylA)
-		db.addVinyl(vinylB)
-		db.addVinyl(vinylC)
-		
-		when:
-		def result = db.searchVinylBySong("no match")
-		
-		then:
-		result == []
-	}
-	
-	def "should return multiple vinyls if the search by Song matches multiple items"() {
-		given:
-		db.addVinyl(vinylA)
-		db.addVinyl(vinylA)
-		db.addVinyl(vinylC)
-		
-		when:
-		def result = db.searchVinylBySong("A1")
-		
-		then:
-		result == [vinylA, vinylA]
-	}
 	
 	def "should add an artist to the database whenever an album with a new artist is added"() {
 		given:

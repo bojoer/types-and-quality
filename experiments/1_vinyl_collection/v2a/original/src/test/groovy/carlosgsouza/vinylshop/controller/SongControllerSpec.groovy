@@ -35,18 +35,5 @@ class SongControllerSpec extends Specification {
 		all == ["A", "B", "C"]
 	}
 	
-	def "should search for vinyls by Song"() {
-		when:
-		def all = controller.search("Song name")
-		
-		then:
-		1 * db.searchVinylBySong("Song name") >> [vinylA, vinylB]
-		
-		and:
-		all == [vinylA, vinylB]
-	}
-	
-	
-	
 	
 }

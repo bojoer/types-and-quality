@@ -190,23 +190,6 @@ class DB {
 		return result
 	}
 	
-	public List<Vinyl> searchVinylBySong(String songName) {
-		List<Vinyl> result = new ArrayList<Vinyl>()
-		
-		if(songName) {
-			for(vinyl in vinyls) {
-				for(song in vinyl.songs) {
-					if(song && song.toLowerCase().contains(songName.toLowerCase())) {
-						result.add(vinyl)
-						break
-					}
-				}
-			}
-		}
-		
-		return result
-	}
-	
 	
 	public List getArtists() {
 		List result = artists
@@ -226,5 +209,6 @@ class DB {
 	public void reset() {
 		artists = []
 		vinyls = []
+		genres = []
 	}
 }

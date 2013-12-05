@@ -205,16 +205,6 @@ class VinylCollectionAppSpec extends Specification {
 		1 * console.render(view)
 	}
 	
-	def "should search for an song"() {
-		when:
-		app.routeRequest("song", "search", "Art")
-		
-		then:
-		1 * songController.search("Art") >> [vinylA, vinylB]
-		1 * uiFactory.searchBySong("Art", [vinylA, vinylB]) >> view
-		1 * console.render(view)
-	}
-	
 	def "should list all songs"() {
 		when:
 		app.routeRequest("song", "list", null)

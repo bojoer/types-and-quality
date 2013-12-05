@@ -48,16 +48,6 @@ public class UiFactory {
 	}
 	
 	
-	public View searchBySong(String query, List<Vinyl> vinylList) {
-		def items = []
-		
-		items.add "Listing $vinylList.size with song matching '$query'"
-		items.addAll vinylList
-		
-		new View(items)
-	}
-	
-	
 	public View searchByArtist(String query, List<Vinyl> vinylList) {
 		def items = []
 		
