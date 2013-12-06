@@ -2,6 +2,7 @@ package carlosgsouza.vinylshop.controller
 
 import carlosgsouza.vinylshop.database.DB
 import carlosgsouza.vinylshop.model.Summary
+import carlosgsouza.vinylshop.model.Vinyl
 
 class SummaryController {
 	
@@ -10,12 +11,20 @@ class SummaryController {
 	Summary show() {
 		Summary result = new Summary()
 		
-		def vinyls = db.vinyls
+		result.vinylCount = db.vinyls.size()
+		result.artistCount = db.artists.size()
+		result.genreCount = db.genres.size()
+		result.songCount = songCount(db.vinyls)
 		
-		result.vinylCount = vinyls.size()
-		result.artistCount = vinyls*.artist.unique().size()
-		result.genreCount = vinyls*.genre.unique().size()
-		result.songCount = vinyls*.songs.flatten().size()
+		return result
+	}
+	
+	private int songCount(List<Vinyl> vinyls) {
+		int result = 0
+		
+		for(Vinyl vinyl in vinyls) {
+			result += vinyl.songs.size()
+		}
 		
 		return result
 	}

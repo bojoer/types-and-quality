@@ -18,9 +18,9 @@ class ArtistSpec extends Specification {
 	
 	def "should generate a string with the name of the artist and his/her albuns"() {
 		when:
-		def artistWithNoVinyls = new Artist(name: "Artist", vinyls:[]).toString()
-		def artistWithOneVinyl = new Artist(name: "Artist", vinyls:[vinylA]).toString()
-		def artistWithManyVinyls = new Artist(name: "Artist", vinyls:[vinylA, vinylB, vinylC]).toString()
+		def artistWithNoVinyls = new Artist(name: "Artist", vinyls:[])
+		def artistWithOneVinyl = new Artist(name: "Artist", vinyls:[vinylA])
+		def artistWithManyVinyls = new Artist(name: "Artist", vinyls:[vinylA, vinylB, vinylC])
 		
 		then:
 		artistWithNoVinyls.toString() == "Artist, Vinyls:[]"

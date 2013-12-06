@@ -5,6 +5,7 @@ import carlosgsouza.derails.Console
 import carlosgsouza.derails.View
 import carlosgsouza.vinylshop.VinylCollectionApp
 import carlosgsouza.vinylshop.model.Report
+import carlosgsouza.vinylshop.model.Vinyl
 
 class ReportFunctionalSpec extends Specification {
 	
@@ -24,6 +25,22 @@ class ReportFunctionalSpec extends Specification {
 		then:
 		1 * app.console.render { View view ->
 			view.items == ["Artist Report", new Report(data:["Number of artists":"6", "Top artist":"Pearl Jam", "Number of vinyls by Pearl Jam": "2", "Number of songs by Pearl Jam":"5"] ) ]
+		}
+	}
+	
+	def "should show an artist report when we have vinyls with more than one artist"() {
+		given:
+		def vinylWithTwoArtists = new Vinyl(artist:["Pearl Jam", "Ximbinha"], title:"Hard Metal, Soft Heart", songs:["Even Fu™", "Ahhhhhlive"], year:"2014", genre:"Rockalypso")
+		
+		and:
+		app.vinylController.create vinylWithTwoArtists
+		
+		when:
+		app.execute "artist report"
+		
+		then:
+		1 * app.console.render { View view ->
+			view.items == ["Artist Report", new Report(data:["Number of artists":"7", "Top artist":"Pearl Jam", "Number of vinyls by Pearl Jam": "3", "Number of songs by Pearl Jam":"7"] ) ]
 		}
 	}
 	

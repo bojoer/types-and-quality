@@ -4,16 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Artist {
-	String name = "";
+	def name = "";
 	List<Vinyl> vinyls = new ArrayList<Vinyl> ();
 	
-	public Artist(String name, List<Vinyl> vinyls) {
+	public Artist(name, List<Vinyl> vinyls) {
 		this.name = name;
 		this.vinyls = vinyls;
-	}
-	
-	public Artist(String name) {
-		this(name, new ArrayList<Vinyl>());
 	}
 	
 	public Artist() {
@@ -27,11 +23,11 @@ public class Artist {
 			vinylNames.add(vinyl.getTitle());
 		}
 		
-		return name + ", Vinyls:" + vinylNames;
+		return "$name, Vinyls:$vinylNames"
 	}
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this.is(obj))
 			return true;
 		if (obj == null)
 			return false;

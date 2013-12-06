@@ -23,7 +23,7 @@ class DB {
 		}
 	}
 
-	private Artist findArtist(String name) {
+	private Artist findArtist(name) {
 		for(artist in artists) {
 			if(artist && artist.name == name) {
 				return artist
@@ -54,7 +54,7 @@ class DB {
 		if(existingArtist) {
 			existingArtist.vinyls << vinyl
 		} else {
-			artists << new Artist(name:vinyl.artist, vinyls:[vinyl])
+			artists << new Artist(name:vinyl.artist.trim(), vinyls:[vinyl])
 		}
 	}
 

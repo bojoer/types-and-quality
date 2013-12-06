@@ -17,7 +17,7 @@ class GenreController {
 		
 		if(!itemExists) {
 			for(item in db.getGenres()) {
-				if(item.toLowerCase().equals(genreName.toLowerCase())) {
+				if(item.toLowerCase().contains(genreName.toLowerCase())) {
 					itemExists = true
 					break
 				}

@@ -2,7 +2,7 @@ package carlosgsouza.vinylshop.model
 
 class Vinyl {
 	Integer id
-	String artist
+	def artist
 	String title
 	List<String> songs
 	String year

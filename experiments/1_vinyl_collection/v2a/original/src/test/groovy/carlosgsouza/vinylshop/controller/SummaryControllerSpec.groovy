@@ -10,8 +10,6 @@ class SummaryControllerSpec extends Specification {
 	
 	SummaryController controller
 	
-	DB db
-	
 	Vinyl vinylA
 	Vinyl vinylB
 	Vinyl vinylC
@@ -21,19 +19,21 @@ class SummaryControllerSpec extends Specification {
 		vinylB = new Vinyl(id:2, artist:"A", title:"B", songs:["B1", "B2", "B3"], year:"B", genre:"B")
 		vinylC = new Vinyl(id:3, artist:"C", title:"C", songs:["C1", "C2"], year:"C", genre:"B")
 		
-		db = Mock(DB)
+		controller = new SummaryController()
 		
-		controller = new SummaryController(db:db)
+		controller.db.reset()
 	}
 	
 	def "should count the number of vinyls, artist, songs and genres"() {
+		given:
+		controller.db.addVinyl vinylA
+		controller.db.addVinyl vinylB
+		controller.db.addVinyl vinylC
+		
 		when:
 		def summary = controller.show()
 		
 		then:
-		1 * db.vinyls >> [vinylA, vinylB, vinylC]
-		
-		and:
 		summary.vinylCount == 3
 		summary.artistCount == 2
 		summary.songCount == 8
@@ -41,13 +41,15 @@ class SummaryControllerSpec extends Specification {
 	}
 	
 	def "should not count duplicated artists or genres"() {
+		given:
+		controller.db.addVinyl vinylA
+		controller.db.addVinyl vinylA
+		controller.db.addVinyl vinylA
+		
 		when:
 		def summary = controller.show()
 		
 		then:
-		1 * db.vinyls >> [vinylA, vinylA, vinylA]
-		
-		and:
 		summary.vinylCount == 3
 		summary.artistCount == 1
 		summary.songCount == 9
@@ -59,13 +61,10 @@ class SummaryControllerSpec extends Specification {
 		def summary = controller.show()
 		
 		then:
-		1 * db.vinyls >> [vinylA, vinylA, vinylA]
-		
-		and:
-		summary.vinylCount == 3
-		summary.artistCount == 1
-		summary.songCount == 9
-		summary.genreCount == 1
+		summary.vinylCount == 0
+		summary.artistCount == 0
+		summary.songCount == 0
+		summary.genreCount == 0
 	}
 	
 }
