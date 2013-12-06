@@ -54,7 +54,7 @@ class DB {
 		if(existingArtist) {
 			existingArtist.vinyls << vinyl
 		} else {
-			artists << new Artist(name:vinyl.artist.trim(), vinyls:[vinyl])
+			artists << new Artist(name:vinyl.artist, vinyls:[vinyl])
 		}
 	}
 

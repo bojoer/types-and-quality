@@ -1,4 +1,4 @@
-package carlosgsouza.vinylshop.functional
+package carlosgsouza.vinylshop.functional.v1
 
 import java.util.List;
 
@@ -40,10 +40,7 @@ class ArtistFunctionalSpec extends Specification {
 	
 	def "should search for vinyls given the artist"() {
 		given:
-		def bornToDie = preloadedVinyls[0]
-		
-		expect:
-		bornToDie.artist == "Lana Del Rey"
+		def bornToDie = app.preloadedVinyls[0]
 		
 		when:
 		app.execute "search artist Lana Del Rey"
@@ -56,10 +53,7 @@ class ArtistFunctionalSpec extends Specification {
 	
 	def "should ignore the case when searching for vinyls given the artist"() {
 		given:
-		def bornToDie = preloadedVinyls[0]
-		
-		expect:
-		bornToDie.artist == "Lana Del Rey"
+		def bornToDie = app.preloadedVinyls[0]
 		
 		when:
 		app.execute "search artist lAna DEl rEy"
@@ -72,10 +66,7 @@ class ArtistFunctionalSpec extends Specification {
 	
 	def "should match partially when searching for vinyls given the artist"() {
 		given:
-		def bornToDie = preloadedVinyls[0]
-		
-		expect:
-		bornToDie.artist == "Lana Del Rey"
+		def bornToDie = app.preloadedVinyls[0]
 		
 		when:
 		app.execute "search artist Lana"
@@ -103,40 +94,6 @@ class ArtistFunctionalSpec extends Specification {
 		then:
 		1 * app.console.render { View view ->
 			view.items == ["Listing 0 with artist matching 'Tiririca'"]
-		}
-	}
-	
-	def "should list artists of vinyls with more than one artist"() {
-		given:
-		def vinylWithTwoArtists = new Vinyl(artist:["Vitor", "Leo"], title:"Vida Boa", songs:["Fada", "Arapuca"], year:"2004", genre:"Sertanejo")
-		
-		and:
-		app.db.reset()
-		app.vinylController.create vinylWithTwoArtists
-		
-		when:
-		app.execute "list artist"
-		
-		then:
-		1 * app.console.render { View view ->
-			view.items == ["Listing 2 artists", "Vitor", "Leo"]
-		}
-	}
-	
-	def "should search artists of vinyls with more than one artist"() {
-		given:
-		def vinylWithTwoArtists = new Vinyl(artist:["Vitor", "Leo"], title:"Vida Boa", songs:["Fada", "Arapuca"], year:"2004", genre:"Sertanejo")
-		
-		and:
-		app.db.reset()
-		app.vinylController.create vinylWithTwoArtists
-		
-		when:
-		app.execute "search artist Vit"
-		
-		then:
-		1 * app.console.render { View view ->
-			view.items == ["Listing 1 with artist matching 'Vit'"] + vinylWithTwoArtists
 		}
 	}
 }

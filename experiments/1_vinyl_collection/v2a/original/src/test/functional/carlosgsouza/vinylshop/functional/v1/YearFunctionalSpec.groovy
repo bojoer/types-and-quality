@@ -1,4 +1,4 @@
-package carlosgsouza.vinylshop.functional
+package carlosgsouza.vinylshop.functional.v1
 
 import spock.lang.Specification
 import carlosgsouza.derails.Console
@@ -15,16 +15,6 @@ class YearFunctionalSpec extends Specification {
 		app.console = Mock(Console)
 		
 		app.bootstrap()
-	}
-	
-	def "should list all years"() {
-		when:
-		app.execute "list year"
-		
-		then:
-		1 * app.console.render { View view ->
-			view.items == ["Listing 6 years", "2000", "2004", "2009", "2010",  "2012", "2013"]
-		}
 	}
 	
 	def "should search for vinyls given the year"() {

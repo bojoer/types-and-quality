@@ -1,4 +1,4 @@
-package carlosgsouza.vinylshop.functional
+package carlosgsouza.vinylshop.functional.v1
 
 import spock.lang.Specification
 import carlosgsouza.derails.Console
@@ -19,16 +19,6 @@ class GenreFunctionalSpec extends Specification {
 		
 		app.db.@genres.each {
 			genres[it.name] = it
-		}
-	}
-	
-	def "should list all genres"() {
-		when:
-		app.execute "list genre"
-		
-		then:
-		1 * app.console.render { View view ->
-			view.items == ["Listing 4 genres", genres["Pop"], genres["Rock"], genres["Metal"], genres["Alternative"]]
 		}
 	}
 	
