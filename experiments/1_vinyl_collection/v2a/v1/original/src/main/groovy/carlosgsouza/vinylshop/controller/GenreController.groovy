@@ -4,16 +4,16 @@ import carlosgsouza.vinylshop.database.DB
 import carlosgsouza.vinylshop.model.Genre
 import carlosgsouza.vinylshop.model.Vinyl
 
-class GenreController {
+public class GenreController {
 	
 	DB db = DB.connect()
 	
 	List<String> list() {
-		db.genres
+		return db.genres
 	}
 	
 	List<Genre> search(String genreName) {
-		db.searchVinylByGenre(genreName)
+		return db.searchVinylByGenre(genreName)
 	}
 	
 }

@@ -5,7 +5,7 @@ import carlosgsouza.vinylshop.model.Report
 import carlosgsouza.vinylshop.model.Vinyl
 
 
-class ReportController {
+public class ReportController {
 	
 	DB db = DB.connect()
 	

@@ -3,12 +3,12 @@ package carlosgsouza.vinylshop.controller
 import carlosgsouza.vinylshop.database.DB
 import carlosgsouza.vinylshop.model.Vinyl
 
-class VinylController {
+public class VinylController {
 	
 	DB db = DB.connect()
 	
 	List<Vinyl> list() {
-		db.vinyls
+		return db.vinyls
 	}
 	
 	Vinyl get(Integer id) {
@@ -20,7 +20,7 @@ class VinylController {
 			throw new IllegalArgumentException("Vinyl doesn't exist")
 		}
 		
-		db.getVinyl(id)
+		return db.getVinyl(id)
 	}
 	
 	Integer create(Map fields) {
@@ -43,7 +43,7 @@ class VinylController {
 			throw new IllegalArgumentException("Can't create invalid vinyl")
 		}
 		
-		db.addVinyl(vinyl)
+		return db.addVinyl(vinyl)
 	}
 	
 	void delete(Integer id) {
@@ -62,7 +62,7 @@ class VinylController {
 			throw new IllegalArgumentException("Must provide a title for the vinyl search")
 		}
 		
-		db.searchVinylByTitle(title)
+		return db.searchVinylByTitle(title)
 	}
 	
 }

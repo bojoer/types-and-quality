@@ -4,7 +4,7 @@ import carlosgsouza.vinylshop.database.DB
 import carlosgsouza.vinylshop.model.Summary
 import carlosgsouza.vinylshop.model.Vinyl
 
-class SummaryController {
+public class SummaryController {
 	
 	DB db = DB.connect()
 	

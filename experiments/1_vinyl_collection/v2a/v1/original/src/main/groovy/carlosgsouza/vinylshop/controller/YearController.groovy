@@ -8,7 +8,7 @@ class YearController {
 	DB db = DB.connect()
 	
 	List<Vinyl> search(String Year) {
-		db.searchVinylByYear(Year)
+		return db.searchVinylByYear(Year)
 	}
 	
 }

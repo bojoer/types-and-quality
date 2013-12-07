@@ -4,16 +4,16 @@ import carlosgsouza.vinylshop.database.DB
 import carlosgsouza.vinylshop.model.Artist
 import carlosgsouza.vinylshop.model.Vinyl
 
-class ArtistController {
+public class ArtistController {
 	
 	DB db = DB.connect()
 	
 	List<Artist> list() {
-		db.artists
+		return db.artists
 	}
 	
 	List<Vinyl> search(String artist) {
-		db.searchVinylByArtist(artist)
+		return db.searchVinylByArtist(artist)
 	}
 	
 }
