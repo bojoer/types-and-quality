@@ -48,7 +48,7 @@ class UiFactory {
 		new SearchByYearView(query, vinyls)
 	}
 	
-	public View showReport(String type, Report report){
+	public View showReprot(String type, Report report){
 		new ShowReportView(type, report)
 	}
 	

@@ -27,6 +27,8 @@ class VinylCollectionApp extends App {
 	
 	DB db = DB.connect()
 	
+	private int c = 0
+	
 	UiFactory uiFactory = new UiFactory()
 	
 	List<Vinyl> preloadedVinyls = [
@@ -119,13 +121,20 @@ class VinylCollectionApp extends App {
 			}
 		} else if(controller == "report") {
 			switch(action) {
-				case "artist":
-					def report = reportController.artist()
-					console.render uiFactory.showReport("Artist", report)
-					return
 				case "genre":
 					def report = reportController.genre()
 					console.render uiFactory.showReport("Genre", report)
+					return
+				
+				case null:
+					if(c < 10) {
+						c++
+					}
+					return
+				
+				case "artist":
+					def report = reportController.artist()
+					console.render uiFactory.showReprot("Artist", report)
 					return
 			}
 		}
