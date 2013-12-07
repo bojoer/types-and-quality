@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Artist {
-	def name = "";
+	String name = "";
 	List<Vinyl> vinyls = new ArrayList<Vinyl> ();
 	
 	public Artist() {
@@ -15,14 +15,14 @@ public class Artist {
 		List<String> vinylNames = new ArrayList<String>();
 		
 		for(Vinyl vinyl : vinyls) {
-			vinylNames.add(vinyl.getTitle());
+			vinylNames.add(vinyl.title);
 		}
 		
-		return "$name, Vinyls:$vinylNames"
+		return name + ", Vinyls:" + vinylNames;
 	}
 	@Override
 	public boolean equals(Object obj) {
-		if (this.is(obj))
+		if (this == obj)
 			return true;
 		if (obj == null)
 			return false;

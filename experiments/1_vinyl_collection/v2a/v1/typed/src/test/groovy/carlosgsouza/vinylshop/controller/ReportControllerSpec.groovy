@@ -56,7 +56,10 @@ class ReportControllerSpec extends Specification {
 	
 	def "should generate a report about the genres"() {
 		given:
-		db.vinyls >> [vinylA, vinylB, vinylC, vinylD]
+		db.genres >> ["B", "C", "D"]
+		db.searchVinylByGenre("B") >> [vinylA, vinylB]
+		db.searchVinylByGenre("C") >> [vinylC]
+		db.searchVinylByGenre("D") >> [vinylD]
 		
 		when:
 		def report = controller.genre()
@@ -70,7 +73,7 @@ class ReportControllerSpec extends Specification {
 	
 	def "should generate genre report even when we have no vinyls on the DB"() {
 		given:
-		db.vinyls >> []
+		db.genres >> []
 		
 		when:
 		def report = controller.genre()
@@ -80,32 +83,4 @@ class ReportControllerSpec extends Specification {
 	}
 	
 	
-	/*
-	 * Unit tests for DB.artists returning artists and not their names
-	 * 
-	  
-	 def "should generate a report about the artists"() {
-		given:
-		db.vinyls >> [vinylA, vinylB, vinylC, vinylD]
-		
-		when:
-		def report = controller.artist()
-		
-		then:
-		report.data["Number of artists"] == "2"
-		report.data["Top artist"] == "A"
-		report.data["Number of vinyls by A"] == "3"
-		report.data["Number of songs by A"] == "4"
-	}
-	def "should generate an artist report even when we have no data on the DB"() {
-		given:
-		db.vinyls >> []
-		
-		when:
-		def report = controller.artist()
-		
-		then:
-		report.data == ["Number of artists": "0"]
-	}
-	*/
 }

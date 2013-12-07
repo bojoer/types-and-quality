@@ -5,14 +5,18 @@ import carlosgsouza.vinylshop.model.Genre
 import carlosgsouza.vinylshop.model.Vinyl
 
 class DB {
-	List<Vinyl> vinyls = []
-	List<Artist> artists = []
-	List<Genre> genres = []
+	public List<Vinyl> vinyls = []
+	public List<Artist> artists = []
+	public List<Genre> genres = []
 
 	private static DB instance = new DB()
 
 	private DB() {
 
+	}
+	
+	List<Vinyl> getVinyls() {
+		return this.vinyls;
 	}
 
 	Vinyl getVinyl(id) {

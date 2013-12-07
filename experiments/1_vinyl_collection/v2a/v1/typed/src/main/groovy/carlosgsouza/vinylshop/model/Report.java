@@ -1,15 +1,34 @@
-package carlosgsouza.vinylshop.model
+package carlosgsouza.vinylshop.model;
 
-class Report {
-	Map<String, String> data = [:]
+import java.util.*;
+
+public class Report {
+	Map<String, String> data = new HashMap<String, String>();
 	
 	@Override
 	public String toString() {
-		data.collect { "$it.key: $it.value" }.join("\n")
+		if(data == null || data.size() == 0) {
+			return "";
+		}
+
+		List<String> items = new ArrayList<String>();
+
+		for(String key : data.keySet()) {
+			items.add(key + ": " + data.get(key));
+		}
+
+		String result = items.get(0);
+		for(int i = 1; i < items.size(); i++) {
+			result += "\n";
+			result += items.get(i);
+		}
+
+		return result;
 	}
 	
 	@Override
 	public boolean equals(Object other) {
-		this.data == other.data
+		Report otherReport = (Report)other;
+		return this.data.equals(otherReport.data);
 	}
 }

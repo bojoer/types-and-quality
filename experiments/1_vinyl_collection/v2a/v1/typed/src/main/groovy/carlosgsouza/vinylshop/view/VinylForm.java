@@ -11,7 +11,7 @@ import carlosgsouza.vinylshop.model.Vinyl
 public class VinylForm extends Form {
 	
 	public VinylForm() {
-		title = "Please enter the vinyl details below"
+		title = "Please enter the vinyl details below";
 		fieldName = ["Artist", "Title", "Songs", "Year", "Genre"]
 	}
 }

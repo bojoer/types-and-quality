@@ -1,16 +1,28 @@
-package carlosgsouza.vinylshop.model
+package carlosgsouza.vinylshop.model;
 
-class Genre {
-	String name = ""
-	List<Vinyl> vinyls = []
+import java.util.ArrayList;
+import java.util.List;
+
+public class Genre {
+	String name = "";
+	List<Vinyl> vinyls = new ArrayList<Vinyl> ();
+	
+	public Genre() {
+	}
 	
 	@Override
 	public String toString() {
-		"$name, Vinyls:${vinyls*.title}"
+		List<String> vinylNames = new ArrayList<String>();
+		
+		for(Vinyl vinyl : vinyls) {
+			vinylNames.add(vinyl.title);
+		}
+		
+		return name + ", Vinyls:" + vinylNames;
 	}
 	@Override
 	public boolean equals(Object obj) {
-		if (this.is(obj))
+		if (this == obj)
 			return true;
 		if (obj == null)
 			return false;

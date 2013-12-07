@@ -1,29 +1,50 @@
-package carlosgsouza.vinylshop.model
+package carlosgsouza.vinylshop.model;
 
-class Vinyl {
-	Integer id
-	def artist
-	String title
-	List<String> songs
-	String year
-	String genre
+import java.util.*;
+
+public class Vinyl {
+	public Integer id;
+	public String artist;
+	public String title;
+	public List<String> songs;
+	public String year;
+	public String genre;
 	
 	@Override
 	public String toString() {
-		"id:$id, artist:$artist, title:$title, songs:$songs, year:$year, genre:$genre"
+		return 
+			"id:"+id+
+			", artist:"+artist+
+			", title:"+title+
+			", songs:"+songs+
+			", year:"+year+
+			", genre:"+genre;
 	}
 
 	boolean isValid() {
-		def anyNonListEmpty = [artist, title, year, genre].findAll{ !it }
-		def atLeastOneSongIsValid = songs.find { it }
-		
-		return !anyNonListEmpty && atLeastOneSongIsValid
+		return notEmpty(artist) && notEmpty(title) && notEmpty(year) && notEmpty(genre) && notEmpty(songs);
 	}
 	
+	public boolean notEmpty(String str) {
+		return str != null && !str.isEmpty();
+	}
+
+	public boolean notEmpty(List<String> list) {
+		if(list == null || list.size() == 0) {
+			return false;
+		} else {
+			for(String item : list) {
+				if(notEmpty(item)) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 	
 	@Override
 	public boolean equals(Object obj) {
-		if (this.is(obj))
+		if (this == obj )
 			return true;
 		if (obj == null)
 			return false;
