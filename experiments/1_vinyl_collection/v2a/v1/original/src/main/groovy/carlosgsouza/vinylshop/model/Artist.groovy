@@ -7,11 +7,6 @@ public class Artist {
 	def name = "";
 	List<Vinyl> vinyls = new ArrayList<Vinyl> ();
 	
-	public Artist(name, List<Vinyl> vinyls) {
-		this.name = name;
-		this.vinyls = vinyls;
-	}
-	
 	public Artist() {
 	}
 	

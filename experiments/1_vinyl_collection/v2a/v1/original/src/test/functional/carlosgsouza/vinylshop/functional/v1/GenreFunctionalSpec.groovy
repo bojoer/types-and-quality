@@ -95,4 +95,14 @@ class GenreFunctionalSpec extends Specification {
 			view.items == ["Listing 0 with genre matching 'Sertanejo'"]
 		}
 	}
+	
+	def "should list all genres"() {
+		when:
+		app.execute "list genre"
+		
+		then:
+		1 * app.console.render { View view ->
+			view.items == ["Listing 4 genres", genres["Pop"], genres["Rock"], genres["Metal"], genres["Alternative"]]
+		}
+	}
 }

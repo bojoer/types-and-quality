@@ -126,15 +126,9 @@ class VinylCollectionApp extends App {
 					console.render uiFactory.showReport("Genre", report)
 					return
 				
-				case null:
-					if(c < 10) {
-						c++
-					}
-					return
-				
 				case "artist":
 					def report = reportController.artist()
-					console.render uiFactory.showReprot("Artist", report)
+					console.render uiFactory.showReport("Artist", report)
 					return
 			}
 		}

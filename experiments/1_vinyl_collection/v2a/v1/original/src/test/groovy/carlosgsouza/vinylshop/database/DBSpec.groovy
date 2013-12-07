@@ -439,7 +439,7 @@ class DBSpec extends Specification {
 		db.addVinyl(vinylA)
 		
 		then:
-		db.genres == ["A"]
+		db.genres*.name == ["A"]
 	}
 	
 	def "should update an genre whenever a new vinyl by that genre is added"() {
@@ -450,13 +450,13 @@ class DBSpec extends Specification {
 		db.addVinyl(vinylD1)
 		
 		then:
-		db.genres == [genreDWithVinylD1.name]
+		db.genres*.name == [genreDWithVinylD1.name]
 		
 		when:
 		db.addVinyl(vinylD2)
 		
 		then:
-		db.genres == [genreD.name]
+		db.genres*.name == [genreD.name]
 	}
 	
 	def "should update an genre whenever a new vinyl by that genre is removed"() {
@@ -465,74 +465,18 @@ class DBSpec extends Specification {
 		db.addVinyl(vinylD2)
 		
 		expect:
-		db.genres == [genreD.name]
+		db.genres*.name == [genreD.name]
 		
 		when:
 		db.removeVinyl(vinylD2.id)
 		
 		then:
-		db.genres == [genreDWithVinylD1.name]
+		db.genres*.name == [genreDWithVinylD1.name]
 		
 		when:
 		db.removeVinyl(vinylD1.id)
 		
 		then:
-		db.genres == []
+		db.genres*.name == []
 	}
-	
-	
-	/*
-	 * Tests with DB.artists returning artists instead of their names
-	 *
-	 
-	 def "should add an artist to the database whenever an album with a new artist is added"() {
-		given:
-		db.vinyls = []
-		db.artists = []
-		
-		when:
-		db.addVinyl(vinylA)
-		
-		then:
-		db.artists == [new Artist(name:"A", vinyls:[vinylA])]
-	}
-	
-	def "should update an artist whenever a new vinyl by that artist is added"() {
-		given:
-		def artistDWithVinylD1 = new Artist(name:"D", vinyls:[vinylD1])
-		
-		when:
-		db.addVinyl(vinylD1)
-		
-		then:
-		db.artists == [artistDWithVinylD1] 
-		
-		when:
-		db.addVinyl(vinylD2)
-		
-		then:
-		db.artists == [artistD]
-	}
-	
-	def "should update an artist whenever a new vinyl by that artist is removed"() {
-		given:
-		db.addVinyl(vinylD1)
-		db.addVinyl(vinylD2)
-		
-		expect:
-		db.artists == [artistD] 
-		
-		when:
-		db.removeVinyl(vinylD2.id)
-		
-		then:
-		db.artists == [artistDWithVinylD1]
-		
-		when:
-		db.removeVinyl(vinylD1.id)
-		
-		then:
-		db.artists == []
-	}
-	 */
 }

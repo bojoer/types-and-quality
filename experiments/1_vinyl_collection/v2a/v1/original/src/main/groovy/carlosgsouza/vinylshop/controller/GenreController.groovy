@@ -13,23 +13,7 @@ class GenreController {
 	}
 	
 	List<Genre> search(String genreName) {
-		boolean itemExists = false
-		
-		if(!itemExists) {
-			for(item in db.getGenres()) {
-				if(item.toLowerCase().contains(genreName.toLowerCase())) {
-					itemExists = true
-					break
-				}
-			}
-		}
-		
-		if(itemExists) {
-			db.searchVinylByGenre(genreName)
-		} else {
-			return []
-		}
-		
+		db.searchVinylByGenre(genreName)
 	}
 	
 }
