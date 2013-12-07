@@ -1,4 +1,4 @@
-package carlosgsouza.vinylshop.form
+package carlosgsouza.vinylshop.view
 
 import carlosgsouza.derails.Form
 import carlosgsouza.derails.View
