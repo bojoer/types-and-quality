@@ -15,7 +15,7 @@ import carlosgsouza.vinylshop.database.DB
 import carlosgsouza.vinylshop.model.Report
 import carlosgsouza.vinylshop.model.Summary
 import carlosgsouza.vinylshop.model.Vinyl
-import carlosgsouza.vinylshop.view.UiFactory
+import carlosgsouza.vinylshop.form.VinylForm
 
 class VinylCollectionAppSpec extends Specification {
 	
@@ -27,7 +27,7 @@ class VinylCollectionAppSpec extends Specification {
 	SummaryController summaryController
 	ReportController reportController
 	
-	UiFactory uiFactory
+	VinylForm uiFactory
 	Console console
 	
 	Vinyl vinylA
@@ -54,7 +54,7 @@ class VinylCollectionAppSpec extends Specification {
 		
 		view = new View()
 		
-		vinylForm = new UiFactory().vinylForm()
+		vinylForm = new VinylForm().vinylForm()
 		
 		vinylController = Mock(VinylController)
 		artistController = Mock(ArtistController)
@@ -64,7 +64,7 @@ class VinylCollectionAppSpec extends Specification {
 		summaryController = Mock(SummaryController)
 		reportController = Mock(ReportController)
 		
-		uiFactory = Mock(UiFactory)
+		uiFactory = Mock(VinylForm)
 		console = Mock(Console)
 		
 		db = Mock(DB)

@@ -1,17 +1,13 @@
  package carlosgsouza.vinylshop
 
 import carlosgsouza.derails.App
+import carlosgsouza.derails.Form
 import carlosgsouza.derails.View
-import carlosgsouza.vinylshop.controller.ArtistController
-import carlosgsouza.vinylshop.controller.GenreController
-import carlosgsouza.vinylshop.controller.ReportController
-import carlosgsouza.vinylshop.controller.SongController
-import carlosgsouza.vinylshop.controller.SummaryController
-import carlosgsouza.vinylshop.controller.VinylController
-import carlosgsouza.vinylshop.controller.YearController
+import carlosgsouza.vinylshop.controller.*
 import carlosgsouza.vinylshop.database.DB
+import carlosgsouza.vinylshop.form.VinylForm
 import carlosgsouza.vinylshop.model.Vinyl
-import carlosgsouza.vinylshop.view.UiFactory
+import carlosgsouza.vinylshop.view.*
 
 class VinylCollectionApp extends App {
 	
@@ -26,8 +22,6 @@ class VinylCollectionApp extends App {
 	ReportController reportController = new ReportController()
 	
 	DB db = DB.connect()
-	
-	UiFactory uiFactory = new UiFactory()
 	
 	List<Vinyl> preloadedVinyls = [
 			new Vinyl(artist:"Lana Del Rey", title:"Born to Die", songs:["Off to Races", "Radio", "Carmen"], year:"2012", genre:"Pop"),
@@ -47,85 +41,85 @@ class VinylCollectionApp extends App {
 			switch(action) {
 				case "list":
 					def vinyls = vinylController.list()
-					console.render uiFactory.listVinyls(vinyls)
+					console.render(new ListVinylsView(vinyls))
 					return
 				case "create":
-					def form = uiFactory.vinylForm()
+					Form form = new VinylForm()
 					console.apply form
 					def id = vinylController.create(form.fields)
 					def createdVinyl = vinylController.get(id)
 					
-					console.render uiFactory.showVinyl(createdVinyl)
+					console.render new ShowVinylView(createdVinyl)
 					return
 				case "show":
 					def id = Integer.valueOf parameter
 					def vinyl = vinylController.get(id)
 					
-					console.render uiFactory.showVinyl(vinyl)
+					console.render new ShowVinylView(vinyl)
 					return
 				case "delete":
 					def id = Integer.valueOf parameter
 					vinylController.delete(id)
 					
-					console.render uiFactory.deleteVinyl()
+					console.render new DeleteVinylView()
 					return
 				case "search":
 					def result = vinylController.search(parameter)
-					console.render uiFactory.searchByTitle(parameter, result)
+					console.render new SearchByTitleView(parameter, result)
 					return
 			}
 		} else if(controller == "artist") {
 			switch(action) {
 				case "list":
 					def artists = artistController.list()
-					console.render uiFactory.listArtists(artists)
+					console.render new ListArtistsView(artists)
 					return
 				case "search":
 					def artists = artistController.search(parameter)
-					console.render uiFactory.searchByArtist(parameter, artists)
+					console.render new SearchByArtistView(parameter, artists)
 					return
 			}
 		} else if(controller == "song") {
 			switch(action) {
 				case "list":
 					def artists = songController.list()
-					console.render uiFactory.listSongs(artists)
+					console.render new ListSongsView(artists)
 					return
 			}
 		} else if(controller == "year") {
 			switch(action) {
 				case "search":
 					def years = yearController.search(parameter)
-					console.render uiFactory.searchByYear(parameter, years)
+					console.render new SearchByYearView(parameter, years)
 					return
 			}
 		} else if(controller == "genre") {
 			switch(action) {
 				case "list":
 					def genres = genreController.list()
-					console.render uiFactory.listGenres(genres)
+					console.render new ListGenresView(genres)
 					return
 				case "search":
 					def genres = genreController.search(parameter)
-					console.render uiFactory.searchByGenre(parameter, genres)
+					console.render new SearchByGenreView(parameter, genres)
 					return
 			}
 		} else if(controller == "summary") {
 			switch(action) {
 				case "show":
 					def summary = summaryController.show()
-					console.render uiFactory.showSummary(summary)
+					console.render new ShowSummaryView(summary)
 					return
 			}
 		} else if(controller == "report") {
 			switch(action) {
 				case "artist":
 					def report = reportController.artist()
-					console.render uiFactory.showReport("Artist", report)
+					console.render(new ShowReportView("Artist", report))
 					return
 				case "genre":
 					def report = reportController.genre()
-					console.render uiFactory.showReport("Genre", report)
+					console.render new ShowReportView("Genre", report)
 					return
 			}
 		}
