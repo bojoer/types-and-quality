@@ -9,11 +9,11 @@ public class GenreController {
 	
 	DB db = DB.connect();
 	
-	List<String> list() {
+	public List<String> list() {
 		return db.getGenres();
 	}
 	
-	List<Vinyl> search(String genreName) {
+	public List<Vinyl> search(String genreName) {
 		return db.searchVinylByGenre(genreName);
 	}
 	

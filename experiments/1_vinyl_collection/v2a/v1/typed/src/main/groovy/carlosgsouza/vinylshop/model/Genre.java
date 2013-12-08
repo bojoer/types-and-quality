@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Genre {
-	String name = "";
-	List<Vinyl> vinyls = new ArrayList<Vinyl> ();
+	public String name = "";
+	public List<Vinyl> vinyls = new ArrayList<Vinyl> ();
 	
 	public Genre() {
 	}

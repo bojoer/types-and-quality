@@ -3,8 +3,8 @@ package carlosgsouza.derails
 
 abstract class App {
 	
-	String name = "DeRails App"
-	Console console = new Console()
+	public String name = "DeRails App"
+	public Console console = new Console()
 	
 	App(name) {
 		this.name = name
@@ -46,7 +46,7 @@ abstract class App {
 			
 			routeRequest(controller, action, parameter)
 		} catch(e) {
-			e.printStackTrace()
+			// e.printStackTrace()
 			console.render new View("(error) $e.message")
 		}
 	}

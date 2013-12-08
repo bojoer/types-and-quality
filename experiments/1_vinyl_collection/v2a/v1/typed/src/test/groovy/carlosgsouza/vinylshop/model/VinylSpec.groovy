@@ -114,4 +114,16 @@ class VinylSpec extends Specification {
 		then:
 		string == 'id:1, artist:The Artist, title:The Title, songs:[A1, A2, A3], year:1985, genre:Samba'
 	}
+	
+	def "should have a java like fields based constructor for vinyls"() {
+		when:
+		def vinyl = new Vinyl("A", "T", ["S1", "S2"], "Y", "G");
+		
+		then:
+		vinyl.artist == "A"
+		vinyl.title == "T"
+		vinyl.songs == ["S1", "S2"]
+		vinyl.year == "Y"
+		vinyl.genre == "G"
+	}
 }

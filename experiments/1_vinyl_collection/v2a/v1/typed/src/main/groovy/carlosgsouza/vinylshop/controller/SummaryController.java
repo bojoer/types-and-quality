@@ -10,7 +10,7 @@ public class SummaryController {
 	
 	DB db = DB.connect();
 	
-	Summary show() {
+	public Summary show() {
 		Summary result = new Summary();
 		
 		result.vinylCount = db.vinyls.size();

@@ -11,11 +11,11 @@ public class VinylController {
 	
 	DB db = DB.connect();
 	
-	List<Vinyl> list() {
+	public List<Vinyl> list() {
 		return db.getVinyls();
 	}
 	
-	Vinyl get(Integer id) {
+	public Vinyl get(Integer id) {
 		if(id == null) {
 			throw new IllegalArgumentException("Can't show vinyl with null id");
 		}
@@ -27,7 +27,7 @@ public class VinylController {
 		return db.getVinyl(id);
 	}
 	
-	Integer create(Map<String, String> fields) {
+	public Integer create(Map<String, String> fields) {
 		if(fields == null) {
 			throw new IllegalArgumentException("Can't create invalid vinyl");
 		}
@@ -52,7 +52,7 @@ public class VinylController {
 		return result ;
 	}
 	
-	Integer create(Vinyl vinyl) {
+	public Integer create(Vinyl vinyl) {
 		if(vinyl == null || !vinyl.isValid()) {
 			throw new IllegalArgumentException("Can't create invalid vinyl");
 		}
@@ -60,7 +60,7 @@ public class VinylController {
 		return db.addVinyl(vinyl);
 	}
 	
-	void delete(Integer id) {
+	public void delete(Integer id) {
 		if(id == null) {
 			throw new IllegalArgumentException("Can't delete null vinyl");
 		}
@@ -71,7 +71,7 @@ public class VinylController {
 		db.removeVinyl(id);
 	}
 	
-	List<Vinyl> search(String title) {
+	public List<Vinyl> search(String title) {
 		if(title == null || title.isEmpty()) {
 			throw new IllegalArgumentException("Must provide a title for the vinyl search");
 		}

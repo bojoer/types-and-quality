@@ -10,11 +10,11 @@ public class ArtistController {
 	
 	DB db = DB.connect();
 	
-	List<Artist> list() {
+	public List<String> list() {
 		return db.getArtists();
 	}
 	
-	List<Vinyl> search(String artist) {
+	public List<Vinyl> search(String artist) {
 		return db.searchVinylByArtist(artist);
 	}
 	

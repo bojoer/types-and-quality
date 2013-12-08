@@ -13,7 +13,7 @@ public class ReportController {;
 	
 	DB db = DB.connect();
 	
-	Report artist() {
+	public Report artist() {
 		Report result = new Report();
 		
 		List<String> artists = db.getArtists();
@@ -73,7 +73,7 @@ public class ReportController {;
 		return minId;
 	}
 	
-	Report genre() {
+	public Report genre() {
 		Report result = new Report();
 		
 		List<String> genres = db.getGenres();

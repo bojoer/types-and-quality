@@ -10,6 +10,18 @@ public class Vinyl {
 	public String year;
 	public String genre;
 	
+	public Vinyl() {
+		
+	}
+	
+	public Vinyl(String artist, String title, List<String> songs, String year, String genre) {
+		this.artist = artist;
+		this.title = title;
+		this.songs = songs;
+		this.year = year;
+		this.genre = genre;
+	}
+
 	@Override
 	public String toString() {
 		return 

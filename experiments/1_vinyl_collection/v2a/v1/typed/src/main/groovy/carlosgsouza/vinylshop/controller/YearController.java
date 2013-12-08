@@ -9,7 +9,7 @@ public class YearController {
 	
 	DB db = DB.connect();
 	
-	List<Vinyl> search(String Year) {
+	public List<Vinyl> search(String Year) {
 		return db.searchVinylByYear(Year);
 	}
 	

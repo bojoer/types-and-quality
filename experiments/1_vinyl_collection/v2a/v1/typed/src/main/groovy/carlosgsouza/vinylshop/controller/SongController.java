@@ -8,7 +8,7 @@ public class SongController {
 	
 	DB db = DB.connect();
 	
-	List<String> list() {
+	public List<String> list() {
 		return db.getSongs();
 	}
 	
