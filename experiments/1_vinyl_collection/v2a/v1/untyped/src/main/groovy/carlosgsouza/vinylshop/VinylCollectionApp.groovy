@@ -24,7 +24,7 @@ public class VinylCollectionApp extends App {
 	static app = new VinylCollectionApp();
 	
 	public vinylController = new VinylController();
-	public  artistController = new ArtistController();
+	public artistController = new ArtistController();
 	public yearController = new YearController();
 	public genreController = new GenreController();
 	public songController = new SongController();

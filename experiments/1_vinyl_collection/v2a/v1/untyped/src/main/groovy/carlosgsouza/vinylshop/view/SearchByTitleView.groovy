@@ -7,7 +7,7 @@ import carlosgsouza.vinylshop.model.Vinyl;
 
 class SearchByTitleView extends View {
 
-	public SearchByTitleView(String query, List<Vinyl> vinylList) {
+	public SearchByTitleView(query, vinylList) {
 		items.add("Listing " + vinylList.size() + " items matching '" + query + "'");
 		items.addAll(vinylList);
 	}

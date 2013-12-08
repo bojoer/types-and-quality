@@ -63,7 +63,7 @@ public class VinylController {
 		return result ;
 	}
 	
-	public void delete(id) {
+	public delete(id) {
 		if(id == null) {
 			throw new IllegalArgumentException("Can't delete null vinyl");
 		}

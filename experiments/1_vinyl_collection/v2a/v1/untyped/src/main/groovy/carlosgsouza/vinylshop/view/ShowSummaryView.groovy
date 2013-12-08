@@ -5,7 +5,7 @@ import carlosgsouza.vinylshop.model.*;
 
 class ShowSummaryView extends View {
 
-	public ShowSummaryView(Summary summary) {
+	public ShowSummaryView(summary) {
 		items.add("Collection Summary");
 		items.add(summary);
 	}

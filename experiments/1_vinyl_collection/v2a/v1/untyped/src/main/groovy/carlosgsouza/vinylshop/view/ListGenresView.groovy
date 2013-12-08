@@ -7,7 +7,7 @@ import carlosgsouza.vinylshop.model.Vinyl;
 
 class ListGenresView extends View {
 
-	public ListGenresView(List<String> list) {
+	public ListGenresView(list) {
 		items.add("Listing " + list.size() + " genres");
 		items.addAll(list);
 	}

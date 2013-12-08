@@ -7,7 +7,7 @@ import carlosgsouza.vinylshop.model.Vinyl;
 
 class ShowVinylView extends View {
 
-	public ShowVinylView(Vinyl vinyl) {
+	public ShowVinylView(vinyl) {
 		items.add(vinyl);
 	}
 

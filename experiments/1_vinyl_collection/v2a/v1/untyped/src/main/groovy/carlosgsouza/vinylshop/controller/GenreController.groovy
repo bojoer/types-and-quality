@@ -7,13 +7,13 @@ import carlosgsouza.vinylshop.model.Vinyl;
 
 public class GenreController {
 	
-	DB db = DB.connect();
+	def db = DB.connect();
 	
-	public List<String> list() {
+	public list() {
 		return db.getGenres();
 	}
 	
-	public List<Vinyl> search(String genreName) {
+	public search(String genreName) {
 		return db.searchVinylByGenre(genreName);
 	}
 	

@@ -7,7 +7,7 @@ import carlosgsouza.vinylshop.model.Vinyl;
 
 class ListSongsView extends View {
 
-	public ListSongsView(List<String> list) {
+	public ListSongsView(list) {
 		items.add("Listing " + list.size() + " songs");
 		items.addAll(list);
 	}

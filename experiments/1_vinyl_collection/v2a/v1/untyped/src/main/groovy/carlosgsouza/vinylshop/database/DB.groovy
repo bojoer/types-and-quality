@@ -90,11 +90,11 @@ public class DB {
 		}
 	}
 
-	public List<String> getSongs() {
-		Set<String> uniqueEntries = new TreeSet<String>();
+	public getSongs() {
+		def uniqueEntries = new TreeSet<String>();
 
-		for(Vinyl vinyl : vinyls) {
-			for(String song : vinyl.songs) {
+		for(def vinyl : vinyls) {
+			for(def song : vinyl.songs) {
 				uniqueEntries.add(song);
 			}
 		}
@@ -102,8 +102,8 @@ public class DB {
 		return new ArrayList<String>(uniqueEntries);
 	}
 
-	public void removeVinyl(Integer id) {
-		Vinyl vinyl = getVinyl(id);
+	public removeVinyl(id) {
+		def vinyl = getVinyl(id);
 
 		vinyls.remove(vinyl);
 
@@ -111,8 +111,8 @@ public class DB {
 		removeOrUpdateGenre(vinyl);
 	}
 
-	private void removeOrUpdateArtist(Vinyl vinyl) {
-		Artist artist = findArtist(vinyl.artist);
+	private removeOrUpdateArtist(def vinyl) {
+		def artist = findArtist(vinyl.artist);
 		if(artist.vinyls.size() == 1) {
 			artists.remove(artist);
 		} else {
@@ -120,8 +120,8 @@ public class DB {
 		}
 	}
 
-	private void removeOrUpdateGenre(Vinyl vinyl) {
-		Genre genre = findGenre(vinyl.genre);
+	private removeOrUpdateGenre(vinyl) {
+		def genre = findGenre(vinyl.genre);
 		if(genre.vinyls.size() == 1) {
 			genres.remove(genre);
 		} else {
@@ -129,14 +129,14 @@ public class DB {
 		}
 	}
 
-	public boolean containsVinyl(Integer id) {
+	public containsVinyl(id) {
 		return (getVinyl(id) != null);
 	}
 
-	private int getMaxId() {
-		int max = 0;
+	private getMaxId() {
+		def max = 0;
 
-		for(Vinyl vinyl : vinyls) {
+		for(def vinyl : vinyls) {
 			if(vinyl.id != null && vinyl.id > max) {
 				max = vinyl.id;
 			}
@@ -145,15 +145,15 @@ public class DB {
 		return max;
 	}
 
-	public List<Vinyl> searchVinylByTitle(String title) {
-		List<Vinyl> result = new ArrayList<Vinyl>();
+	public searchVinylByTitle(title) {
+		def result = new ArrayList<Vinyl>();
 
 		if(title == null || title.isEmpty()) {
 			return new ArrayList<Vinyl>();
 		}
 
 		if(title != null) {
-			for(Vinyl vinyl : vinyls) {
+			for(def vinyl : vinyls) {
 				if(vinyl.title != null && vinyl.title.toLowerCase().contains(title.toLowerCase())) {
 					result.add(vinyl);
 				}
@@ -163,15 +163,15 @@ public class DB {
 		return result;
 	}
 
-	public List<Vinyl> searchVinylByGenre(String name) {
+	public searchVinylByGenre(name) {
 		if(name == null || name.isEmpty()) {
 			return new ArrayList<Vinyl>();
 		}
 		
-		List<Vinyl> result = new ArrayList<Vinyl>();
+		def result = new ArrayList<Vinyl>();
 
 		if(name != null) {
-			for(Vinyl vinyl : vinyls) {
+			for(def vinyl : vinyls) {
 				if(vinyl.genre != null && vinyl.genre.toLowerCase().contains(name.toLowerCase())) {
 					result.add(vinyl);
 				}
@@ -181,15 +181,15 @@ public class DB {
 		return result;
 	}
 
-	public List<Vinyl> searchVinylByArtist(String name) {
-		List<Vinyl> result = new ArrayList<Vinyl>();
+	public searchVinylByArtist(name) {
+		def result = new ArrayList<Vinyl>();
 		
 		if(name == null || name.isEmpty()) {
 			return new ArrayList<Vinyl>();
 		}
 
 		if(name != null) {
-			for(Vinyl vinyl : vinyls) {
+			for(def vinyl : vinyls) {
 				if(vinyl.artist != null && vinyl.artist.toLowerCase().contains(name.toLowerCase())) {
 					result.add(vinyl);
 				}
@@ -199,15 +199,15 @@ public class DB {
 		return result;
 	}
 
-	public List<Vinyl> searchVinylByYear(String year) {
-		List<Vinyl> result = new ArrayList<Vinyl>();
+	public searchVinylByYear(String year) {
+		def result = new ArrayList<Vinyl>();
 
 		if(year == null || year.isEmpty()) {
 			return new ArrayList<Vinyl>();
 		}
 
 		if(year != null) {
-			for(Vinyl vinyl : vinyls) {
+			for(def vinyl : vinyls) {
 				if(vinyl.year != null && vinyl.year.toLowerCase().contains(year.toLowerCase())) {
 					result.add(vinyl);
 				}
@@ -218,10 +218,10 @@ public class DB {
 	}
 
 
-	public List<String> getArtists() {
-		List<String> result = new ArrayList<String>();
+	public getArtists() {
+		def result = new ArrayList<String>();
 		
-		for(Artist artist : artists) {
+		for(def artist : artists) {
 			result.add(artist.name);
 		}
 		
@@ -229,21 +229,21 @@ public class DB {
 	}
 
 
-	public List<String> getGenres() {
-		List<String> result = new ArrayList<String>();
+	public getGenres() {
+		def result = new ArrayList<String>();
 		
-		for(Genre genre : genres) {
+		for(def genre : genres) {
 			result.add(genre.name);
 		}
 		
 		return result;
 	}
 
-	public static DB connect() {
+	public static connect() {
 		return instance;
 	}
 
-	public void reset() {
+	public reset() {
 		vinyls = new ArrayList<Vinyl>();
 		artists = new ArrayList<Artist>();
 		genres = new ArrayList<Genre>();
