@@ -1,11 +1,8 @@
 package carlosgsouza.derails;
 
-import groovy.transform.ToString;
 
-@ToString
-class Form {
-	
-	String title
-	Map<String, String> fields = [:]
-	Collection<String> fieldName = []
+public class Form {
+	public String title
+	public Map<String, String> fields = new HashMap<String, String>();
+	public List<String> fieldName = new ArrayList<String>();
 }

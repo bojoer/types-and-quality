@@ -27,17 +27,17 @@ public class VinylController {
 		return db.getVinyl(id);
 	}
 	
-	Integer create(Map<String, Object> fields) {
+	Integer create(Map<String, String> fields) {
 		if(fields == null) {
 			throw new IllegalArgumentException("Can't create invalid vinyl");
 		}
 		
 		Vinyl vinyl = new Vinyl();
 		vinyl.artist = fields.get("Artist");
-		vinyl.title = (String)fields.get("Title");
-		vinyl.songs = splitSongs((String)fields.get("Songs"));
-		vinyl.year = (String)fields.get("Year");
-		vinyl.genre = (String)fields.get("Genre");
+		vinyl.title = fields.get("Title");
+		vinyl.songs = splitSongs(fields.get("Songs"));
+		vinyl.year = fields.get("Year");
+		vinyl.genre = fields.get("Genre");
 		
 		return create(vinyl);
 	}
@@ -46,7 +46,7 @@ public class VinylController {
 		List<String> result = new ArrayList<String>();
 		
 		for(String song : songs.split(",")) {
-			result.add(song);
+			result.add(song.trim());
 		}
 		
 		return result ;

@@ -1,6 +1,6 @@
 package carlosgsouza.vinylshop.model;
 
-class Summary {
+public class Summary {
 	public int vinylCount;
 	public int artistCount;
 	public int songCount;

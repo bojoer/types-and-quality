@@ -193,8 +193,7 @@ class DB {
 
 
 	public List getGenres() {
-		List result = genres
-		return result
+		genres*.name
 	}
 
 	public static DB connect() {

@@ -46,6 +46,7 @@ abstract class App {
 			
 			routeRequest(controller, action, parameter)
 		} catch(e) {
+			e.printStackTrace()
 			console.render new View("(error) $e.message")
 		}
 	}

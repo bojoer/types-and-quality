@@ -19,7 +19,7 @@ public class ReportController {;
 		List<String> artists = db.getArtists();
 		Integer artistCount = artists.size();
 		
-		result.getData().put("Number of artists", artistCount.toString());
+		result.data.put("Number of artists", artistCount.toString());
 		
 		if(artistCount == 0) {
 			return result;
@@ -40,22 +40,38 @@ public class ReportController {;
 		}
 		
 		String topArtist = "";
-		int topArtistVinylCount = 0;
-		for(String artst : artist_vinylCount.keySet()) {
-			if(topArtistVinylCount < artist_vinylCount.get(artst)) {
-				topArtist = artst;
-				topArtistVinylCount = artist_vinylCount.get(artst);
-			}
+		int topArtistVinylCount = -1;
+		int idOfFirstVinylOfTopArtist = Integer.MAX_VALUE;
+		
+		for(String artist : artist_vinylCount.keySet()) {
+			int idOfFirstVinylOfArtist = idOfFirstVinyl(db.searchVinylByArtist(artist));
+			
+			if(topArtistVinylCount < artist_vinylCount.get(artist) || ( (topArtistVinylCount == artist_vinylCount.get(artist)) && (idOfFirstVinylOfArtist < idOfFirstVinylOfTopArtist))) {
+				topArtist = artist;
+				topArtistVinylCount = artist_vinylCount.get(artist);
+				idOfFirstVinylOfTopArtist = idOfFirstVinylOfArtist;
+			
+			} 
 		}
 		
-		result.getData().put("Top artist", topArtist);
-		result.getData().put("Number of vinyls by "+topArtist, artist_vinylCount.get(topArtist).toString());
-		result.getData().put("Number of songs by "+topArtist, artist_songCount.get(topArtist).toString());
+		result.data.put("Top artist", topArtist);
+		result.data.put("Number of vinyls by "+topArtist, artist_vinylCount.get(topArtist).toString());
+		result.data.put("Number of songs by "+topArtist, artist_songCount.get(topArtist).toString());
 		
 		return result;
 	}
 	
-	
+	private int idOfFirstVinyl(List<Vinyl> vinyls) {
+		int minId = Integer.MAX_VALUE;
+		
+		for(Vinyl vinyl : vinyls) {
+			if(vinyl.id < minId) {
+				minId = vinyl.id;
+			}
+		}
+		
+		return minId;
+	}
 	
 	Report genre() {
 		Report result = new Report();
@@ -63,7 +79,7 @@ public class ReportController {;
 		List<String> genres = db.getGenres();
 		Integer genreCount = genres.size();
 		
-		result.getData().put("Number of genres", genreCount.toString());
+		result.data.put("Number of genres", genreCount.toString());
 		
 		if(genreCount == 0) {
 			return result;
@@ -84,17 +100,23 @@ public class ReportController {;
 		}
 		
 		String topGenre = "";
-		int topGenreVinylCount = 0;
-		for(String artst : genre_vinylCount.keySet()) {
-			if(topGenreVinylCount < genre_vinylCount.get(artst)) {
-				topGenre = artst;
-				topGenreVinylCount = genre_vinylCount.get(artst);
-			}
+		int topGenreVinylCount = -1;
+		int idOfFirstVinylOfTopGenre = Integer.MAX_VALUE;
+		
+		for(String genre : genre_vinylCount.keySet()) {
+			int idOfFirstVinylOfGenre = idOfFirstVinyl(db.searchVinylByGenre(genre));
+			
+			if(topGenreVinylCount < genre_vinylCount.get(genre) || ( (topGenreVinylCount == genre_vinylCount.get(genre)) && (idOfFirstVinylOfGenre < idOfFirstVinylOfTopGenre))) {
+				topGenre = genre;
+				topGenreVinylCount = genre_vinylCount.get(genre);
+				idOfFirstVinylOfTopGenre = idOfFirstVinylOfGenre;
+			
+			} 
 		}
 		
-		result.getData().put("Top genre", topGenre);
-		result.getData().put("Number of "+topGenre+" vinyls", genre_vinylCount.get(topGenre).toString());
-		result.getData().put("Number of "+topGenre+" songs", genre_songCount.get(topGenre).toString());
+		result.data.put("Top genre", topGenre);
+		result.data.put("Number of "+topGenre+" vinyls", genre_vinylCount.get(topGenre).toString());
+		result.data.put("Number of "+topGenre+" songs", genre_songCount.get(topGenre).toString());
 		
 		return result;
 	}

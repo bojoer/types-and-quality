@@ -1,66 +1,66 @@
-package carlosgsouza.vinylshop.view
+package carlosgsouza.vinylshop.view;
 
-import carlosgsouza.derails.Form
-import carlosgsouza.derails.View
-import carlosgsouza.vinylshop.model.Artist
-import carlosgsouza.vinylshop.model.Genre
-import carlosgsouza.vinylshop.model.Report
-import carlosgsouza.vinylshop.model.Summary
-import carlosgsouza.vinylshop.model.Vinyl
+import java.util.List;
 
-class UiFactory {
+import carlosgsouza.derails.Form;
+import carlosgsouza.derails.View;
+import carlosgsouza.vinylshop.model.Report;
+import carlosgsouza.vinylshop.model.Summary;
+import carlosgsouza.vinylshop.model.Vinyl;
+
+public class UiFactory {
 
 	public UiFactory() {
 	}
 
 	public View deleteVinyl(){
-		new DeleteVinylView()
+		return new DeleteVinylView();
 	}
 	public View listArtists(List<String> artists){
-		new ListArtistsView(artists)
+		return new ListArtistsView(artists);
 	}
 	
 	public View listGenres(List<String> genres){
-		new ListGenresView(genres)
+		return new ListGenresView(genres);
 	}
 	
 	public View listSongs(List<String> songs){
-		new ListSongsView(songs)
+		return new ListSongsView(songs);
 	}
 	
 	public View listVinyls(List<Vinyl> vinyls){
-		new ListVinylsView(vinyls)
+		return new ListVinylsView(vinyls);
 	}
 	
 	public View searchByArtist(String query, List<Vinyl> vinyls){
-		new SearchByArtistView(query, vinyls)
+		return new SearchByArtistView(query, vinyls);
 	}
 	
 	public View searchByGenre(String query, List<Vinyl> vinyls){
-		new SearchByGenreView(query, vinyls)
+		return new SearchByGenreView(query, vinyls);
 	}
 	
 	public View searchByTitle(String query, List<Vinyl> vinyls){
-		new SearchByTitleView(query, vinyls)
+		return new SearchByTitleView(query, vinyls);
 	}
 	
 	public View searchByYear(String query, List<Vinyl> vinyls){
-		new SearchByYearView(query, vinyls)
+		return new SearchByYearView(query, vinyls);
 	}
 	
 	public View showReport(String type, Report report){
-		new ShowReportView(type, report)
+		return new ShowReportView(type, report);
 	}
 	
 	public View showSummary(Summary summary){
-		new ShowSummaryView(summary)
+		return new ShowSummaryView(summary);
 	}
 	
 	public View showVinyl(Vinyl createdVinyl){
-		new ShowVinylView(createdVinyl)
+		return new ShowVinylView(createdVinyl);
 	}
 	
 	public Form vinylForm() {
-		new VinylForm()
+		return new VinylForm();
 	}
 }

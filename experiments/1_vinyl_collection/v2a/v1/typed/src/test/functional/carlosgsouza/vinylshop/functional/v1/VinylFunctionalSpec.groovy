@@ -116,15 +116,18 @@ class VinylFunctionalSpec extends Specification {
 				form.fieldName == ["Artist", "Title", "Songs", "Year", "Genre"]
 			} >> { Form form ->
 				form.fields = [
-							"Artist":newVinyl.artist.join(", "), 
+							"Artist":newVinyl.artist, 
 							"Title":newVinyl.title,
-							"Songs":newVinyl.songs.join(", "), 
+							"Songs":"Song 1,   Song 2", 
 							"Year":newVinyl.year, 
 							"Genre":newVinyl.genre]
 			} 
 		
 		and:
-		app.db.vinyls.find{ it.title == "Title"}
+		1 * app.console.render { it.items == [newVinyl] }
+		
+		and:
+		app.db.vinyls.contains newVinyl
 
 	}
 	

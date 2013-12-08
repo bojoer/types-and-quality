@@ -21,7 +21,7 @@ public class Vinyl {
 			", genre:"+genre;
 	}
 
-	boolean isValid() {
+	public boolean isValid() {
 		return notEmpty(artist) && notEmpty(title) && notEmpty(year) && notEmpty(genre) && notEmpty(songs);
 	}
 	
@@ -64,8 +64,10 @@ public class Vinyl {
 		if (songs == null) {
 			if (other.songs != null)
 				return false;
-		} else if (!songs.equals(other.songs))
+		} else if (!songs.equals(other.songs)) {
 			return false;
+		}
+			
 		if (title == null) {
 			if (other.title != null)
 				return false;

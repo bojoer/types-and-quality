@@ -8,7 +8,7 @@ import carlosgsouza.vinylshop.model.Vinyl;
 class SearchByYearView extends View {
 
 	public SearchByYearView(String query, List<Vinyl> vinylList) {
-		items.add("Listing $vinylList.size with year matching '$query'");
+		items.add("Listing " + vinylList.size() + " with year matching '" + query + "'");
 		items.addAll(vinylList);
 	}
 

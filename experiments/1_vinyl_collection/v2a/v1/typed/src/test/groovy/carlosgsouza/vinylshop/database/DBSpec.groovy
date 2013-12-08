@@ -439,7 +439,7 @@ class DBSpec extends Specification {
 		db.addVinyl(vinylA)
 		
 		then:
-		db.genres*.name == ["A"]
+		db.genres == ["A"]
 	}
 	
 	def "should update an genre whenever a new vinyl by that genre is added"() {
@@ -450,13 +450,13 @@ class DBSpec extends Specification {
 		db.addVinyl(vinylD1)
 		
 		then:
-		db.genres*.name == [genreDWithVinylD1.name]
+		db.genres == [genreDWithVinylD1.name]
 		
 		when:
 		db.addVinyl(vinylD2)
 		
 		then:
-		db.genres*.name == [genreD.name]
+		db.genres == [genreD.name]
 	}
 	
 	def "should update an genre whenever a new vinyl by that genre is removed"() {
@@ -465,18 +465,18 @@ class DBSpec extends Specification {
 		db.addVinyl(vinylD2)
 		
 		expect:
-		db.genres*.name == [genreD.name]
+		db.genres == [genreD.name]
 		
 		when:
 		db.removeVinyl(vinylD2.id)
 		
 		then:
-		db.genres*.name == [genreDWithVinylD1.name]
+		db.genres == [genreDWithVinylD1.name]
 		
 		when:
 		db.removeVinyl(vinylD1.id)
 		
 		then:
-		db.genres*.name == []
+		db.genres == []
 	}
 }

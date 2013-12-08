@@ -3,7 +3,7 @@ package carlosgsouza.vinylshop.model;
 import java.util.*;
 
 public class Report {
-	Map<String, String> data = new HashMap<String, String>();
+	public Map<String, String> data = new HashMap<String, String>();
 	
 	@Override
 	public String toString() {
