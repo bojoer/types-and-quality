@@ -3,7 +3,7 @@ package carlosgsouza.vinylshop.model;
 import java.util.*;
 
 public class Report {
-	public Map<String, String> data = new HashMap<String, String>();
+	public data = new HashMap<String, String>();
 	
 	@Override
 	public String toString() {
@@ -28,7 +28,6 @@ public class Report {
 	
 	@Override
 	public boolean equals(Object other) {
-		Report otherReport = (Report)other;
-		return this.data.equals(otherReport.data);
+		return this.data.equals(other.data);
 	}
 }

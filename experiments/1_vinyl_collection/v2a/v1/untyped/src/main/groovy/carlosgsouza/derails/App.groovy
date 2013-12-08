@@ -3,8 +3,8 @@ package carlosgsouza.derails
 
 abstract class App {
 	
-	public String name = "DeRails App"
-	public Console console = new Console()
+	public name = "DeRails App"
+	public console = new Console()
 	
 	App(name) {
 		this.name = name
@@ -22,7 +22,7 @@ abstract class App {
 		}
 	}
 	
-	void execute(String command) {
+	void execute(command) {
 		try {
 			if(command == "exit") {
 				println "bye"
@@ -51,9 +51,9 @@ abstract class App {
 		}
 	}
 	
-	abstract void routeRequest(String controller, String action, String parameter);
+	abstract routeRequest(controller, action, parameter);
 	
-	void bootstrap() {
+	protected bootstrap() {
 		
 	}
 }

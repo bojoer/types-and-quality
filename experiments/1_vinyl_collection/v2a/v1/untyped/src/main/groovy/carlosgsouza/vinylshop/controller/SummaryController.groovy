@@ -8,10 +8,10 @@ import carlosgsouza.vinylshop.model.Vinyl;
 
 public class SummaryController {
 	
-	DB db = DB.connect();
+	def db = DB.connect();
 	
-	public Summary show() {
-		Summary result = new Summary();
+	public show() {
+		def result = new Summary();
 		
 		result.vinylCount = db.vinyls.size();
 		result.artistCount = db.artists.size();
@@ -21,10 +21,10 @@ public class SummaryController {
 		return result;
 	}
 	
-	private int songCount(List<Vinyl> vinyls) {
-		int result = 0;
+	private songCount(vinyls) {
+		def result = 0;
 		
-		for(Vinyl vinyl : vinyls) {
+		for(def vinyl : vinyls) {
 			result += vinyl.songs.size();
 		}
 		

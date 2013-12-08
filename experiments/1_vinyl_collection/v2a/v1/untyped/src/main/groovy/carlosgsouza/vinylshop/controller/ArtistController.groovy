@@ -8,13 +8,13 @@ import carlosgsouza.vinylshop.model.Vinyl;
 
 public class ArtistController {
 	
-	DB db = DB.connect();
+	def db = DB.connect();
 	
-	public List<String> list() {
+	public list() {
 		return db.getArtists();
 	}
 	
-	public List<Vinyl> search(String artist) {
+	public search(artist) {
 		return db.searchVinylByArtist(artist);
 	}
 	

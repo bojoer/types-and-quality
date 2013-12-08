@@ -13,7 +13,7 @@ class VinylSpec extends Specification {
 		def vinyl = new Vinyl(id:1, artist:"A", title:"A", songs:["A1", "A2", "A3"], year:"A", genre:"A")
 		
 		when:
-		def valid = vinyl.valid
+		def valid = vinyl.isValid()
 		
 		then:
 		valid == true
@@ -83,7 +83,7 @@ class VinylSpec extends Specification {
 		def vinyl = new Vinyl(artist:artist, title:title, songs:songs, year:year, genre:genre)
 		
 		when:
-		def valid = vinyl.valid
+		def valid = vinyl.isValid()
 		
 		then:
 		valid == false
@@ -95,10 +95,10 @@ class VinylSpec extends Specification {
 		null	| "t"	| ["s"]			| "y"	| "g"
 		"a"		| ""	| ["s"]			| "y"	| "g"
 		"a"		| null	| ["s"]			| "y"	| "g"
-		"a"		| "t"	| [""]			| "y"	| "g"
+		"a"		| "t"	| [""]			| "y"	| "g" //
 		"a"		| "t"	| []			| "y"	| "g"
 		"a"		| "t"	| null			| "y"	| "g"
-		"a"		| "t"	| ["", null]	| "y"	| "g"
+		"a"		| "t"	| ["", null]	| "y"	| "g" //
 		"a"		| "t"	| ["s"]			| ""	| "g"
 		"a"		| "t"	| ["s"]			| null	| "g"
 		"a"		| "t"	| ["s"]			| "y"	| ""

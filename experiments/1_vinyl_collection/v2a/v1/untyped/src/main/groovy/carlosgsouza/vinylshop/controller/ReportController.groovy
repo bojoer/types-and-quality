@@ -9,15 +9,15 @@ import carlosgsouza.vinylshop.model.Report;
 import carlosgsouza.vinylshop.model.Vinyl;
 
 
-public class ReportController {;
+public class ReportController {
 	
-	DB db = DB.connect();
+	def db = DB.connect();
 	
-	public Report artist() {
-		Report result = new Report();
+	public artist() {
+		def result = new Report();
 		
-		List<String> artists = db.getArtists();
-		Integer artistCount = artists.size();
+		def artists = db.getArtists();
+		def artistCount = artists.size();
 		
 		result.data.put("Number of artists", artistCount.toString());
 		
@@ -25,26 +25,26 @@ public class ReportController {;
 			return result;
 		}
 		
-		Map<String, Integer> artist_vinylCount = new HashMap<String, Integer>();
-		Map<String, Integer> artist_songCount = new HashMap<String, Integer>();
+		def artist_vinylCount = new HashMap<String, Integer>();
+		def artist_songCount = new HashMap<String, Integer>();
 		
-		for(String artist : artists) {
-			List<Vinyl> artistVinyls = db.searchVinylByArtist(artist);
+		for(def artist : artists) {
+			def artistVinyls = db.searchVinylByArtist(artist);
 			
 			artist_vinylCount.put(artist, artistVinyls.size());
 			artist_songCount.put(artist, 0);
 			
-			for(Vinyl vinyl : artistVinyls) {
+			for(def vinyl : artistVinyls) {
 				artist_songCount.put(artist, artist_songCount.get(artist) + vinyl.songs.size());
 			}
 		}
 		
-		String topArtist = "";
-		int topArtistVinylCount = -1;
-		int idOfFirstVinylOfTopArtist = Integer.MAX_VALUE;
+		def topArtist = "";
+		def topArtistVinylCount = -1;
+		def idOfFirstVinylOfTopArtist = Integer.MAX_VALUE;
 		
-		for(String artist : artist_vinylCount.keySet()) {
-			int idOfFirstVinylOfArtist = idOfFirstVinyl(db.searchVinylByArtist(artist));
+		for(def artist : artist_vinylCount.keySet()) {
+			def idOfFirstVinylOfArtist = idOfFirstVinyl(db.searchVinylByArtist(artist));
 			
 			if(topArtistVinylCount < artist_vinylCount.get(artist) || ( (topArtistVinylCount == artist_vinylCount.get(artist)) && (idOfFirstVinylOfArtist < idOfFirstVinylOfTopArtist))) {
 				topArtist = artist;
@@ -61,10 +61,10 @@ public class ReportController {;
 		return result;
 	}
 	
-	private int idOfFirstVinyl(List<Vinyl> vinyls) {
-		int minId = Integer.MAX_VALUE;
+	private idOfFirstVinyl(vinyls) {
+		def minId = Integer.MAX_VALUE;
 		
-		for(Vinyl vinyl : vinyls) {
+		for(def vinyl : vinyls) {
 			if(vinyl.id < minId) {
 				minId = vinyl.id;
 			}
@@ -73,11 +73,11 @@ public class ReportController {;
 		return minId;
 	}
 	
-	public Report genre() {
-		Report result = new Report();
+	public genre() {
+		def result = new Report();
 		
-		List<String> genres = db.getGenres();
-		Integer genreCount = genres.size();
+		def genres = db.getGenres();
+		def genreCount = genres.size();
 		
 		result.data.put("Number of genres", genreCount.toString());
 		
@@ -85,26 +85,26 @@ public class ReportController {;
 			return result;
 		}
 		
-		Map<String, Integer> genre_vinylCount = new HashMap<String, Integer>();
-		Map<String, Integer> genre_songCount = new HashMap<String, Integer>();
+		def genre_vinylCount = new HashMap<String, Integer>();
+		def genre_songCount = new HashMap<String, Integer>();
 		
-		for(String genre : genres) {
-			List<Vinyl> genreVinyls = db.searchVinylByGenre(genre);
+		for(def genre : genres) {
+			def genreVinyls = db.searchVinylByGenre(genre);
 			
 			genre_vinylCount.put(genre, genreVinyls.size());
 			genre_songCount.put(genre, 0);
 			
-			for(Vinyl vinyl : genreVinyls) {
+			for(def vinyl : genreVinyls) {
 				genre_songCount.put(genre, genre_songCount.get(genre) + vinyl.songs.size());
 			}
 		}
 		
-		String topGenre = "";
-		int topGenreVinylCount = -1;
-		int idOfFirstVinylOfTopGenre = Integer.MAX_VALUE;
+		def topGenre = "";
+		def topGenreVinylCount = -1;
+		def idOfFirstVinylOfTopGenre = Integer.MAX_VALUE;
 		
-		for(String genre : genre_vinylCount.keySet()) {
-			int idOfFirstVinylOfGenre = idOfFirstVinyl(db.searchVinylByGenre(genre));
+		for(def genre : genre_vinylCount.keySet()) {
+			def idOfFirstVinylOfGenre = idOfFirstVinyl(db.searchVinylByGenre(genre));
 			
 			if(topGenreVinylCount < genre_vinylCount.get(genre) || ( (topGenreVinylCount == genre_vinylCount.get(genre)) && (idOfFirstVinylOfGenre < idOfFirstVinylOfTopGenre))) {
 				topGenre = genre;

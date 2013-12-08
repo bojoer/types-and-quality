@@ -9,13 +9,13 @@ import carlosgsouza.vinylshop.model.Vinyl;
 
 public class VinylController {
 	
-	DB db = DB.connect();
+	def db = DB.connect();
 	
-	public List<Vinyl> list() {
+	public list() {
 		return db.getVinyls();
 	}
 	
-	public Vinyl get(Integer id) {
+	public get(id) {
 		if(id == null) {
 			throw new IllegalArgumentException("Can't show vinyl with null id");
 		}
@@ -27,40 +27,43 @@ public class VinylController {
 		return db.getVinyl(id);
 	}
 	
-	public Integer create(Map<String, String> fields) {
-		if(fields == null) {
+	public create(item) {
+		if(item == null) {
 			throw new IllegalArgumentException("Can't create invalid vinyl");
 		}
 		
-		Vinyl vinyl = new Vinyl();
-		vinyl.artist = fields.get("Artist");
-		vinyl.title = fields.get("Title");
-		vinyl.songs = splitSongs(fields.get("Songs"));
-		vinyl.year = fields.get("Year");
-		vinyl.genre = fields.get("Genre");
-		
-		return create(vinyl);
+		if(item instanceof Vinyl) {
+			def vinyl = item
+			if(!vinyl.isValid()) {
+				throw new IllegalArgumentException("Can't create invalid vinyl");
+			}
+			
+			return db.addVinyl(vinyl);
+		} else {
+			def fields = item
+			
+			def vinyl = new Vinyl();
+			vinyl.artist = fields.get("Artist");
+			vinyl.title = fields.get("Title");
+			vinyl.songs = splitSongs(fields.get("Songs"));
+			vinyl.year = fields.get("Year");
+			vinyl.genre = fields.get("Genre");
+			
+			return create(vinyl);
+		}
 	}
 	
-	public List<String> splitSongs(String songs) {
-		List<String> result = new ArrayList<String>();
+	public splitSongs(songs) {
+		def result = new ArrayList<String>();
 		
-		for(String song : songs.split(",")) {
+		for(def song : songs.split(",")) {
 			result.add(song.trim());
 		}
 		
 		return result ;
 	}
 	
-	public Integer create(Vinyl vinyl) {
-		if(vinyl == null || !vinyl.isValid()) {
-			throw new IllegalArgumentException("Can't create invalid vinyl");
-		}
-		
-		return db.addVinyl(vinyl);
-	}
-	
-	public void delete(Integer id) {
+	public void delete(id) {
 		if(id == null) {
 			throw new IllegalArgumentException("Can't delete null vinyl");
 		}
@@ -71,7 +74,7 @@ public class VinylController {
 		db.removeVinyl(id);
 	}
 	
-	public List<Vinyl> search(String title) {
+	public search(title) {
 		if(title == null || title.isEmpty()) {
 			throw new IllegalArgumentException("Must provide a title for the vinyl search");
 		}

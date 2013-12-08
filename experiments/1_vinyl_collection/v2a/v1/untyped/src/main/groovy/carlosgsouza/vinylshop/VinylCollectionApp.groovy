@@ -21,23 +21,23 @@ import carlosgsouza.vinylshop.view.UiFactory;
 
 public class VinylCollectionApp extends App {
 	
-	static VinylCollectionApp app = new VinylCollectionApp();
+	static app = new VinylCollectionApp();
 	
-	public VinylController vinylController = new VinylController();
-	public ArtistController artistController = new ArtistController();
-	public YearController yearController = new YearController();
-	public GenreController genreController = new GenreController();
-	public SongController songController = new SongController();
-	public SummaryController summaryController = new SummaryController();
-	public ReportController reportController = new ReportController();
+	public vinylController = new VinylController();
+	public  artistController = new ArtistController();
+	public yearController = new YearController();
+	public genreController = new GenreController();
+	public songController = new SongController();
+	public summaryController = new SummaryController();
+	public reportController = new ReportController();
 	
-	DB db = DB.connect();
+	def db = DB.connect();
 	
-	private int c = 0;
+	private c = 0;
 	
-	UiFactory uiFactory = new UiFactory();
+	private uiFactory = new UiFactory();
 
-	public List<Vinyl> preloadedVinyls = new ArrayList<Vinyl>();
+	public preloadedVinyls = new ArrayList<Vinyl>();
 	
 	VinylCollectionApp() {
 		super("DJ PopCorn - Amazing Vinyl Collection");
@@ -51,36 +51,36 @@ public class VinylCollectionApp extends App {
 		preloadedVinyls.add(new Vinyl("Pearl Jam", "Backspacer", listOf("Just Breathe", "Supersonic"), "2009", "Rock"));
 	}
 	
-	private List<String> listOf(String... items) {
-		List<String> result = new ArrayList<String>();
+	private listOf(...items) {
+		def result = new ArrayList<String>();
 		
-		for(String item : items) {
+		for(def item : items) {
 			result.add(item);
 		}
 		
 		return result;
 	}
 	
-	public void routeRequest(String controller, String action, String parameter) {
+	public routeRequest(controller, action, parameter) {
 		if(controller.equals("vinyl")) {
-			Integer id;
+			def id;
 			
 			switch(action) {
 				case "list":
-					List<Vinyl> vinyls = vinylController.list();
+					def vinyls = vinylController.list();
 					console.render(uiFactory.listVinyls(vinyls));
 					return;
 				case "create":
-					Form form = uiFactory.vinylForm();
+					def form = uiFactory.vinylForm();
 					console.apply(form);
 					id = vinylController.create(form.fields);
-					Vinyl createdVinyl = vinylController.get(id);
+					def createdVinyl = vinylController.get(id);
 					
 					console.render(uiFactory.showVinyl(createdVinyl));
 					return;
 				case "show":
 					id = Integer.valueOf(parameter);
-					Vinyl vinyl = vinylController.get(id);
+					def vinyl = vinylController.get(id);
 					
 					console.render(uiFactory.showVinyl(vinyl));
 					return;
@@ -91,12 +91,12 @@ public class VinylCollectionApp extends App {
 					console.render(uiFactory.deleteVinyl());
 					return;
 				case "search":
-					List<Vinyl> result = vinylController.search(parameter);
+					def result = vinylController.search(parameter);
 					console.render(uiFactory.searchByTitle(parameter, result));
 					return;
 			}
 		} else if(controller.equals("artist")) {
-			List<String> artists;
+			def artists;
 			
 			switch(action) {
 				case "list":
@@ -104,44 +104,44 @@ public class VinylCollectionApp extends App {
 					console.render(uiFactory.listArtists(artists));
 					return;
 				case "search":
-					List<Vinyl> vinyls = artistController.search(parameter);
+					def vinyls = artistController.search(parameter);
 					console.render(uiFactory.searchByArtist(parameter, vinyls));
 					return;
 			}
 		} else if(controller.equals("song")) {
 			switch(action) {
 				case "list":
-					List<String> result = songController.list();
+					def result = songController.list();
 					console.render(uiFactory.listSongs(result));
 					return;
 			}
 		} else if(controller.equals("year")) {
 			switch(action) {
 				case "search":
-					List<Vinyl> result = yearController.search(parameter);
+					def result = yearController.search(parameter);
 					console.render(uiFactory.searchByYear(parameter, result));
 					return;
 			}
 		} else if(controller.equals("genre")) {
 			switch(action) {
 				case "list":
-					List<String> result = genreController.list();
+					def result = genreController.list();
 					console.render(uiFactory.listGenres(result));
 					return;
 				case "search":
-					List<Vinyl> vinyls = genreController.search(parameter);
+					def vinyls = genreController.search(parameter);
 					console.render(uiFactory.searchByGenre(parameter, vinyls));
 					return;
 			}
 		} else if(controller.equals("summary")) {
 			switch(action) {
 				case "show":
-					Summary summary = summaryController.show();
+					def summary = summaryController.show();
 					console.render(uiFactory.showSummary(summary));
 					return;
 			}
 		} else if(controller.equals("report")) {
-			Report report;
+			def report;
 			
 			switch(action) {
 				case "genre":
@@ -159,15 +159,15 @@ public class VinylCollectionApp extends App {
 		console.render(new View("command not found"));
 	}
 	
-	public void bootstrap() {
+	public bootstrap() {
 		db.reset();
 		
-		for(Vinyl vinyl : preloadedVinyls) {
+		for(def vinyl : preloadedVinyls) {
 			vinylController.create(vinyl);
 		}
 	}
 	
-	public static void main(String[] args) {
+	public static main(args) {
 		app.run();
 	}
 }

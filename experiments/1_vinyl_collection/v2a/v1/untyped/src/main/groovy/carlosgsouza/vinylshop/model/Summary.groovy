@@ -8,8 +8,7 @@ public class Summary {
 	
 	@Override
 	public String toString() {
-		return 
-			  "Vinyls:  " + vinylCount +
+		"Vinyls:  " + vinylCount +
 			"\nArtists: " + artistCount +
 			"\nSongs:   " + songCount +
 			"\nGenres:  " + genreCount;
@@ -18,7 +17,7 @@ public class Summary {
 
 	@Override
 	public boolean equals(Object obj) {
-		Summary other = (Summary) obj;
+		def other = obj;
 		if (artistCount != other.artistCount)
 			return false;
 		if (genreCount != other.genreCount)

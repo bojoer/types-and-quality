@@ -10,22 +10,22 @@ import carlosgsouza.vinylshop.model.Genre;
 import carlosgsouza.vinylshop.model.Vinyl;
 
 public class DB {
-	public List<Vinyl> vinyls = new ArrayList<Vinyl>();
-	public List<Artist> artists = new ArrayList<Artist>();
-	public List<Genre> genres = new ArrayList<Genre>();
+	def vinyls = new ArrayList<Vinyl>();
+	def artists = new ArrayList<Artist>();
+	def genres = new ArrayList<Genre>();
 
-	private static DB instance = new DB();
+	private static instance = new DB();
 
 	private DB() {
 		reset();
 	}
 	
-	public List<Vinyl> getVinyls() {
+	public getVinyls() {
 		return this.vinyls;
 	}
 
-	public Vinyl getVinyl(Integer id) {
-		for(Vinyl vinyl : vinyls) {
+	public getVinyl(id) {
+		for(def vinyl : vinyls) {
 			if(vinyl != null && vinyl.id == id) {
 				return vinyl;
 			}
@@ -34,8 +34,8 @@ public class DB {
 		return null;
 	}
 
-	private Artist findArtist(String name) {
-		for(Artist artist : artists) {
+	private findArtist(name) {
+		for(def artist : artists) {
 			if(artist != null && artist.name != null && artist.name.equals(name)) {
 				return artist;
 			}
@@ -44,8 +44,8 @@ public class DB {
 		return null;
 	}
 
-	private Genre findGenre(String name) {
-		for(Genre genre : genres) {
+	private findGenre(name) {
+		for(def genre : genres) {
 			if(genre != null && genre.name != null && genre.name.equals(name)) {
 				return genre;
 			}
@@ -54,7 +54,7 @@ public class DB {
 		return null;
 	}
 
-	public Integer addVinyl(Vinyl vinyl) {
+	public addVinyl(vinyl) {
 		vinyl.id = vinyl.id != null ? vinyl.id : getMaxId() + 1;
 		vinyls.add(vinyl);
 
@@ -64,12 +64,12 @@ public class DB {
 		return vinyl.id;
 	}
 
-	private void addOrUpdateArtist(Vinyl vinyl) {
-		Artist existingArtist = findArtist(vinyl.artist);
+	private void addOrUpdateArtist(vinyl) {
+		def existingArtist = findArtist(vinyl.artist);
 		if(existingArtist != null) {
 			existingArtist.vinyls.add(vinyl);
 		} else {
-			Artist newArtist = new Artist();
+			def newArtist = new Artist();
 			newArtist.name = vinyl.artist;
 			newArtist.vinyls.add(vinyl);
 			
@@ -77,12 +77,12 @@ public class DB {
 		}
 	}
 
-	private void addOrUpdateGenre(Vinyl vinyl) {
-		Genre existingGenre = findGenre(vinyl.genre);
+	private addOrUpdateGenre(def vinyl) {
+		def existingGenre = findGenre(vinyl.genre);
 		if(existingGenre != null) {
 			existingGenre.vinyls.add(vinyl);
 		} else {
-			Genre newGenre = new Genre();
+			def newGenre = new Genre();
 			newGenre.name = vinyl.genre;
 			newGenre.vinyls.add(vinyl);
 			

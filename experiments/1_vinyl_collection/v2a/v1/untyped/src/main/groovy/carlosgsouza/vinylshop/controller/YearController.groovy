@@ -7,9 +7,9 @@ import carlosgsouza.vinylshop.model.Vinyl;
 
 public class YearController {
 	
-	DB db = DB.connect();
+	def db = DB.connect();
 	
-	public List<Vinyl> search(String Year) {
+	public search(Year) {
 		return db.searchVinylByYear(Year);
 	}
 	

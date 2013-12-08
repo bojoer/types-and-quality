@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Genre {
-	public String name = "";
-	public List<Vinyl> vinyls = new ArrayList<Vinyl> ();
+	public name = "";
+	public vinyls = new ArrayList<Vinyl> ();
 	
 	public Genre() {
 	}
@@ -22,13 +22,13 @@ public class Genre {
 	}
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this.is(obj))
 			return true;
 		if (obj == null)
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Genre other = (Genre) obj;
+		def other = obj;
 		if (name == null) {
 			if (other.name != null)
 				return false;

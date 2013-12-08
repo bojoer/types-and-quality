@@ -3,18 +3,18 @@ package carlosgsouza.vinylshop.model;
 import java.util.*;
 
 public class Vinyl {
-	public Integer id;
-	public String artist;
-	public String title;
-	public List<String> songs;
-	public String year;
-	public String genre;
+	public id;
+	public artist;
+	public title;
+	public songs;
+	public year;
+	public genre;
 	
 	public Vinyl() {
 		
 	}
 	
-	public Vinyl(String artist, String title, List<String> songs, String year, String genre) {
+	public Vinyl(artist, title, songs, year, genre) {
 		this.artist = artist;
 		this.title = title;
 		this.songs = songs;
@@ -24,7 +24,6 @@ public class Vinyl {
 
 	@Override
 	public String toString() {
-		return 
 			"id:"+id+
 			", artist:"+artist+
 			", title:"+title+
@@ -33,21 +32,21 @@ public class Vinyl {
 			", genre:"+genre;
 	}
 
-	public boolean isValid() {
+	public isValid() {
 		return notEmpty(artist) && notEmpty(title) && notEmpty(year) && notEmpty(genre) && notEmpty(songs);
 	}
 	
-	public boolean notEmpty(String str) {
-		return str != null && !str.isEmpty();
-	}
-
-	public boolean notEmpty(List<String> list) {
-		if(list == null || list.size() == 0) {
-			return false;
+	public notEmpty(element) {
+		if(element instanceof String) {
+			return element != null && !element.isEmpty();
 		} else {
-			for(String item : list) {
-				if(notEmpty(item)) {
-					return true;
+			if(element == null || element.size() == 0) {
+				return false;
+			} else {
+				for(def i : element) {
+					if(notEmpty(i)) {
+						return true;
+					}
 				}
 			}
 		}
@@ -56,13 +55,13 @@ public class Vinyl {
 	
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj )
+		if (this.is(obj) )
 			return true;
 		if (obj == null)
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Vinyl other = (Vinyl) obj;
+		def other = obj;
 		if (artist == null) {
 			if (other.artist != null)
 				return false;

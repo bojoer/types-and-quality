@@ -6,9 +6,9 @@ import carlosgsouza.vinylshop.database.DB;
 
 public class SongController {
 	
-	DB db = DB.connect();
+	def db = DB.connect();
 	
-	public List<String> list() {
+	public list() {
 		return db.getSongs();
 	}
 	

@@ -4,17 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Artist {
-	public String name = "";
-	public List<Vinyl> vinyls = new ArrayList<Vinyl> ();
+	def String name = "";
+	def vinyls = new ArrayList<Vinyl> ();
 	
 	public Artist() {
 	}
 	
 	@Override
 	public String toString() {
-		List<String> vinylNames = new ArrayList<String>();
+		def vinylNames = new ArrayList<String>();
 		
-		for(Vinyl vinyl : vinyls) {
+		for(def vinyl : vinyls) {
 			vinylNames.add(vinyl.title);
 		}
 		
@@ -22,13 +22,13 @@ public class Artist {
 	}
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this.is(obj))
 			return true;
 		if (obj == null)
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Artist other = (Artist) obj;
+		def other = obj;
 		if (name == null) {
 			if (other.name != null)
 				return false;
