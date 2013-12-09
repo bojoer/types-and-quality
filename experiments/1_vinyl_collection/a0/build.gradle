@@ -1,3 +1,33 @@
-task package(type:Zip) << {
+ext {
+	def localDir = new File(".").absoluteFile
 
+	def experiment_id = localDir.parentFile.parentFile.name[0]
+	def task_id = localDir.parentFile.name
+
+	typedFileName = "${experiment_id}-${task_id}-typed"
+	untypedFileName = "${experiment_id}-${task_id}-untyped"
+
+	unbudledFiles = ['bin', 'build', 'data', 'settings.gradle', '.*', 'src/test']
+}
+
+task bundle(dependsOn:['bundleTyped', 'bundleUntyped']) {
+
+}
+
+task bundleTyped(type:Zip) {
+	baseName = typedFileName
+	from 'typed'
+	into baseName
+	unbudledFiles.each {exclude it}
+}
+
+task bundleUntyped(type:Zip) {
+	baseName = untypedFileName
+	from 'untyped'
+	into baseName
+	unbudledFiles.each {exclude it}
+}
+
+task clean(type:Delete) {
+	delete typedFileName, untypedFileName, typedFileName + ".zip", untypedFileName + ".zip"
 }
