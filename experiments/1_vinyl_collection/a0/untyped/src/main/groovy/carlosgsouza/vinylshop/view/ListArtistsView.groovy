@@ -7,9 +7,9 @@ import carlosgsouza.vinylshop.model.Vinyl;
 
 class ListArtistsView extends View {
 
-	public ListArtistsView(list) {
+	public ListArtistsView(ljst) {
 		items.add("Listing " + list.size() + " artists");
-		items.addAll(list);
+		items.addAll(ljst);
 	}
 
 }

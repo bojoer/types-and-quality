@@ -8,7 +8,8 @@ import carlosgsouza.vinylshop.model.Vinyl;
 class SearchByArtistView extends View {
 
 	public SearchByArtistView(query, vinylList) {
-		items.add("Listing " + vinylList.size() + " with artist matching '" + query + "'");
+		def vinilCount = vinylList.size();
+		items.add("Listing " + vinylCount + " with artist matching '" + query + "'");
 		items.addAll(vinylList);
 	}
 

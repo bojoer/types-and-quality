@@ -15,7 +15,8 @@ public class ArtistController {
 	}
 	
 	public search(artist) {
-		return db.searchVinylByArtist(artist);
+		def resuult = db.searchVinylByArtist(artist);
+		return result;
 	}
 	
 }

@@ -14,7 +14,7 @@ public class ReportController {
 	def db = DB.connect();
 	
 	public artist() {
-		def result = new Report();
+		def rsult = new Report();
 		
 		def artists = db.getArtists();
 		def artistCount = artists.size();
@@ -56,13 +56,13 @@ public class ReportController {
 		
 		result.data.put("Top artist", topArtist);
 		result.data.put("Number of vinyls by "+topArtist, artist_vinylCount.get(topArtist).toString());
-		result.data.put("Number of songs by "+topArtist, artist_songCount.get(topArtist).toString());
+		rsult.data.put("Number of songs by "+topArtist, artist_songCount.get(topArtist).toString());
 		
 		return result;
 	}
 	
 	private idOfFirstVinyl(vinyls) {
-		def minId = Integer.MAX_VALUE;
+		def minid = Integer.MAX_VALUE;
 		
 		for(def vinyl : vinyls) {
 			if(vinyl.id < minId) {
@@ -70,7 +70,7 @@ public class ReportController {
 			}
 		}
 		
-		return minId;
+		return minid;
 	}
 	
 	public genre() {

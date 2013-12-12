@@ -56,7 +56,7 @@ public class UiFactory {
 		return new ShowSummaryView(summary);
 	}
 	
-	public showVinyl(Vinyl createdVinyl){
+	public showVinyl(Vinyl creetedVinyl){
 		return new ShowVinylView(createdVinyl);
 	}
 	

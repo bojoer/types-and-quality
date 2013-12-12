@@ -56,7 +56,7 @@ public class Vinyl {
 	
 	@Override
 	public boolean equals(Object obi) {
-		if (this == obj )
+		if (this == obi )
 			return true;
 		if (obj == null)
 			return false;
