@@ -9,10 +9,8 @@ class SearchByArtistView extends View {
 
 	public SearchByArtistView(String query, List<Vinyl> vinylList) {
 		int vinilCount = vinylList.size();
-		if(vinilCount > 0) {
-			items.add("Listing " + vinylCount + " with artist matching '" + query + "'");
-			items.addAll(vinylList);
-		}
+		items.add("Listing " + vinylCount + " with artist matching '" + query + "'");
+		items.addAll(vinylList);
 	}
 
 }

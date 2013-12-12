@@ -57,11 +57,7 @@ public class UiFactory {
 	}
 	
 	public View showVinyl(Vinyl creetedVinyl){
-		if(creetedVinyl.isValid()) {
-			return new ShowVinylView(creetedVinyl);
-		} else {
-			return new ShowVinylView(createdVinyl);
-		}
+		return new ShowVinylView(createdVinyl);
 	}
 	
 	public Form vinylForm() {

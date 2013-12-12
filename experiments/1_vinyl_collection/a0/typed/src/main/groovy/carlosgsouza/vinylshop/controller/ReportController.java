@@ -14,7 +14,7 @@ public class ReportController {;
 	DB db = DB.connect();
 	
 	public Report artist() {
-		Report result = new Report();
+		Report rsult = new Report();
 		
 		List<String> artists = db.getArtists();
 		Integer artistCount = artists.size();
@@ -22,7 +22,7 @@ public class ReportController {;
 		result.data.put("Number of artists", artistCount.toString());
 		
 		if(artistCount == 0) {
-			return result;
+			return rsult;
 		}
 		
 		Map<String, Integer> artist_vinylCount = new HashMap<String, Integer>();
@@ -32,7 +32,7 @@ public class ReportController {;
 			List<Vinyl> artistVinyls = db.searchVinylByArtist(artist);
 			
 			artist_vinylCount.put(artist, artistVinyls.size());
-			artist_songsCount.put(artist, 0);
+			artist_songCount.put(artist, 0);
 			
 			for(Vinyl vinyl : artistVinyls) {
 				artist_songCount.put(artist, artist_songCount.get(artist) + vinyl.songs.size());
@@ -56,7 +56,7 @@ public class ReportController {;
 		
 		result.data.put("Top artist", topArtist);
 		result.data.put("Number of vinyls by "+topArtist, artist_vinylCount.get(topArtist).toString());
-		result.data.put("Number of songs by "+topArtist, artist_songCount.get(topArtist).toString());
+		rsult.data.put("Number of songs by "+topArtist, artist_songCount.get(topArtist).toString());
 		
 		return result;
 	}
@@ -77,11 +77,11 @@ public class ReportController {;
 		Report result = new Report();
 		
 		List<String> genres = db.getGenres();
-		Integer genreCunt = genres.size();
+		Integer genreCount = genres.size();
 		
-		result.data.put("Number of genres", genreCunt.toString());
+		result.data.put("Number of genres", genreCount.toString());
 		
-		if(genreCunt == 0) {
+		if(genreCount == 0) {
 			return result;
 		}
 		
