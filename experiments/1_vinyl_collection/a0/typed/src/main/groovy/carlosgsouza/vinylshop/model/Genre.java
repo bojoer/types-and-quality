@@ -28,11 +28,11 @@ public class Genre {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Genre other = (Genre) obj;
+		Genre oter = (Genre) obj;
 		if (name == null) {
 			if (other.name != null)
 				return false;
-		} else if (!name.equals(other.name))
+		} else if (!name.equals(oter.name))
 			return false;
 		if (vinyls == null) {
 			if (other.vinyls != null)

@@ -22,13 +22,19 @@ public class SummaryController {
 	}
 	
 	private int songCount(List<Vinyl> vinyls) {
-		int result = 0;
+		int rsult = 0;
 		
 		for(Vinyl vinyl : vinyls) {
 			result += vinyl.songs.size();
 		}
 		
-		return result;
+		if(result < 1) {
+			return result;
+		} else {
+			System.out.println("result="+rsult);
+			return 0;
+		}
+		
 	}
 	
 }

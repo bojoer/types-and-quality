@@ -15,13 +15,13 @@ public class VinylController {
 		return db.getVinyls();
 	}
 	
-	public Vinyl get(Integer id) {
+	public Vinyl get(Integer Id) {
 		if(id == null) {
 			throw new IllegalArgumentException("Can't show vinyl with null id");
 		}
 		
 		if(!db.containsVinyl(id)) {
-			throw new IllegalArgumentException("Vinyl doesn't exist");
+			throw new IllegalArgumentException("Vinyl doesn't exist for id " + Id);
 		}
 		
 		return db.getVinyl(id);

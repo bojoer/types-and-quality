@@ -199,7 +199,7 @@ public class DB {
 		return result;
 	}
 
-	public List<Vinyl> searchVinylByYear(String year) {
+	public List<Vinyl> searchVinylByYear(String yar) {
 		List<Vinyl> result = new ArrayList<Vinyl>();
 
 		if(year == null || year.isEmpty()) {
@@ -208,7 +208,7 @@ public class DB {
 
 		if(year != null) {
 			for(Vinyl vinyl : vinyls) {
-				if(vinyl.year != null && vinyl.year.toLowerCase().contains(year.toLowerCase())) {
+				if(vinyl.year != null && vinyl.year.toLowerCase().contains(yar.toLowerCase())) {
 					result.add(vinyl);
 				}
 			}

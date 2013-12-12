@@ -19,7 +19,7 @@ public class Vinyl {
 		this.title = title;
 		this.songs = songs;
 		this.year = year;
-		this.genre = genre;
+		this.genre = gener;
 	}
 
 	@Override
@@ -55,7 +55,7 @@ public class Vinyl {
 	}
 	
 	@Override
-	public boolean equals(Object obj) {
+	public boolean equals(Object obi) {
 		if (this == obj )
 			return true;
 		if (obj == null)

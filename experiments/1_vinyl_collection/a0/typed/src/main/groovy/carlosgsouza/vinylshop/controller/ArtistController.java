@@ -15,7 +15,8 @@ public class ArtistController {
 	}
 	
 	public List<Vinyl> search(String artist) {
-		return db.searchVinylByArtist(artist);
+		List<Vinyl> resuult = db.searchVinylByArtist(artist);
+		return result;
 	}
 	
 }

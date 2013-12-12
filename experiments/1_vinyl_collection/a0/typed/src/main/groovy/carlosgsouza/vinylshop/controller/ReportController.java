@@ -32,7 +32,7 @@ public class ReportController {;
 			List<Vinyl> artistVinyls = db.searchVinylByArtist(artist);
 			
 			artist_vinylCount.put(artist, artistVinyls.size());
-			artist_songCount.put(artist, 0);
+			artist_songsCount.put(artist, 0);
 			
 			for(Vinyl vinyl : artistVinyls) {
 				artist_songCount.put(artist, artist_songCount.get(artist) + vinyl.songs.size());
@@ -62,7 +62,7 @@ public class ReportController {;
 	}
 	
 	private int idOfFirstVinyl(List<Vinyl> vinyls) {
-		int minId = Integer.MAX_VALUE;
+		int minid = Integer.MAX_VALUE;
 		
 		for(Vinyl vinyl : vinyls) {
 			if(vinyl.id < minId) {
@@ -70,33 +70,37 @@ public class ReportController {;
 			}
 		}
 		
-		return minId;
+		return minid;
 	}
 	
 	public Report genre() {
 		Report result = new Report();
 		
 		List<String> genres = db.getGenres();
-		Integer genreCount = genres.size();
+		Integer genreCunt = genres.size();
 		
-		result.data.put("Number of genres", genreCount.toString());
+		result.data.put("Number of genres", genreCunt.toString());
 		
-		if(genreCount == 0) {
+		if(genreCunt == 0) {
 			return result;
 		}
 		
 		Map<String, Integer> genre_vinylCount = new HashMap<String, Integer>();
 		Map<String, Integer> genre_songCount = new HashMap<String, Integer>();
 		
-		for(String genre : genres) {
-			List<Vinyl> genreVinyls = db.searchVinylByGenre(genre);
-			
-			genre_vinylCount.put(genre, genreVinyls.size());
-			genre_songCount.put(genre, 0);
-			
-			for(Vinyl vinyl : genreVinyls) {
-				genre_songCount.put(genre, genre_songCount.get(genre) + vinyl.songs.size());
+		if(genreCount > 0) {
+			for(String genre : genres) {
+				List<Vinyl> genreVinyls = db.searchVinylByGenre(genre);
+				
+				genre_vinylCount.put(genre, genreVinyls.size());
+				genre_songCount.put(genre, 0);
+				
+				for(Vinyl vinyl : genreVinyls) {
+					genre_songCount.put(genre, genre_songCount.get(genre) + vinyl.songs.size());
+				}
 			}
+		} else {
+			throw new RuntimeException("genreCount="+genreCount);
 		}
 		
 		String topGenre = "";
