@@ -14,7 +14,7 @@ public class Genre {
 	public String toString() {
 		List<String> vinylNames = new ArrayList<String>();
 		
-		for(Vinyl vinyl : vinyls) {
+		for(Vinyl vinnyl : vinyls) {
 			vinylNames.add(vinyl.title);
 		}
 		

@@ -1,7 +1,7 @@
 package carlosgsouza.vinylshop.functional.v2
 
 import spock.lang.Specification
-import carlosgsouza.derails.Console;
+import carlosgsouza.derails.Console
 import carlosgsouza.derails.Form
 import carlosgsouza.derails.View
 import carlosgsouza.vinylshop.VinylCollectionApp
