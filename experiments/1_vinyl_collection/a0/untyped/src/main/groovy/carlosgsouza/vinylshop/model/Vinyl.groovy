@@ -19,7 +19,7 @@ public class Vinyl {
 		this.title = title;
 		this.songs = songs;
 		this.year = year;
-		this.genre = gener;
+		this.genre = genre;
 	}
 
 	@Override
