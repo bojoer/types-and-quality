@@ -6,7 +6,7 @@ class TestResultsAnalyzerSpec extends Specification {
 
 	def "should analyze the results of all subjects"() {
 		when:
-		new TestResultsAnalyzer().run("/Users/carlosgsouza/workspace_gg/types-and-quality/experiments/1_vinyl_collection/a0/analysis")
+		new TestResultsAnalyzer().run("src/test/analysis")
 		
 		then:
 		new File("src/test/analysis/result").exists()
