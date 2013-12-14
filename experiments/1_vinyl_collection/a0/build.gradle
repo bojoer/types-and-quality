@@ -27,7 +27,69 @@ task bundleUntyped(type:Zip) {
 	into baseName
 	unbudledFiles.each {exclude it}
 }
-
-task clean(type:Delete) {
-	delete typedFileName, untypedFileName, typedFileName + ".zip", untypedFileName + ".zip"
+task createProcessTasks() {
+	createSnapshotCommandTask 'execute', 'test'
 }
+
+task createCleanTasks() {
+	createSnapshotCommandTask 'reset', 'clean'	
+}
+
+def createSnapshotCommandTask(taskName, command) {
+	def prefix = "${command}_"
+
+	eachSnapshot { snapshotDir ->
+		def normalizedPath = snapshotDir.path.replaceAll(/[\., \/]/, "")
+
+		tasks.create(type:Exec, name:"${prefix}$normalizedPath") {
+			workingDir snapshotDir.absolutePath
+			commandLine '../../../../../gradlew', command
+
+			ignoreExitValue true			
+		}
+	}
+
+	tasks.create(name:taskName) {
+		dependsOn tasks.matching { it.name.startsWith(prefix) }
+	}
+}
+
+task setup << {
+	def buildFile = new File("snapshot-build.gradle")
+
+	eachSnapshot { snapshotDir ->
+		def writer = new File(snapshotDir, "build.gradle").newWriter()
+		writer << buildFile.text
+		writer.close()
+	}
+}
+
+task clean << {
+	eachSnapshot { snapshotDir ->
+		new File(snapshotDir, "build.gradle").delete()
+	}
+
+	[typedFileName, untypedFileName, typedFileName + ".zip", untypedFileName + ".zip"].each {
+		new File(it).delete()
+	}
+}
+
+def eachSnapshot(Closure closure) {
+	def dataFolder = new File("analysis/data")
+	dataFolder.eachDir { devFolder ->
+		def snapshotsDir = new File(devFolder, "snapshots")
+
+		if(!snapshotsDir.exists()) {
+			return
+		}
+
+		snapshotsDir.eachDir { snapshotDir ->
+			closure(snapshotDir)
+		}
+	}	
+}
+
+task wrapper(type: Wrapper) {
+	gradleVersion = '1.8'
+}
+
