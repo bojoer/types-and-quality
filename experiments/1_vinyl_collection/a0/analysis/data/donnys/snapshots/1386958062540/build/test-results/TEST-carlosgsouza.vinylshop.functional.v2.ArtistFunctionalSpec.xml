@@ -1,0 +1,92 @@
+<?xml version="1.1" encoding="UTF-8"?>
+<testsuite name="carlosgsouza.vinylshop.functional.v2.ArtistFunctionalSpec" tests="6" failures="5" errors="0" timestamp="2013-12-14T16:25:26" hostname="localhost" time="0.153">
+  <properties/>
+  <testcase name="should list all artists" classname="carlosgsouza.vinylshop.functional.v2.ArtistFunctionalSpec" time="0.014"/>
+  <testcase name="should search for vinyls given the artist" classname="carlosgsouza.vinylshop.functional.v2.ArtistFunctionalSpec" time="0.051">
+    <failure message="Too few invocations for:&#10;&#10;1 * app.console.render { View view -&gt;&#10;&#9;&#9;&#9;view.items == [&quot;Listing 1 with artist matching 'Lana Del Rey'&quot;] + bornToDie&#10;&#9;&#9;}   (0 invocations)&#10;&#10;Unmatched invocations (ordered by similarity):&#10;&#10;1 * &lt;Console&gt;.render(View: [(error) No such property: result for class: carlosgsouza.vinylshop.controller.ArtistController])&#10;&#10;" type="org.gradle.messaging.remote.internal.PlaceholderException">Too few invocations for:
+
+1 * app.console.render { View view -&gt;
+			view.items == [&quot;Listing 1 with artist matching 'Lana Del Rey'&quot;] + bornToDie
+		}   (0 invocations)
+
+Unmatched invocations (ordered by similarity):
+
+1 * &lt;Console&gt;.render(View: [(error) No such property: result for class: carlosgsouza.vinylshop.controller.ArtistController])
+
+
+	at org.spockframework.mock.runtime.InteractionScope.verifyInteractions(InteractionScope.java:78)
+	at org.spockframework.mock.runtime.MockController.leaveScope(MockController.java:76)
+	at carlosgsouza.vinylshop.functional.v2.ArtistFunctionalSpec.should search for vinyls given the artist(ArtistFunctionalSpec.groovy:46)
+</failure>
+  </testcase>
+  <testcase name="should ignore the case when searching for vinyls given the artist" classname="carlosgsouza.vinylshop.functional.v2.ArtistFunctionalSpec" time="0.007">
+    <failure message="Too few invocations for:&#10;&#10;1 * app.console.render { View view -&gt;&#10;&#9;&#9;&#9;view.items == [&quot;Listing 1 with artist matching 'lAna DEl rEy'&quot;] + bornToDie&#10;&#9;&#9;}   (0 invocations)&#10;&#10;Unmatched invocations (ordered by similarity):&#10;&#10;1 * &lt;Console&gt;.render(View: [(error) No such property: result for class: carlosgsouza.vinylshop.controller.ArtistController])&#10;&#10;" type="org.gradle.messaging.remote.internal.PlaceholderException">Too few invocations for:
+
+1 * app.console.render { View view -&gt;
+			view.items == [&quot;Listing 1 with artist matching 'lAna DEl rEy'&quot;] + bornToDie
+		}   (0 invocations)
+
+Unmatched invocations (ordered by similarity):
+
+1 * &lt;Console&gt;.render(View: [(error) No such property: result for class: carlosgsouza.vinylshop.controller.ArtistController])
+
+
+	at org.spockframework.mock.runtime.InteractionScope.verifyInteractions(InteractionScope.java:78)
+	at org.spockframework.mock.runtime.MockController.leaveScope(MockController.java:76)
+	at carlosgsouza.vinylshop.functional.v2.ArtistFunctionalSpec.should ignore the case when searching for vinyls given the artist(ArtistFunctionalSpec.groovy:59)
+</failure>
+  </testcase>
+  <testcase name="should match partially when searching for vinyls given the artist" classname="carlosgsouza.vinylshop.functional.v2.ArtistFunctionalSpec" time="0.03">
+    <failure message="Too few invocations for:&#10;&#10;1 * app.console.render { View view -&gt;&#10;&#9;&#9;&#9;view.items == [&quot;Listing 1 with artist matching 'Lana'&quot;] + bornToDie&#10;&#9;&#9;}   (0 invocations)&#10;&#10;Unmatched invocations (ordered by similarity):&#10;&#10;1 * &lt;Console&gt;.render(View: [(error) No such property: result for class: carlosgsouza.vinylshop.controller.ArtistController])&#10;&#10;" type="org.gradle.messaging.remote.internal.PlaceholderException">Too few invocations for:
+
+1 * app.console.render { View view -&gt;
+			view.items == [&quot;Listing 1 with artist matching 'Lana'&quot;] + bornToDie
+		}   (0 invocations)
+
+Unmatched invocations (ordered by similarity):
+
+1 * &lt;Console&gt;.render(View: [(error) No such property: result for class: carlosgsouza.vinylshop.controller.ArtistController])
+
+
+	at org.spockframework.mock.runtime.InteractionScope.verifyInteractions(InteractionScope.java:78)
+	at org.spockframework.mock.runtime.MockController.leaveScope(MockController.java:76)
+	at carlosgsouza.vinylshop.functional.v2.ArtistFunctionalSpec.should match partially when searching for vinyls given the artist(ArtistFunctionalSpec.groovy:72)
+</failure>
+  </testcase>
+  <testcase name="should show no results if the artist is not provided for the artist search" classname="carlosgsouza.vinylshop.functional.v2.ArtistFunctionalSpec" time="0.016">
+    <failure message="Too few invocations for:&#10;&#10;1 * app.console.render { View view -&gt;&#10;&#9;&#9;&#9;view.items == [&quot;Listing 0 with artist matching ''&quot;]&#10;&#9;&#9;}   (0 invocations)&#10;&#10;Unmatched invocations (ordered by similarity):&#10;&#10;1 * &lt;Console&gt;.render(View: [(error) No such property: result for class: carlosgsouza.vinylshop.controller.ArtistController])&#10;&#10;" type="org.gradle.messaging.remote.internal.PlaceholderException">Too few invocations for:
+
+1 * app.console.render { View view -&gt;
+			view.items == [&quot;Listing 0 with artist matching ''&quot;]
+		}   (0 invocations)
+
+Unmatched invocations (ordered by similarity):
+
+1 * &lt;Console&gt;.render(View: [(error) No such property: result for class: carlosgsouza.vinylshop.controller.ArtistController])
+
+
+	at org.spockframework.mock.runtime.InteractionScope.verifyInteractions(InteractionScope.java:78)
+	at org.spockframework.mock.runtime.MockController.leaveScope(MockController.java:76)
+	at carlosgsouza.vinylshop.functional.v2.ArtistFunctionalSpec.should show no results if the artist is not provided for the artist search(ArtistFunctionalSpec.groovy:82)
+</failure>
+  </testcase>
+  <testcase name="should show no results if there are no vinyls with the given artist" classname="carlosgsouza.vinylshop.functional.v2.ArtistFunctionalSpec" time="0.017">
+    <failure message="Too few invocations for:&#10;&#10;1 * app.console.render { View view -&gt;&#10;&#9;&#9;&#9;view.items == [&quot;Listing 0 with artist matching 'Tiririca'&quot;]&#10;&#9;&#9;}   (0 invocations)&#10;&#10;Unmatched invocations (ordered by similarity):&#10;&#10;1 * &lt;Console&gt;.render(View: [(error) No such property: result for class: carlosgsouza.vinylshop.controller.ArtistController])&#10;&#10;" type="org.gradle.messaging.remote.internal.PlaceholderException">Too few invocations for:
+
+1 * app.console.render { View view -&gt;
+			view.items == [&quot;Listing 0 with artist matching 'Tiririca'&quot;]
+		}   (0 invocations)
+
+Unmatched invocations (ordered by similarity):
+
+1 * &lt;Console&gt;.render(View: [(error) No such property: result for class: carlosgsouza.vinylshop.controller.ArtistController])
+
+
+	at org.spockframework.mock.runtime.InteractionScope.verifyInteractions(InteractionScope.java:78)
+	at org.spockframework.mock.runtime.MockController.leaveScope(MockController.java:76)
+	at carlosgsouza.vinylshop.functional.v2.ArtistFunctionalSpec.should show no results if there are no vinyls with the given artist(ArtistFunctionalSpec.groovy:92)
+</failure>
+  </testcase>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

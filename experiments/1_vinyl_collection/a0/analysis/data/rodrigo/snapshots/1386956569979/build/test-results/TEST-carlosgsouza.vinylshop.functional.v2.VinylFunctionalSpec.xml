@@ -1,0 +1,9 @@
+<?xml version="1.1" encoding="UTF-8"?>
+<testsuite name="carlosgsouza.vinylshop.functional.v2.VinylFunctionalSpec" tests="3" failures="0" errors="0" timestamp="2013-12-14T16:32:43" hostname="localhost" time="0.026">
+  <properties/>
+  <testcase name="should show a vinyl" classname="carlosgsouza.vinylshop.functional.v2.VinylFunctionalSpec" time="0.01"/>
+  <testcase name="should delete a vinyl" classname="carlosgsouza.vinylshop.functional.v2.VinylFunctionalSpec" time="0.007"/>
+  <testcase name="should create a vinyl" classname="carlosgsouza.vinylshop.functional.v2.VinylFunctionalSpec" time="0.008"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

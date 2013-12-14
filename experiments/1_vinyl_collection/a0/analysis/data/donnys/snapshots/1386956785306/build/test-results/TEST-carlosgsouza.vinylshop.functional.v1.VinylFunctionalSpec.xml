@@ -1,0 +1,11 @@
+<?xml version="1.1" encoding="UTF-8"?>
+<testsuite name="carlosgsouza.vinylshop.functional.v1.VinylFunctionalSpec" tests="5" failures="0" errors="0" timestamp="2013-12-14T16:23:49" hostname="localhost" time="0.159">
+  <properties/>
+  <testcase name="should show an error message when trying to shown an inexistent vinyl" classname="carlosgsouza.vinylshop.functional.v1.VinylFunctionalSpec" time="0.082"/>
+  <testcase name="should show an error message when trying to delete an inexistent vinyl" classname="carlosgsouza.vinylshop.functional.v1.VinylFunctionalSpec" time="0.01"/>
+  <testcase name="should search for a vinyl given its name, ignoring the case and matching the query anywhere in the name" classname="carlosgsouza.vinylshop.functional.v1.VinylFunctionalSpec" time="0.026"/>
+  <testcase name="should not find an uniexistant vinyl" classname="carlosgsouza.vinylshop.functional.v1.VinylFunctionalSpec" time="0.006"/>
+  <testcase name="should not create an invalid vinyl" classname="carlosgsouza.vinylshop.functional.v1.VinylFunctionalSpec" time="0.03"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

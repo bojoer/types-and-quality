@@ -1,0 +1,7 @@
+<?xml version="1.1" encoding="UTF-8"?>
+<testsuite name="carlosgsouza.vinylshop.functional.v1.SongFunctionalSpec" tests="1" failures="0" errors="0" timestamp="2013-12-14T16:32:05" hostname="localhost" time="0.039">
+  <properties/>
+  <testcase name="should list all songs" classname="carlosgsouza.vinylshop.functional.v1.SongFunctionalSpec" time="0.039"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

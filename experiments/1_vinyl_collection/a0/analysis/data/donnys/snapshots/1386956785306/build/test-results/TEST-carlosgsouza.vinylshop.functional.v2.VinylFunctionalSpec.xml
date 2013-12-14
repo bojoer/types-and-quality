@@ -1,0 +1,55 @@
+<?xml version="1.1" encoding="UTF-8"?>
+<testsuite name="carlosgsouza.vinylshop.functional.v2.VinylFunctionalSpec" tests="3" failures="3" errors="0" timestamp="2013-12-14T16:23:50" hostname="localhost" time="0.054">
+  <properties/>
+  <testcase name="should show a vinyl" classname="carlosgsouza.vinylshop.functional.v2.VinylFunctionalSpec" time="0.013">
+    <failure message="Too few invocations for:&#10;&#10;1 * app.console.render{ View view -&gt;&#10;&#9;&#9;&#9;view.items == [app.preloadedVinyls.find{it.id == 1}]&#10;&#9;&#9;}   (0 invocations)&#10;&#10;Unmatched invocations (ordered by similarity):&#10;&#10;1 * &lt;Console&gt;.render(View: [(error) No such property: createdVinyl for class: carlosgsouza.vinylshop.view.UiFactory])&#10;&#10;" type="org.gradle.messaging.remote.internal.PlaceholderException">Too few invocations for:
+
+1 * app.console.render{ View view -&gt;
+			view.items == [app.preloadedVinyls.find{it.id == 1}]
+		}   (0 invocations)
+
+Unmatched invocations (ordered by similarity):
+
+1 * &lt;Console&gt;.render(View: [(error) No such property: createdVinyl for class: carlosgsouza.vinylshop.view.UiFactory])
+
+
+	at org.spockframework.mock.runtime.InteractionScope.verifyInteractions(InteractionScope.java:78)
+	at org.spockframework.mock.runtime.MockController.leaveScope(MockController.java:76)
+	at carlosgsouza.vinylshop.functional.v2.VinylFunctionalSpec.should show a vinyl(VinylFunctionalSpec.groovy:26)
+</failure>
+  </testcase>
+  <testcase name="should delete a vinyl" classname="carlosgsouza.vinylshop.functional.v2.VinylFunctionalSpec" time="0.019">
+    <failure message="Too few invocations for:&#10;&#10;1 * app.console.render { View view -&gt;&#10;&#9;&#9;&#9;view.items == [&quot;Vinyl deleted&quot;]&#10;&#9;&#9;}   (0 invocations)&#10;&#10;Unmatched invocations (ordered by similarity):&#10;&#10;1 * &lt;Console&gt;.render(View: [(error) No such property: obj for class: carlosgsouza.vinylshop.model.Vinyl])&#10;&#10;" type="org.gradle.messaging.remote.internal.PlaceholderException">Too few invocations for:
+
+1 * app.console.render { View view -&gt;
+			view.items == [&quot;Vinyl deleted&quot;]
+		}   (0 invocations)
+
+Unmatched invocations (ordered by similarity):
+
+1 * &lt;Console&gt;.render(View: [(error) No such property: obj for class: carlosgsouza.vinylshop.model.Vinyl])
+
+
+	at org.spockframework.mock.runtime.InteractionScope.verifyInteractions(InteractionScope.java:78)
+	at org.spockframework.mock.runtime.MockController.leaveScope(MockController.java:76)
+	at carlosgsouza.vinylshop.functional.v2.VinylFunctionalSpec.should delete a vinyl(VinylFunctionalSpec.groovy:36)
+</failure>
+  </testcase>
+  <testcase name="should create a vinyl" classname="carlosgsouza.vinylshop.functional.v2.VinylFunctionalSpec" time="0.022">
+    <failure message="Too few invocations for:&#10;&#10;1 * app.console.render { it.items == [newVinyl] }   (0 invocations)&#10;&#10;Unmatched invocations (ordered by similarity):&#10;&#10;1 * &lt;Console&gt;.render(View: [(error) No such property: createdVinyl for class: carlosgsouza.vinylshop.view.UiFactory])&#10;&#10;" type="org.gradle.messaging.remote.internal.PlaceholderException">Too few invocations for:
+
+1 * app.console.render { it.items == [newVinyl] }   (0 invocations)
+
+Unmatched invocations (ordered by similarity):
+
+1 * &lt;Console&gt;.render(View: [(error) No such property: createdVinyl for class: carlosgsouza.vinylshop.view.UiFactory])
+
+
+	at org.spockframework.mock.runtime.InteractionScope.verifyInteractions(InteractionScope.java:78)
+	at org.spockframework.mock.runtime.MockController.leaveScope(MockController.java:76)
+	at carlosgsouza.vinylshop.functional.v2.VinylFunctionalSpec.should create a vinyl(VinylFunctionalSpec.groovy:52)
+</failure>
+  </testcase>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

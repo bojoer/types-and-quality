@@ -1,0 +1,11 @@
+<?xml version="1.1" encoding="UTF-8"?>
+<testsuite name="carlosgsouza.vinylshop.functional.v1.SummaryFunctionalSpec" tests="1" failures="0" errors="0" timestamp="1970-01-01T00:00:00" hostname="localhost" time="1.387038305236E9">
+  <properties/>
+  <testcase name="should show a summary of the vinyls" classname="carlosgsouza.vinylshop.functional.v1.SummaryFunctionalSpec" time="0.055"/>
+  <system-out><![CDATA[[Lana Del Rey, Vinyls:[Born to Die], Bruno Mars, Vinyls:[Unorthodox Jukebox], Pearl Jam, Vinyls:[Lightning Bolt, Backspacer], Angra, Vinyls:[Temple of Shadows], Luan Santana, Vinyls:[Quando Chega a Noite], Coldplay, Vinyls:[Parachutes], 
+]
+[Lana Del Rey, Bruno Mars, Pearl Jam, Angra, Luan Santana, Coldplay, 
+]
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

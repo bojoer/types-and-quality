@@ -1,0 +1,48 @@
+<?xml version="1.1" encoding="UTF-8"?>
+<testsuite name="carlosgsouza.vinylshop.functional.v2.ReportFunctionalSpec" tests="4" failures="2" errors="0" timestamp="2013-12-14T16:26:17" hostname="localhost" time="0.176">
+  <properties/>
+  <testcase name="should show an artist report" classname="carlosgsouza.vinylshop.functional.v2.ReportFunctionalSpec" time="0.035"/>
+  <testcase name="in case of a draw, the artist report should consider the top artist to be the one added earliest" classname="carlosgsouza.vinylshop.functional.v2.ReportFunctionalSpec" time="0.067">
+    <failure message="Too few invocations for:&#10;&#10;1 * app.console.render { View view -&gt;&#10;&#9;&#9;&#9;view.items == [&quot;Artist Report&quot;, new Report(data:[&quot;Number of artists&quot;:&quot;6&quot;, &quot;Top artist&quot;:&quot;Lana Del Rey&quot;, &quot;Number of vinyls by Lana Del Rey&quot;: &quot;1&quot;, &quot;Number of songs by Lana Del Rey&quot;:&quot;3&quot;] ) ]&#10;&#9;&#9;}   (0 invocations)&#10;&#10;Unmatched invocations (ordered by similarity):&#10;&#10;1 * &lt;Console&gt;.render(View: [Artist Report, Top artist: Pearl Jam&#10;Number of songs by Pearl Jam: 5&#10;Number of vinyls by Pearl Jam: 2&#10;Number of artists: 6])&#10;&#10;" type="org.gradle.messaging.remote.internal.PlaceholderException">Too few invocations for:
+
+1 * app.console.render { View view -&gt;
+			view.items == [&quot;Artist Report&quot;, new Report(data:[&quot;Number of artists&quot;:&quot;6&quot;, &quot;Top artist&quot;:&quot;Lana Del Rey&quot;, &quot;Number of vinyls by Lana Del Rey&quot;: &quot;1&quot;, &quot;Number of songs by Lana Del Rey&quot;:&quot;3&quot;] ) ]
+		}   (0 invocations)
+
+Unmatched invocations (ordered by similarity):
+
+1 * &lt;Console&gt;.render(View: [Artist Report, Top artist: Pearl Jam
+Number of songs by Pearl Jam: 5
+Number of vinyls by Pearl Jam: 2
+Number of artists: 6])
+
+
+	at org.spockframework.mock.runtime.InteractionScope.verifyInteractions(InteractionScope.java:78)
+	at org.spockframework.mock.runtime.MockController.leaveScope(MockController.java:76)
+	at carlosgsouza.vinylshop.functional.v2.ReportFunctionalSpec.in case of a draw, the artist report should consider the top artist to be the one added earliest(ReportFunctionalSpec.groovy:36)
+</failure>
+  </testcase>
+  <testcase name="should show a genre report" classname="carlosgsouza.vinylshop.functional.v2.ReportFunctionalSpec" time="0.039"/>
+  <testcase name="in case of a draw, the genre report should consider the top artist to be the one added earliest" classname="carlosgsouza.vinylshop.functional.v2.ReportFunctionalSpec" time="0.033">
+    <failure message="Too few invocations for:&#10;&#10;1 * app.console.render { View view -&gt;&#10;&#9;&#9;&#9;view.items == [&quot;Genre Report&quot;, new Report(data:[&quot;Number of genres&quot;:&quot;4&quot;, &quot;Top genre&quot;:&quot;Pop&quot;, &quot;Number of Pop vinyls&quot;: &quot;2&quot;, &quot;Number of Pop songs&quot;:&quot;6&quot;] ) ]&#10;&#9;&#9;}   (0 invocations)&#10;&#10;Unmatched invocations (ordered by similarity):&#10;&#10;1 * &lt;Console&gt;.render(View: [Genre Report, Number of Rock vinyls: 3&#10;Top genre: Rock&#10;Number of Rock songs: 7&#10;Number of genres: 4])&#10;&#10;" type="org.gradle.messaging.remote.internal.PlaceholderException">Too few invocations for:
+
+1 * app.console.render { View view -&gt;
+			view.items == [&quot;Genre Report&quot;, new Report(data:[&quot;Number of genres&quot;:&quot;4&quot;, &quot;Top genre&quot;:&quot;Pop&quot;, &quot;Number of Pop vinyls&quot;: &quot;2&quot;, &quot;Number of Pop songs&quot;:&quot;6&quot;] ) ]
+		}   (0 invocations)
+
+Unmatched invocations (ordered by similarity):
+
+1 * &lt;Console&gt;.render(View: [Genre Report, Number of Rock vinyls: 3
+Top genre: Rock
+Number of Rock songs: 7
+Number of genres: 4])
+
+
+	at org.spockframework.mock.runtime.InteractionScope.verifyInteractions(InteractionScope.java:78)
+	at org.spockframework.mock.runtime.MockController.leaveScope(MockController.java:76)
+	at carlosgsouza.vinylshop.functional.v2.ReportFunctionalSpec.in case of a draw, the genre report should consider the top artist to be the one added earliest(ReportFunctionalSpec.groovy:59)
+</failure>
+  </testcase>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

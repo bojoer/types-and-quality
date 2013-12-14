@@ -1,0 +1,74 @@
+<?xml version="1.1" encoding="UTF-8"?>
+<testsuite name="carlosgsouza.vinylshop.functional.v2.ReportFunctionalSpec" tests="4" failures="4" errors="0" timestamp="2013-12-14T16:23:50" hostname="localhost" time="0.122">
+  <properties/>
+  <testcase name="should show an artist report" classname="carlosgsouza.vinylshop.functional.v2.ReportFunctionalSpec" time="0.015">
+    <failure message="Too few invocations for:&#10;&#10;1 * app.console.render { View view -&gt;&#10;&#9;&#9;&#9;view.items == [&quot;Artist Report&quot;, new Report(data:[&quot;Number of artists&quot;:&quot;6&quot;, &quot;Top artist&quot;:&quot;Pearl Jam&quot;, &quot;Number of vinyls by Pearl Jam&quot;: &quot;2&quot;, &quot;Number of songs by Pearl Jam&quot;:&quot;5&quot;] ) ]&#10;&#9;&#9;}   (0 invocations)&#10;&#10;Unmatched invocations (ordered by similarity):&#10;&#10;1 * &lt;Console&gt;.render(View: [(error) No such property: result for class: carlosgsouza.vinylshop.controller.ReportController])&#10;&#10;" type="org.gradle.messaging.remote.internal.PlaceholderException">Too few invocations for:
+
+1 * app.console.render { View view -&gt;
+			view.items == [&quot;Artist Report&quot;, new Report(data:[&quot;Number of artists&quot;:&quot;6&quot;, &quot;Top artist&quot;:&quot;Pearl Jam&quot;, &quot;Number of vinyls by Pearl Jam&quot;: &quot;2&quot;, &quot;Number of songs by Pearl Jam&quot;:&quot;5&quot;] ) ]
+		}   (0 invocations)
+
+Unmatched invocations (ordered by similarity):
+
+1 * &lt;Console&gt;.render(View: [(error) No such property: result for class: carlosgsouza.vinylshop.controller.ReportController])
+
+
+	at org.spockframework.mock.runtime.InteractionScope.verifyInteractions(InteractionScope.java:78)
+	at org.spockframework.mock.runtime.MockController.leaveScope(MockController.java:76)
+	at carlosgsouza.vinylshop.functional.v2.ReportFunctionalSpec.should show an artist report(ReportFunctionalSpec.groovy:23)
+</failure>
+  </testcase>
+  <testcase name="in case of a draw, the artist report should consider the top artist to be the one added earliest" classname="carlosgsouza.vinylshop.functional.v2.ReportFunctionalSpec" time="0.034">
+    <failure message="Too few invocations for:&#10;&#10;1 * app.console.render { View view -&gt;&#10;&#9;&#9;&#9;view.items == [&quot;Artist Report&quot;, new Report(data:[&quot;Number of artists&quot;:&quot;6&quot;, &quot;Top artist&quot;:&quot;Lana Del Rey&quot;, &quot;Number of vinyls by Lana Del Rey&quot;: &quot;1&quot;, &quot;Number of songs by Lana Del Rey&quot;:&quot;3&quot;] ) ]&#10;&#9;&#9;}   (0 invocations)&#10;&#10;Unmatched invocations (ordered by similarity):&#10;&#10;1 * &lt;Console&gt;.render(View: [(error) No such property: result for class: carlosgsouza.vinylshop.controller.ReportController])&#10;&#10;" type="org.gradle.messaging.remote.internal.PlaceholderException">Too few invocations for:
+
+1 * app.console.render { View view -&gt;
+			view.items == [&quot;Artist Report&quot;, new Report(data:[&quot;Number of artists&quot;:&quot;6&quot;, &quot;Top artist&quot;:&quot;Lana Del Rey&quot;, &quot;Number of vinyls by Lana Del Rey&quot;: &quot;1&quot;, &quot;Number of songs by Lana Del Rey&quot;:&quot;3&quot;] ) ]
+		}   (0 invocations)
+
+Unmatched invocations (ordered by similarity):
+
+1 * &lt;Console&gt;.render(View: [(error) No such property: result for class: carlosgsouza.vinylshop.controller.ReportController])
+
+
+	at org.spockframework.mock.runtime.InteractionScope.verifyInteractions(InteractionScope.java:78)
+	at org.spockframework.mock.runtime.MockController.leaveScope(MockController.java:76)
+	at carlosgsouza.vinylshop.functional.v2.ReportFunctionalSpec.in case of a draw, the artist report should consider the top artist to be the one added earliest(ReportFunctionalSpec.groovy:36)
+</failure>
+  </testcase>
+  <testcase name="should show a genre report" classname="carlosgsouza.vinylshop.functional.v2.ReportFunctionalSpec" time="0.049">
+    <failure message="Too few invocations for:&#10;&#10;1 * app.console.render { View view -&gt;&#10;&#9;&#9;&#9;view.items == [&quot;Genre Report&quot;, new Report(data:[&quot;Number of genres&quot;:&quot;4&quot;, &quot;Top genre&quot;:&quot;Rock&quot;, &quot;Number of Rock vinyls&quot;: &quot;3&quot;, &quot;Number of Rock songs&quot;:&quot;7&quot;] ) ]&#10;&#9;&#9;}   (0 invocations)&#10;&#10;Unmatched invocations (ordered by similarity):&#10;&#10;1 * &lt;Console&gt;.render(View: [(error) No such property: minId for class: carlosgsouza.vinylshop.controller.ReportController])&#10;&#10;" type="org.gradle.messaging.remote.internal.PlaceholderException">Too few invocations for:
+
+1 * app.console.render { View view -&gt;
+			view.items == [&quot;Genre Report&quot;, new Report(data:[&quot;Number of genres&quot;:&quot;4&quot;, &quot;Top genre&quot;:&quot;Rock&quot;, &quot;Number of Rock vinyls&quot;: &quot;3&quot;, &quot;Number of Rock songs&quot;:&quot;7&quot;] ) ]
+		}   (0 invocations)
+
+Unmatched invocations (ordered by similarity):
+
+1 * &lt;Console&gt;.render(View: [(error) No such property: minId for class: carlosgsouza.vinylshop.controller.ReportController])
+
+
+	at org.spockframework.mock.runtime.InteractionScope.verifyInteractions(InteractionScope.java:78)
+	at org.spockframework.mock.runtime.MockController.leaveScope(MockController.java:76)
+	at carlosgsouza.vinylshop.functional.v2.ReportFunctionalSpec.should show a genre report(ReportFunctionalSpec.groovy:46)
+</failure>
+  </testcase>
+  <testcase name="in case of a draw, the genre report should consider the top artist to be the one added earliest" classname="carlosgsouza.vinylshop.functional.v2.ReportFunctionalSpec" time="0.023">
+    <failure message="Too few invocations for:&#10;&#10;1 * app.console.render { View view -&gt;&#10;&#9;&#9;&#9;view.items == [&quot;Genre Report&quot;, new Report(data:[&quot;Number of genres&quot;:&quot;4&quot;, &quot;Top genre&quot;:&quot;Pop&quot;, &quot;Number of Pop vinyls&quot;: &quot;2&quot;, &quot;Number of Pop songs&quot;:&quot;6&quot;] ) ]&#10;&#9;&#9;}   (0 invocations)&#10;&#10;Unmatched invocations (ordered by similarity):&#10;&#10;1 * &lt;Console&gt;.render(View: [(error) No such property: minId for class: carlosgsouza.vinylshop.controller.ReportController])&#10;&#10;" type="org.gradle.messaging.remote.internal.PlaceholderException">Too few invocations for:
+
+1 * app.console.render { View view -&gt;
+			view.items == [&quot;Genre Report&quot;, new Report(data:[&quot;Number of genres&quot;:&quot;4&quot;, &quot;Top genre&quot;:&quot;Pop&quot;, &quot;Number of Pop vinyls&quot;: &quot;2&quot;, &quot;Number of Pop songs&quot;:&quot;6&quot;] ) ]
+		}   (0 invocations)
+
+Unmatched invocations (ordered by similarity):
+
+1 * &lt;Console&gt;.render(View: [(error) No such property: minId for class: carlosgsouza.vinylshop.controller.ReportController])
+
+
+	at org.spockframework.mock.runtime.InteractionScope.verifyInteractions(InteractionScope.java:78)
+	at org.spockframework.mock.runtime.MockController.leaveScope(MockController.java:76)
+	at carlosgsouza.vinylshop.functional.v2.ReportFunctionalSpec.in case of a draw, the genre report should consider the top artist to be the one added earliest(ReportFunctionalSpec.groovy:59)
+</failure>
+  </testcase>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

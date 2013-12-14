@@ -1,0 +1,10 @@
+<?xml version="1.1" encoding="UTF-8"?>
+<testsuite name="carlosgsouza.vinylshop.functional.v2.ReportFunctionalSpec" tests="4" failures="0" errors="0" timestamp="2013-12-14T16:32:15" hostname="localhost" time="0.1">
+  <properties/>
+  <testcase name="should show an artist report" classname="carlosgsouza.vinylshop.functional.v2.ReportFunctionalSpec" time="0.035"/>
+  <testcase name="in case of a draw, the artist report should consider the top artist to be the one added earliest" classname="carlosgsouza.vinylshop.functional.v2.ReportFunctionalSpec" time="0.03"/>
+  <testcase name="should show a genre report" classname="carlosgsouza.vinylshop.functional.v2.ReportFunctionalSpec" time="0.013"/>
+  <testcase name="in case of a draw, the genre report should consider the top artist to be the one added earliest" classname="carlosgsouza.vinylshop.functional.v2.ReportFunctionalSpec" time="0.019"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

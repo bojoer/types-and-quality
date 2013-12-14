@@ -1,0 +1,7 @@
+<?xml version="1.1" encoding="UTF-8"?>
+<testsuite name="carlosgsouza.vinylshop.functional.v1.SummaryFunctionalSpec" tests="1" failures="0" errors="0" timestamp="2013-12-14T16:27:20" hostname="localhost" time="0.032">
+  <properties/>
+  <testcase name="should show a summary of the vinyls" classname="carlosgsouza.vinylshop.functional.v1.SummaryFunctionalSpec" time="0.032"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

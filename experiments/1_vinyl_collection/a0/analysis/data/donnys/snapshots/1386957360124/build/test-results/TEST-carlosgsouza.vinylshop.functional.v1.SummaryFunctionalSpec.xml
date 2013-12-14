@@ -1,0 +1,26 @@
+<?xml version="1.1" encoding="UTF-8"?>
+<testsuite name="carlosgsouza.vinylshop.functional.v1.SummaryFunctionalSpec" tests="1" failures="1" errors="0" timestamp="2013-12-14T16:24:22" hostname="localhost" time="0.049">
+  <properties/>
+  <testcase name="should show a summary of the vinyls" classname="carlosgsouza.vinylshop.functional.v1.SummaryFunctionalSpec" time="0.049">
+    <failure message="Too few invocations for:&#10;&#10;1 * app.console.render { View view -&gt;&#10;&#9;&#9;&#9;view.items == [&quot;Collection Summary&quot;, new Summary(vinylCount:7, artistCount: 6, songCount:18, genreCount:4)]&#10;&#9;&#9;}   (0 invocations)&#10;&#10;Unmatched invocations (ordered by similarity):&#10;&#10;1 * &lt;Console&gt;.render(View: [Collection Summary, Vinyls:  7&#10;Artists: 7&#10;Songs:   18&#10;Genres:  4])&#10;&#10;" type="org.gradle.messaging.remote.internal.PlaceholderException">Too few invocations for:
+
+1 * app.console.render { View view -&gt;
+			view.items == [&quot;Collection Summary&quot;, new Summary(vinylCount:7, artistCount: 6, songCount:18, genreCount:4)]
+		}   (0 invocations)
+
+Unmatched invocations (ordered by similarity):
+
+1 * &lt;Console&gt;.render(View: [Collection Summary, Vinyls:  7
+Artists: 7
+Songs:   18
+Genres:  4])
+
+
+	at org.spockframework.mock.runtime.InteractionScope.verifyInteractions(InteractionScope.java:78)
+	at org.spockframework.mock.runtime.MockController.leaveScope(MockController.java:76)
+	at carlosgsouza.vinylshop.functional.v1.SummaryFunctionalSpec.should show a summary of the vinyls(SummaryFunctionalSpec.groovy:24)
+</failure>
+  </testcase>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

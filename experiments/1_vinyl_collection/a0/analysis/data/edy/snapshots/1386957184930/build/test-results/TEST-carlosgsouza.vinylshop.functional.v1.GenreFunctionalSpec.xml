@@ -1,0 +1,12 @@
+<?xml version="1.1" encoding="UTF-8"?>
+<testsuite name="carlosgsouza.vinylshop.functional.v1.GenreFunctionalSpec" tests="6" failures="0" errors="0" timestamp="2013-12-14T16:28:22" hostname="localhost" time="2.28">
+  <properties/>
+  <testcase name="should search for vinyls given the genre" classname="carlosgsouza.vinylshop.functional.v1.GenreFunctionalSpec" time="2.107"/>
+  <testcase name="should ignore the case when searching for vinyls given the genre" classname="carlosgsouza.vinylshop.functional.v1.GenreFunctionalSpec" time="0.015"/>
+  <testcase name="should match partially when searching for vinyls given the genre" classname="carlosgsouza.vinylshop.functional.v1.GenreFunctionalSpec" time="0.011"/>
+  <testcase name="should show no results if the genre is not provided for the genre search" classname="carlosgsouza.vinylshop.functional.v1.GenreFunctionalSpec" time="0.05"/>
+  <testcase name="should show no results if there are no vinyls with the given genre" classname="carlosgsouza.vinylshop.functional.v1.GenreFunctionalSpec" time="0.056"/>
+  <testcase name="should list all genres" classname="carlosgsouza.vinylshop.functional.v1.GenreFunctionalSpec" time="0.027"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

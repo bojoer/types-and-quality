@@ -1,0 +1,12 @@
+<?xml version="1.1" encoding="UTF-8"?>
+<testsuite name="carlosgsouza.vinylshop.functional.v2.ArtistFunctionalSpec" tests="6" failures="0" errors="0" timestamp="2013-12-14T16:32:43" hostname="localhost" time="0.05">
+  <properties/>
+  <testcase name="should list all artists" classname="carlosgsouza.vinylshop.functional.v2.ArtistFunctionalSpec" time="0.014"/>
+  <testcase name="should search for vinyls given the artist" classname="carlosgsouza.vinylshop.functional.v2.ArtistFunctionalSpec" time="0.011"/>
+  <testcase name="should ignore the case when searching for vinyls given the artist" classname="carlosgsouza.vinylshop.functional.v2.ArtistFunctionalSpec" time="0.005"/>
+  <testcase name="should match partially when searching for vinyls given the artist" classname="carlosgsouza.vinylshop.functional.v2.ArtistFunctionalSpec" time="0.005"/>
+  <testcase name="should show no results if the artist is not provided for the artist search" classname="carlosgsouza.vinylshop.functional.v2.ArtistFunctionalSpec" time="0.005"/>
+  <testcase name="should show no results if there are no vinyls with the given artist" classname="carlosgsouza.vinylshop.functional.v2.ArtistFunctionalSpec" time="0.006"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

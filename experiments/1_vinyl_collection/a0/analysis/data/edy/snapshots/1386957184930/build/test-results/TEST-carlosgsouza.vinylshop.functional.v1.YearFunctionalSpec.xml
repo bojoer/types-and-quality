@@ -1,0 +1,9 @@
+<?xml version="1.1" encoding="UTF-8"?>
+<testsuite name="carlosgsouza.vinylshop.functional.v1.YearFunctionalSpec" tests="3" failures="0" errors="0" timestamp="2013-12-14T16:28:26" hostname="localhost" time="0.093">
+  <properties/>
+  <testcase name="should search for vinyls given the year" classname="carlosgsouza.vinylshop.functional.v1.YearFunctionalSpec" time="0.035"/>
+  <testcase name="should show no results if the year is not provided for the year search" classname="carlosgsouza.vinylshop.functional.v1.YearFunctionalSpec" time="0.024"/>
+  <testcase name="should show no results if there are no vinyls released at the provided year" classname="carlosgsouza.vinylshop.functional.v1.YearFunctionalSpec" time="0.025"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
