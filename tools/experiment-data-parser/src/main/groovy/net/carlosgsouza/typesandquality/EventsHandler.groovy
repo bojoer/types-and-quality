@@ -10,10 +10,10 @@ class EventsHandler {
 	}
 	
 	def parse(File eventsFile) {
-		
+		parse(eventsFile.readLines())
 	}
 	
-	def parse(events) {
+	def parse(List events) {
 		if(events.size() == 0) {
 			return
 		}
@@ -32,14 +32,14 @@ class EventsHandler {
 			def event_n = time_event[n].event
 			
 			if(event_n == "RUN" || event_n == "TEST") {
-				relativeTimes[time_n.toString()] = time_n - start - pausedTime
+				relativeTimes[time_n.toString()] = (long)(time_n - start - pausedTime)/1000L
 			} else if(n > 0 && event_n == "RESUME" && time_event[n-1].event == "PAUSE") {
 				pausedTime += time_n - time_event[n-1].time
 			}
 		}
 		
 		def finish = time_event.last()?.time  
-		duration = finish - start - pausedTime
+		duration = (long)(finish - start - pausedTime)/1000L
 	}
 
 }

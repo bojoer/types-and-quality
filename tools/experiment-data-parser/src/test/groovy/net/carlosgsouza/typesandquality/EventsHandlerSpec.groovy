@@ -20,13 +20,13 @@ class EventsHandlerSpec extends Specification {
 		handler.duration == duration
 		
 		where:
-		events																							| duration	| relativeTimes
-		["START	100", "FINISH	200"]																	| 100		| [:]
-		["START	100", "RUN	105", "FINISH	200"]														| 100		| ["105":5]
-		["START	100", "RUN	105", "RUN	110", "FINISH	200"]											| 100		| ["105":5, "110":10]
-		["START	100", "RUN	105", "PAUSE	110", "RESUME	115", "FINISH	200"]						| 95		| ["105":5]
-		["START	100", "RUN	105", "PAUSE	110", "RESUME	115", "RUN	120", "FINISH	200"]			| 95		| ["105":5, "120":15]
-		["START	100", "TEST	105", "PAUSE	110", "RESUME	115", "RUN	120", "FINISH	200"]			| 95		| ["105":5, "120":15]
+		events																										| duration	| relativeTimes
+		["START	100000", "FINISH	200000"]																		| 100		| [:]
+		["START	100000", "RUN	105000", "FINISH	200000"]														| 100		| ["105000":5]
+		["START	100000", "RUN	105000", "RUN	110000", "FINISH	200000"]										| 100		| ["105000":5, "110000":10]
+		["START	100000", "RUN	105000", "PAUSE	110000", "RESUME	115000", "FINISH	200000"]					| 95		| ["105000":5]
+		["START	100000", "RUN	105000", "PAUSE	110000", "RESUME	115000", "RUN	120000", "FINISH	200000"]	| 95		| ["105000":5, "120000":15]
+		["START	100000", "TEST	105000", "PAUSE	110000", "RESUME	115000", "RUN	120000", "FINISH	200000"]	| 95		| ["105000":5, "120000":15]
 	}
 	
 	def "should determine the relative time and duration for each event even when the events list is inconsistent"() {
@@ -38,20 +38,32 @@ class EventsHandlerSpec extends Specification {
 		handler.duration == duration
 		
 		where:
-		events																							| duration	| relativeTimes
+		events																										| duration	| relativeTimes
 		// no start
-		["FINISH	200"]																				| 0			| [:]
-		["RUN	105", "FINISH	200"]																	| 95		| ["105":0]
+		["FINISH	200000"]																						| 0			| [:]
+		["RUN	105000", "FINISH	200000"]																		| 95		| ["105000":0]
 		// late start
-		["RUN	105", "START	150", "FINISH	200"]													| 95		| ["105":0]
+		["RUN	105000", "START	150000", "FINISH	200000"]														| 95		| ["105000":0]
 		// events after finish
-		["START	100", "RUN	105", "RUN	110", "FINISH	200", "RUN	205"]								| 105		| ["105":5, "110":10, "205":105]
+		["START	100000", "RUN	105000", "RUN	110000", "FINISH	200000", "RUN	205000"]						| 105		| ["105000":5, "110000":10, "205000":105]
 		// pause/resume without the other
-		["START	100", "PAUSE	105", "RUN	110", "FINISH	200"]										| 100		| ["110":10]
-		["RESUME	100", "START	100", "PAUSE	105", "RUN	110", "FINISH	200"]					| 100		| ["110":10]
-		["START	100", "RESUME	105", "RUN	110", "FINISH	200"]										| 100		| ["110":10]
-		["START	100", "PAUSE	105", "RUN	110", "RESUME	115", "FINISH	200"]						| 100		| ["110":10]
-		["START	100", "PAUSE	105", "PAUSE	110", "RESUME	115", "RUN	120", "FINISH	200"]		| 95		| ["120":15]
+		["START	100000", "PAUSE	105000", "RUN	110000", "FINISH	200000"]										| 100		| ["110000":10]
+		["RESUME	100000", "START	100000", "PAUSE	105000", "RUN	110000", "FINISH	200000"]					| 100		| ["110000":10]
+		["START	100000", "RESUME	105000", "RUN	110000", "FINISH	200000"]									| 100		| ["110000":10]
+		["START	100000", "PAUSE	105000", "RUN	110000", "RESUME	115000", "FINISH	200000"]					| 100		| ["110000":10]
+		["START	100000", "PAUSE	105000", "PAUSE	110000", "RESUME	115000", "RUN	120000", "FINISH	200000"]	| 95		| ["120000":15]
 		
+	}
+	
+	def "should rounddown the relative duration"() {
+		given:
+		def events = ["START	100003", "RUN	105091", "FINISH	200010"]
+		
+		when:
+		handler.parse(events)
+		
+		then:
+		handler.relativeTimes == ["105091":5]
+		handler.duration == 100
 	}
 }
