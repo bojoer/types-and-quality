@@ -1,25 +1,21 @@
 package net.carlosgsouza.typesandquality
 
-class EventsHandler {
+class Events {
 	
 	def duration = 0
 	def relativeTimes = [:]
 
-	public TestResultsFileParser() {
-		
+	public Events(File eventsFile) {
+		this(eventsFile.readLines())
 	}
 	
-	def parse(File eventsFile) {
-		parse(eventsFile.readLines())
-	}
-	
-	def parse(List events) {
-		if(events.size() == 0) {
+	public Events(List log) {
+		if(log.size() == 0) {
 			return
 		}
 		
 		def time_event = []
-		events.each {
+		log.each {
 			def s = it.split("\t")
 			time_event << [event:s[0], time:s[1].toLong()] 
 		}

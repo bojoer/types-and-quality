@@ -3,24 +3,18 @@ package net.carlosgsouza.typesandquality
 import spock.lang.Specification
 import spock.lang.Unroll
 
-class EventsHandlerSpec extends Specification {
+class EventsSpec extends Specification {
 
-	EventsHandler handler
-	
-	def setup() {
-		handler = new EventsHandler()
-	}
-	
 	def "should determine the relative time and duration for each event"() {
 		when:
-		handler.parse(events)
+		Events events = new Events(log)
 		
 		then:
-		handler.relativeTimes == relativeTimes
-		handler.duration == duration
+		events.relativeTimes == relativeTimes
+		events.duration == duration
 		
 		where:
-		events																										| duration	| relativeTimes
+		log																											| duration	| relativeTimes
 		["START	100000", "FINISH	200000"]																		| 100		| [:]
 		["START	100000", "RUN	105000", "FINISH	200000"]														| 100		| ["105000":5]
 		["START	100000", "RUN	105000", "RUN	110000", "FINISH	200000"]										| 100		| ["105000":5, "110000":10]
@@ -31,14 +25,14 @@ class EventsHandlerSpec extends Specification {
 	
 	def "should determine the relative time and duration for each event even when the events list is inconsistent"() {
 		when:
-		handler.parse(events)
+		Events events = new Events(log)
 		
 		then:
-		handler.relativeTimes == relativeTimes
-		handler.duration == duration
+		events.relativeTimes == relativeTimes
+		events.duration == duration
 		
 		where:
-		events																										| duration	| relativeTimes
+		log																											| duration	| relativeTimes
 		// no start
 		["FINISH	200000"]																						| 0			| [:]
 		["RUN	105000", "FINISH	200000"]																		| 95		| ["105000":0]
@@ -57,13 +51,13 @@ class EventsHandlerSpec extends Specification {
 	
 	def "should rounddown the relative duration"() {
 		given:
-		def events = ["START	100003", "RUN	105091", "FINISH	200010"]
+		def log = ["START	100003", "RUN	105091", "FINISH	200010"]
 		
 		when:
-		handler.parse(events)
+		Events events = new Events(log)
 		
 		then:
-		handler.relativeTimes == ["105091":5]
-		handler.duration == 100
+		events.relativeTimes == ["105091":5]
+		events.duration == 100
 	}
 }
