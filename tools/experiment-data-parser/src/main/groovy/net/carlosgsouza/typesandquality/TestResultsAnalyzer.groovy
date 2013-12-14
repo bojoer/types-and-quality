@@ -24,10 +24,12 @@ class TestResultsAnalyzer {
 		dataFolder.eachDir { subjectFolder ->
 			def subject = subjectFolder.name
 			
-			result[subject] = [:]
+			result[subject] = [history:[:], duration:0]
 			
 			File eventsFile = new File(subjectFolder, "events.txt")
 			Events events = new Events(eventsFile)
+			
+			result[subject].duration = events.duration
 			
 			events.relativeTimes.each { timestamp, time ->
 				def testResultsFolder = new File(subjectFolder, "snapshots/$timestamp/build/test-results")
@@ -50,44 +52,48 @@ class TestResultsAnalyzer {
 						}
 					}
 					
-					result[subject][time] = [v1broken:v1broken, v2passed:v2passed]
-					
+					result[subject].history[time] = [v1broken:v1broken, v2passed:v2passed]
 				} else {
-					result[subject][time] = "Compilation Error"
+					result[subject].history[time] = "Compilation Error"
 				}
 			}
 			
 		}
 		
-		def charts = [v1:[:], v2:[:]]
+		def time_tests_charts = [v1:[:], v2:[:]]
 		result.each { subject, time_results ->
 			
-			charts.v1[subject] = [:]
-			charts.v2[subject] = [:]
+			time_tests_charts.v1[subject] = [:]
+			time_tests_charts.v2[subject] = [:]
 			
-			time_results.each { time, results ->
+			time_results.history.each { time, results ->
 				if(results == "Compilation Error") {
-					charts.v1[subject][time] = -1
-					charts.v2[subject][time] = -1
+					time_tests_charts.v1[subject][time] = -1
+					time_tests_charts.v2[subject][time] = -1
 				}
 				else {
-					charts.v1[subject][time] = results.v1broken
-					charts.v2[subject][time] = results.v2passed
+					time_tests_charts.v1[subject][time] = results.v1broken
+					time_tests_charts.v2[subject][time] = results.v2passed
 				}
 					
 			}
 		}
-		charts.each { chartName, subject_data ->
+		time_tests_charts.each { chartName, subject_data ->
 			subject_data.each { subject, data ->
 				def chartFile = new File(resultFolder, "chart_${chartName}_${subject}.txt")
-				chartFile << subject + "\n"
+				chartFile << "$subject\t$subject" + "\n"
 				
 				data.each { time, tests ->
 					chartFile << "$time\t$tests\n"
 				}
 			}
-			
 		}
+		
+		def duration_chart = new File(resultFolder, "chart_duration.txt")
+		result.each { subject, time_results ->
+			duration_chart << "$subject\t${time_results.duration}\n"
+		}
+		
 		
 		new File(resultFolder, "result.json") << JsonOutput.prettyPrint(new JsonBuilder(result).toString())
 	}
