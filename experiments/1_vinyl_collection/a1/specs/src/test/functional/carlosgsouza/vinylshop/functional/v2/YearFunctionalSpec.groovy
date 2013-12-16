@@ -1,4 +1,4 @@
-package carlosgsouza.vinylshop.functional.v1
+package carlosgsouza.vinylshop.functional.v2
 
 import spock.lang.Specification
 import carlosgsouza.derails.Console
@@ -50,6 +50,16 @@ class YearFunctionalSpec extends Specification {
 		then:
 		1 * app.console.render { View view ->
 			view.items == ["Listing 0 with year matching '876'"] 
+		}
+	}
+	
+	def "should show an error message when a non numerical year is specified on the year search"() {
+		when:
+		app.execute "search year string"
+		
+		then:
+		1 * app.console.render { View view ->
+			view.items == ["Year must be a number, but it is string"]
 		}
 	}
 	

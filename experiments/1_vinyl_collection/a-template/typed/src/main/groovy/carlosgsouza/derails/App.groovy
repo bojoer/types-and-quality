@@ -1,10 +1,13 @@
 package carlosgsouza.derails
 
+import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.codehaus.groovy.runtime.StackTraceUtils;
+
 
 abstract class App {
 	
-	public String name = "DeRails App"
-	public Console console = new Console()
+	public name = "DeRails App"
+	public console = new Console()
 	
 	App(name) {
 		this.name = name
@@ -22,7 +25,7 @@ abstract class App {
 		}
 	}
 	
-	void execute(String command) {
+	void execute(command) {
 		try {
 			if(command == "exit") {
 				println "bye"
@@ -46,14 +49,27 @@ abstract class App {
 			
 			routeRequest(controller, action, parameter)
 		} catch(e) {
-			// e.printStackTrace()
+			println getPrintableStackTrace(e)
+			println "\n\n"
+			
+			
 			console.render new View("(error) $e.message")
 		}
 	}
 	
-	abstract void routeRequest(String controller, String action, String parameter);
+	private String getPrintableStackTrace(e) {
+		def stackTrace = ExceptionUtils.getStackTrace(StackTraceUtils.sanitize(e))
+		stackTrace.readLines().findAll { 
+			!it.contains("org.spockframework") && 
+			!it.contains("vinylshop.functional") &&
+			!it.contains("org.eclipse") &&
+			!it.contains('$') 
+		}.join("\n") 
+	}
 	
-	void bootstrap() {
+	abstract routeRequest(controller, action, parameter);
+	
+	protected bootstrap() {
 		
 	}
 }

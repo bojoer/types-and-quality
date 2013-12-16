@@ -111,12 +111,16 @@ public class DB {
 		removeOrUpdateGenre(vinyl);
 	}
 
-	private void removeOrUpdateArtist(Vinyl vinyl) {
+	private void removeOrUpdateArtist(Vinyl vinil) {
 		Artist artist = findArtist(vinyl.artist);
 		if(artist.vinyls.size() == 1) {
-			artists.remove(artist);
+			if(artist.vinyls.get(0).equals(vinyl.title)) {
+				artists.remove(artist);
+			} 
 		} else {
-			artist.vinyls.remove(vinyl);
+			if(artist.vinyls.contains(vinyl)) {
+				artist.vinyls.remove(vinil);
+			}
 		}
 	}
 

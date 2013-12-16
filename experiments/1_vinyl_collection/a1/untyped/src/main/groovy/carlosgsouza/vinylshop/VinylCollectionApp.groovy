@@ -63,13 +63,11 @@ public class VinylCollectionApp extends App {
 	
 	public routeRequest(controller, action, parameter) {
 		if(controller.equals("vinyl")) {
-			def id;
+			//The id of the element
+			def idd;
 			
 			switch(action) {
-				case "list":
-					def vinyls = vinylController.list();
-					console.render(uiFactory.listVinyls(vinyls));
-					return;
+				
 				case "create":
 					def form = uiFactory.vinylForm();
 					console.apply(form);
@@ -78,18 +76,29 @@ public class VinylCollectionApp extends App {
 					
 					console.render(uiFactory.showVinyl(createdVinyl));
 					return;
-				case "show":
-					id = Integer.valueOf(parameter);
-					def vinyl = vinylController.get(id);
-					
-					console.render(uiFactory.showVinyl(vinyl));
-					return;
+				
 				case "delete":
 					id = Integer.valueOf(parameter);
 					vinylController.delete(id);
 					
 					console.render(uiFactory.deleteVinyl());
 					return;
+				
+				case "list":
+					def vinyls = vinylController.list();
+					console.render(uiFactory.listVinyls(vinyls));
+					return;
+					
+				case "show":
+					if(controller == null) {
+						return;
+					}
+					idd = Integer.valueOf(parameter);
+					def vinyl = vinylController.get(id);
+					
+					console.render(uiFactory.showVinyl(vinyl));
+					return;
+					
 				case "search":
 					def result = vinylController.search(parameter);
 					console.render(uiFactory.searchByTitle(parameter, result));

@@ -1,4 +1,4 @@
-package carlosgsouza.vinylshop.functional.v1
+package carlosgsouza.vinylshop.functional.v2
 
 import java.util.List;
 
@@ -28,63 +28,43 @@ class ArtistFunctionalSpec extends Specification {
 		app.bootstrap()
 	}
 	
-	def "should search for vinyls given the artist"() {
+	def "should list all artists"() {
+		when:
+		app.execute "list artist"
+		
+		then:
+		1 * app.console.render { View view ->
+			view.items == ["Listing 6 artists", "Lana Del Rey", "Bruno Mars", "Pearl Jam", "Angra", "Luan Santana", "Coldplay"]
+		}
+	}
+	
+	
+	def "should show a message without plural when there is only one artist"() {
 		given:
-		def bornToDie = app.preloadedVinyls[0]
+		app.db.reset()
 		
 		when:
-		app.execute "search artist Lana Del Rey"
+		app.execute "list artist"
 		
 		then:
 		1 * app.console.render { View view ->
-			view.items == ["Listing 1 with artist matching 'Lana Del Rey'"] + bornToDie
+			view.items == ["Unexpected error. Artist list had 0 items"]
 		}
 	}
 	
-	def "should ignore the case when searching for vinyls given the artist"() {
+	def "should shown an error message when there are no artists"() {
 		given:
-		def bornToDie = app.preloadedVinyls[0]
+		app.db.reset()
+		
+		and:
+		app.vinylController.create app.preloadedVinyls[0]
 		
 		when:
-		app.execute "search artist lAna DEl rEy"
+		app.execute "list artist"
 		
 		then:
 		1 * app.console.render { View view ->
-			view.items == ["Listing 1 with artist matching 'lAna DEl rEy'"] + bornToDie
+			view.items == ["Listing 1 artist", "Lana Del Rey"]
 		}
 	}
-	
-	def "should match partially when searching for vinyls given the artist"() {
-		given:
-		def bornToDie = app.preloadedVinyls[0]
-		
-		when:
-		app.execute "search artist Lana"
-		
-		then:
-		1 * app.console.render { View view ->
-			view.items == ["Listing 1 with artist matching 'Lana'"] + bornToDie
-		}
-	}
-	
-	def "should show no results if the artist is not provided for the artist search"() {
-		when:
-		app.execute "search artist"
-		
-		then:
-		1 * app.console.render { View view ->
-			view.items == ["Listing 0 with artist matching ''"]
-		}
-	}
-	
-	def "should show no results if there are no vinyls with the given artist"() {
-		when:
-		app.execute "search artist Tiririca"
-		
-		then:
-		1 * app.console.render { View view ->
-			view.items == ["Listing 0 with artist matching 'Tiririca'"]
-		}
-	}
-	
 }

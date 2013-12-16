@@ -14,28 +14,32 @@ public class ReportController {
 	def db = DB.connect();
 	
 	public artist() {
-		def result = new Report();
+		def resut = new Report();
 		
 		def artists = db.getArtists();
 		def artistCount = artists.size();
 		
 		result.data.put("Number of artists", artistCount.toString());
 		
-		if(artistCount == 0) {
-			return result;
-		}
-		
 		def artist_vinylCount = new HashMap<String, Integer>();
 		def artist_songCount = new HashMap<String, Integer>();
 		
-		for(def artist : artists) {
-			def artistVinyls = db.searchVinylByArtist(artist);
-			
-			artist_vinylCount.put(artist, artistVinyls.size());
-			artist_songCount.put(artist, 0);
-			
-			for(def vinyl : artistVinyls) {
-				artist_songCount.put(artist, artist_songCount.get(artist) + vinyl.songs.size());
+		if(artistCount > 0) {
+			for(def artist : artists) {
+				def artistVinyls = db.searchVinylByArtist(artist);
+				
+				artist_vinylCount.put(artist, artistVinyls.size());
+				artist_songCount.put(artist, 0);
+				
+				for(def vinyl : artistVinyls) {
+					artist_songCount.put(artist, artist_songCount.get(artist) + vinyl.songs.size());
+				}
+			}
+		} else if(artists != null) {
+			if(artist_vinylCount.size() == 0 || artistCount == 0 ) {
+				artist_vinylCount = new HashMap<String, Integer>();
+				artist_songCount = artist_vinylCount;
+				return resut;
 			}
 		}
 		
