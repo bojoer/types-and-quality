@@ -1,5 +1,8 @@
 package carlosgsouza.derails
 
+import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.codehaus.groovy.runtime.StackTraceUtils;
+
 
 abstract class App {
 	
@@ -46,9 +49,22 @@ abstract class App {
 			
 			routeRequest(controller, action, parameter)
 		} catch(e) {
-			// e.printStackTrace()
+			println getPrintableStackTrace(e)
+			println "\n\n"
+			
+			
 			console.render new View("(error) $e.message")
 		}
+	}
+	
+	private String getPrintableStackTrace(e) {
+		def stackTrace = ExceptionUtils.getStackTrace(StackTraceUtils.sanitize(e))
+		stackTrace.readLines().findAll { 
+			!it.contains("org.spockframework") && 
+			!it.contains("vinylshop.functional") &&
+			!it.contains("org.eclipse") &&
+			!it.contains('$') 
+		}.join("\n") 
 	}
 	
 	abstract routeRequest(controller, action, parameter);
