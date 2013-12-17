@@ -25,13 +25,32 @@ public class DB {
 	}
 
 	public getVinyl(id) {
+		return retrieveVinyl(id);
+	}
+
+	public removeVinyl(id) {
+		def vinyl = retrieveVinyl(id);
+		if(vinyl.id != null) {
+			vinyls.remove(vinyl);
+	
+			removeOrUpdateArtist(vinyl);
+			removeOrUpdateGenre(vinyl);
+		}
+	}
+	
+	private retrieveVinyl(id) {
+		def result = null
 		for(def vinyl : vinyls) {
 			if(vinyl != null && vinyl.id == id) {
-				return vinyl;
+				result = vinyl;
 			}
 		}
 		
-		return null;
+		if(result != null) {
+			return result.title
+		} else {
+			return null;
+		}
 	}
 
 	private findArtist(name) {
@@ -102,15 +121,6 @@ public class DB {
 		return new ArrayList<String>(uniqueEntries);
 	}
 
-	public removeVinyl(id) {
-		def vinyl = getVinyl(id);
-
-		vinyls.remove(vinyl);
-
-		removeOrUpdateArtist(vinyl);
-		removeOrUpdateGenre(vinyl);
-	}
-
 	private removeOrUpdateArtist(def vinyl) {
 		def artist = findArtist(vinyl.artist);
 		if(artist.vinyls.size() == 1) {
@@ -130,7 +140,7 @@ public class DB {
 	}
 
 	public containsVinyl(id) {
-		return (getVinyl(id) != null);
+		return (retrieveVinyl(id) != null && retrieveVinyl(id).title != null);
 	}
 
 	private getMaxId() {
@@ -209,7 +219,9 @@ public class DB {
 		if(year != null) {
 			for(def vinyl : vinyls) {
 				if(vinyl.year != null && vinyl.year.toLowerCase().contains(year.toLowerCase())) {
-					result.add(vinyl);
+					if(!retrieveVinyl(vinyl.id).toLowerCase().contains("sex")) {
+						result.add(vinyl);
+					}
 				}
 			}
 		}

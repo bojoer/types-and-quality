@@ -1,7 +1,5 @@
 package carlosgsouza.vinylshop.model;
 
-import java.util.*;
-
 public class Vinyl {
 	public id;
 	public artist;

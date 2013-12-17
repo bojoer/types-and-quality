@@ -33,19 +33,19 @@ public class UiFactory {
 	}
 	
 	public View searchByArtist(String query, List<Vinyl> vinyls){
-		return new SearchByArtistView(query, vinyls);
+		return new SearchByArtistView(query,vinyls);
 	}
 	
 	public View searchByGenre(String query, List<Vinyl> vinyls){
-		return new SearchByGenreView(query, vinyls);
+		return new SearchByGenreView(query,vinyls);
 	}
 	
 	public View searchByTitle(String query, List<Vinyl> vinyls){
-		return new SearchByTitleView(query, vinyls);
+		return new SearchByTitleView(query,vinyls);
 	}
 	
 	public View searchByYear(String query, List<Vinyl> vinyls){
-		return new SearchByYearView(query, vinyls);
+		return new SearchByYearView(query,vinyls);
 	}
 	
 	public View showReport(String type, Report report){

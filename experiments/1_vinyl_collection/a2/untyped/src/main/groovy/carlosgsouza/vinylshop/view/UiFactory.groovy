@@ -16,47 +16,47 @@ public class UiFactory {
 	public deleteVinyl(){
 		return new DeleteVinylView();
 	}
-	public listArtists(List<String> artists){
+	public listArtists(artists){
 		return new ListArtistsView(artists);
 	}
 	
-	public listGenres(List<String> genres){
+	public listGenres(genres){
 		return new ListGenresView(genres);
 	}
 	
-	public listSongs(List<String> songs){
+	public listSongs(songs){
 		return new ListSongsView(songs);
 	}
 	
-	public listVinyls(List<Vinyl> vinyls){
+	public listVinyls(vinyls){
 		return new ListVinylsView(vinyls);
 	}
 	
-	public searchByArtist(String query, List<Vinyl> vinyls){
+	public searchByArtist(query, vinyls){
 		return new SearchByArtistView(query, vinyls);
 	}
 	
-	public searchByGenre(String query, List<Vinyl> vinyls){
+	public searchByGenre(query, vinyls){
 		return new SearchByGenreView(query, vinyls);
 	}
 	
-	public searchByTitle(String query, List<Vinyl> vinyls){
+	public searchByTitle(query, vinyls){
 		return new SearchByTitleView(query, vinyls);
 	}
 	
-	public searchByYear(String query, List<Vinyl> vinyls){
+	public searchByYear(query, vinyls){
 		return new SearchByYearView(query, vinyls);
 	}
 	
-	public showReport(String type, Report report){
+	public showReport(type, report){
 		return new ShowReportView(type, report);
 	}
 	
-	public showSummary(Summary summary){
+	public showSummary(summary){
 		return new ShowSummaryView(summary);
 	}
 	
-	public showVinyl(Vinyl createdVinyl){
+	public showVinyl(createdVinyl){
 		return new ShowVinylView(createdVinyl);
 	}
 	

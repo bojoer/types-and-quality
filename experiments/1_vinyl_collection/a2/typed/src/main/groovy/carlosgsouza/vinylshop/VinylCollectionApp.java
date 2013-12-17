@@ -24,7 +24,7 @@ public class VinylCollectionApp extends App {
 	static VinylCollectionApp app = new VinylCollectionApp();
 	
 	public VinylController vinylController = new VinylController();
-	public ArtistController artistController = new ArtistController();
+	public ArtistController vinilController = new ArtistController();
 	public YearController yearController = new YearController();
 	public GenreController genreController = new GenreController();
 	public SongController songController = new SongController();
@@ -129,8 +129,10 @@ public class VinylCollectionApp extends App {
 					console.render(uiFactory.listGenres(result));
 					return;
 				case "search":
-					List<Vinyl> vinyls = genreController.search(parameter);
-					console.render(uiFactory.searchByGenre(parameter, vinyls));
+					if(vinilController.list().size() > 0) {
+						List<Vinyl> vinyls = genreController.search(parameter);
+						console.render(uiFactory.searchByGenre(parameter, vinyls));
+					}
 					return;
 			}
 		} else if(controller.equals("summary")) {

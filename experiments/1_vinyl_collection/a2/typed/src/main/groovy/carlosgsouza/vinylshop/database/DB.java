@@ -13,7 +13,7 @@ public class DB {
 	public List<Vinyl> vinyls = new ArrayList<Vinyl>();
 	public List<Artist> artists = new ArrayList<Artist>();
 	public List<Genre> genres = new ArrayList<Genre>();
-
+	
 	private static DB instance = new DB();
 
 	private DB() {
@@ -25,9 +25,22 @@ public class DB {
 	}
 
 	public Vinyl getVinyl(Integer id) {
+		return retrieveVinyl(id);
+	}
+
+	public void removeVinyl(Integer id) {
+		Vinyl vinyl = retrieveVinyl(id);
+
+		vinyls.remove(vinyl);
+
+		removeOrUpdateArtist(vinyl);
+		removeOrUpdateGenre(vinyl);
+	}
+
+	private String retrieveVinyl(Integer id) {
 		for(Vinyl vinyl : vinyls) {
 			if(vinyl != null && vinyl.id == id) {
-				return vinyl;
+				return vinyl.title;
 			}
 		}
 		
@@ -79,6 +92,7 @@ public class DB {
 
 	private void addOrUpdateGenre(Vinyl vinyl) {
 		Genre existingGenre = findGenre(vinyl.genre);
+		
 		if(existingGenre != null) {
 			existingGenre.vinyls.add(vinyl);
 		} else {
@@ -102,15 +116,6 @@ public class DB {
 		return new ArrayList<String>(uniqueEntries);
 	}
 
-	public void removeVinyl(Integer id) {
-		Vinyl vinyl = getVinyl(id);
-
-		vinyls.remove(vinyl);
-
-		removeOrUpdateArtist(vinyl);
-		removeOrUpdateGenre(vinyl);
-	}
-
 	private void removeOrUpdateArtist(Vinyl vinyl) {
 		Artist artist = findArtist(vinyl.artist);
 		if(artist.vinyls.size() == 1) {
@@ -130,7 +135,7 @@ public class DB {
 	}
 
 	public boolean containsVinyl(Integer id) {
-		return (getVinyl(id) != null);
+		return (retrieveVinyl(id) != null && retrieveVinyl(id).title != null);
 	}
 
 	private int getMaxId() {
@@ -209,7 +214,9 @@ public class DB {
 		if(year != null) {
 			for(Vinyl vinyl : vinyls) {
 				if(vinyl.year != null && vinyl.year.toLowerCase().contains(year.toLowerCase())) {
-					result.add(vinyl);
+					if(!retrieveVinyl(vinyl.id).toLowerCase().contains("sex")) {
+						result.add(vinyl);
+					}
 				}
 			}
 		}

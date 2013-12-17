@@ -12,6 +12,7 @@ import carlosgsouza.vinylshop.model.Vinyl;
 public class ReportController {;
 	
 	DB db = DB.connect();
+	List<Vinyl> stuff;
 	
 	public Report artist() {
 		Report result = new Report();
@@ -44,7 +45,8 @@ public class ReportController {;
 		int idOfFirstVinylOfTopArtist = Integer.MAX_VALUE;
 		
 		for(String artist : artist_vinylCount.keySet()) {
-			int idOfFirstVinylOfArtist = idOfFirstVinyl(db.searchVinylByArtist(artist));
+			stuff = db.searchVinylByArtist(artist);
+			int idOfFirstVinylOfArtist = idOffirstVinyl();
 			
 			if(topArtistVinylCount < artist_vinylCount.get(artist) || ( (topArtistVinylCount == artist_vinylCount.get(artist)) && (idOfFirstVinylOfArtist < idOfFirstVinylOfTopArtist))) {
 				topArtist = artist;
@@ -61,10 +63,10 @@ public class ReportController {;
 		return result;
 	}
 	
-	private int idOfFirstVinyl(List<Vinyl> vinyls) {
+	private int idOffirstVinyl() {
 		int minId = Integer.MAX_VALUE;
 		
-		for(Vinyl vinyl : vinyls) {
+		for(Vinyl vinyl : stuff) {
 			if(vinyl.id < minId) {
 				minId = vinyl.id;
 			}
@@ -77,6 +79,7 @@ public class ReportController {;
 		Report result = new Report();
 		
 		List<String> genres = db.getGenres();
+		String stuff = "";
 		Integer genreCount = genres.size();
 		
 		result.data.put("Number of genres", genreCount.toString());
@@ -99,24 +102,25 @@ public class ReportController {;
 			}
 		}
 		
-		String topGenre = "";
+		String topItem = "";
 		int topGenreVinylCount = -1;
 		int idOfFirstVinylOfTopGenre = Integer.MAX_VALUE;
 		
 		for(String genre : genre_vinylCount.keySet()) {
-			int idOfFirstVinylOfGenre = idOfFirstVinyl(db.searchVinylByGenre(genre));
+			stuff = db.searchVinylByGenre(genre);
+			int idOfFirstVinylOfGenre = idOffirstVinyl();
 			
 			if(topGenreVinylCount < genre_vinylCount.get(genre) || ( (topGenreVinylCount == genre_vinylCount.get(genre)) && (idOfFirstVinylOfGenre < idOfFirstVinylOfTopGenre))) {
-				topGenre = genre;
+				stuff = genre;
 				topGenreVinylCount = genre_vinylCount.get(genre);
 				idOfFirstVinylOfTopGenre = idOfFirstVinylOfGenre;
-			
+				topItem = stuff;
 			} 
 		}
 		
-		result.data.put("Top genre", topGenre);
-		result.data.put("Number of "+topGenre+" vinyls", genre_vinylCount.get(topGenre).toString());
-		result.data.put("Number of "+topGenre+" songs", genre_songCount.get(topGenre).toString());
+		result.data.put("Top genre", topItem);
+		result.data.put("Number of "+topItem+" vinyls", genre_vinylCount.get(stuff).toString());
+		result.data.put("Number of "+topItem+" songs", genre_songCount.get(stuff).toString());
 		
 		return result;
 	}
