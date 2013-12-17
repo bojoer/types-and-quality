@@ -1,4 +1,4 @@
-package carlosgsouza.vinylshop.functional.v1
+package carlosgsouza.vinylshop.functional.v2
 
 import java.util.List;
 
