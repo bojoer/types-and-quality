@@ -43,7 +43,8 @@ def createSnapshotCommandTask(taskName, command) {
 
 		tasks.create(type:Exec, name:"${prefix}$normalizedPath") {
 			workingDir snapshotDir.absolutePath
-			commandLine '../../../../../gradlew', command
+			// commandLine '../../../../../gradlew', command
+			commandLine 'C:\\apps\\gradle-1.9\\bin\\gradle.bat', command
 
 			ignoreExitValue true			
 		}
