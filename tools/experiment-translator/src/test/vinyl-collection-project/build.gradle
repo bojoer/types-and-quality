@@ -1,0 +1,96 @@
+ext {
+	def localDir = new File(".").absoluteFile
+
+	def experiment_id = localDir.parentFile.parentFile.name[0]
+	def task_id = localDir.parentFile.name
+
+	typedFileName = "${experiment_id}-${task_id}-typed"
+	untypedFileName = "${experiment_id}-${task_id}-untyped"
+
+	unbudledFiles = ['bin', 'build', 'data', 'settings.gradle', '.*', 'src/test']
+}
+
+task bundle(dependsOn:['bundleTyped', 'bundleUntyped']) {
+
+}
+
+task bundleTyped(type:Zip) {
+	baseName = typedFileName
+	from 'typed'
+	into baseName
+	unbudledFiles.each {exclude it}
+}
+
+task bundleUntyped(type:Zip) {
+	baseName = untypedFileName
+	from 'untyped'
+	into baseName
+	unbudledFiles.each {exclude it}
+}
+task createProcessTasks() {
+	createSnapshotCommandTask 'execute', 'test'
+}
+
+task createCleanTasks() {
+	createSnapshotCommandTask 'reset', 'clean'	
+}
+
+def createSnapshotCommandTask(taskName, command) {
+	def prefix = "${command}_"
+
+	eachSnapshot { snapshotDir ->
+		def normalizedPath = snapshotDir.path.replaceAll(/[\., \/]/, "")
+
+		tasks.create(type:Exec, name:"${prefix}$normalizedPath") {
+			workingDir snapshotDir.absolutePath
+			// commandLine '../../../../../gradlew', command
+			commandLine 'C:\\apps\\gradle-1.9\\bin\\gradle.bat', command
+
+			ignoreExitValue true			
+		}
+	}
+
+	tasks.create(name:taskName) {
+		dependsOn tasks.matching { it.name.startsWith(prefix) }
+	}
+}
+
+task setup << {
+	def buildFile = new File("snapshot-build.gradle")
+
+	eachSnapshot { snapshotDir ->
+		def writer = new File(snapshotDir, "build.gradle").newWriter()
+		writer << buildFile.text
+		writer.close()
+	}
+}
+
+task clean << {
+	eachSnapshot { snapshotDir ->
+		new File(snapshotDir, "build.gradle").delete()
+	}
+
+	[typedFileName, untypedFileName, typedFileName + ".zip", untypedFileName + ".zip"].each {
+		new File(it).delete()
+	}
+}
+
+def eachSnapshot(Closure closure) {
+	def dataFolder = new File("analysis/data")
+	dataFolder.eachDir { devFolder ->
+		def snapshotsDir = new File(devFolder, "snapshots")
+
+		if(!snapshotsDir.exists()) {
+			return
+		}
+
+		snapshotsDir.eachDir { snapshotDir ->
+			closure(snapshotDir)
+		}
+	}	
+}
+
+task wrapper(type: Wrapper) {
+	gradleVersion = '1.8'
+}
+
