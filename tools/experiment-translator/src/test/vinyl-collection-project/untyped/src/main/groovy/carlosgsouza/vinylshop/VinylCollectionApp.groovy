@@ -42,13 +42,13 @@ public class VinylCollectionApp extends App {
 	VinylCollectionApp() {
 		super("DJ PopCorn - Amazing Vinyl Collection");
 		
-		preloadedVinyls.add(new Vinyl("Lana Del Rey", "Born to Die", listOf("Off to Races", "Radio", "Carmen"), "2012", "Pop"));
-		preloadedVinyls.add(new Vinyl("Bruno Mars", "Unorthodox Jukebox", listOf("Gorilla", "Treasure", "Young Girls"), "2012", "Pop"));
-		preloadedVinyls.add(new Vinyl("Pearl Jam", "Lightning Bolt", listOf("Getaway", "Mind Your Manners", "Young Sirens"), "2013", "Rock"));
-		preloadedVinyls.add(new Vinyl("Angra", "Temple of Shadows", listOf("Deus Le Volt!", "Waiting Silence"), "2004", "Metal"));
-		preloadedVinyls.add(new Vinyl("Luan Santana", "Quando Chega a Noite", listOf("Te vivo", "Quimica do Amor"), "2010", "Rock"));
-		preloadedVinyls.add(new Vinyl("Coldplay", "Parachutes", listOf("Don't Panic", "Shiver", "Spies"), "2000", "Alternative"));
-		preloadedVinyls.add(new Vinyl("Pearl Jam", "Backspacer", listOf("Just Breathe", "Supersonic"), "2009", "Rock"));
+		preloadedVinyls.add(new Vinyl("Lana Del Rey", 	"Born to Die", 			listOf("Off to Races", "Radio", "Carmen"), "2012", "Pop"));
+		preloadedVinyls.add(new Vinyl("Bruno Mars", 	"Unorthodox Jukebox", 	listOf("Gorilla", "Treasure", "Young Girls"), "2012", "Pop"));
+		preloadedVinyls.add(new Vinyl("Pearl Jam", 		"Lightning Bolt", 		listOf("Getaway", "Mind Your Manners", "Young Sirens"), "2013", "Rock"));
+		preloadedVinyls.add(new Vinyl("Angra", 			"Temple of Shadows", 	listOf("Deus Le Volt!", "Waiting Silence"), "2004", "Metal"));
+		preloadedVinyls.add(new Vinyl("Luan Santana", 	"Quando Chega a Noite", listOf("Te vivo", "Quimica do Amor"), "2010", "Rock"));
+		preloadedVinyls.add(new Vinyl("Coldplay", 		"Parachutes", 			listOf("Don't Panic", "Shiver", "Spies"), "2000", "Alternative"));
+		preloadedVinyls.add(new Vinyl("Pearl Jam", 		"Backspacer", 			listOf("Just Breathe", "Supersonic"), "2009", "Rock"));
 	}
 	
 	private listOf(...items) {

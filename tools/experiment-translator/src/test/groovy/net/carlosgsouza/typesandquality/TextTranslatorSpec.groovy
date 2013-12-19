@@ -9,16 +9,66 @@ class TextTranslatorSpec extends Specification {
 	def setup() {
 		
 		def dictionary = [
+		        "DJ PopCorn - Amazing Vinyl Collection" : "The Celbrities Catalog - Adding stats to your party",
+				
+				"Born to Die" : "Edy",
+				"Unorthodox Jukebox" : "Cris",
+				"Lightning Bolt" : "Mateus",
+				"Temple of Shadows" : "Donnys",
+				"Quando Chega a Noite" : "Danielzin",
+				"Parachutes" : "Gush",
+				"Backspacer" : "Lidy",
+				
+				"Lana Del Rey" : "Nova skin",
+				"Bruno Mars" : "51",
+				"Pearl Jam" : "Dreher",
+				"Angra" : "Orange Juice",
+				"Luan Santana" : "Balalaika",
+				"Coldplay" : "Catuaba Selvagem",
+				
+				"2012" : "24",
+				"2013" : "16", 
+				"2004" : "85",
+				"2009" : "18",
+				"2010" : "21",
+				"2000" : "33",
+				
+				"Pop" : "Hollywood",
+				"Rock" : "Contagem City",
+				"Alternative" : "Paris",
+				"Metal" : "Las Vegas",
+				
+				"Off to Races" : "Chevette", 
+				"Radio" : "Honda Bis", 
+				"Carmen" : "Gol Power",
+				"Gorilla" : "Ferrari", 
+				"Treasure" : "Lamborghini", 
+				"Young Girls" : "Corsa",
+				"Getaway" : "Punto", 
+				"Mind Your Manners" : "Brasilia", 
+				"Young Sirens" : "Carrim de Rolima",
+				"Deus Le Volt!" : "S21", 
+				"Waiting Silence" : "Wark Tank",
+				"Te vivo" : "Volvo", 
+				"Quimica do Amor" : "Scania",
+				"Don't Panic" : "Hyunday", 
+				"Shiver" : "Fitim 147", 
+				"Spies" : "Fusca",
+				"Just Breathe" : "Kombi", 
+				"Supersonic" : "Caloi",
+				
+				"vinylshop" : "celebritycatalog",
+				"vinyls" : "celebrities",
 				"vinyl" : "celebrity",
 				"collection" : "catalog",
 				"shop" : "catalog",
 				"title" : "name",
+				"genres" : "cities",
 				"genre" : "city",
 				"artist" : "drink",
 				"song" : "car",
 				"year" : "age",
 				"summary" : "overview",
-				"report" : "stats",
 				
 				"controller" : "handler"
 			]
@@ -74,7 +124,7 @@ public class Celebrity {
 		def destinationFolder = new File("test-celebrity-catalog-project")
 		
 		when:
-		translator.translateFiles(sourceFolder, destinationFolder)
+		translator.translateProject(sourceFolder, destinationFolder)
 		
 		then:
 		destinationFolder.exists()
@@ -86,18 +136,30 @@ public class Celebrity {
 		new File(destinationFolder, "specs").exists()
 		
 		and:
-		new File(destinationFolder, "typed/src/main/groovy/celebritycatalog").exists()
-		new File(destinationFolder, "typed/src/main/groovy/celebritycatalog/handler").exists()
-		new File(destinationFolder, "typed/src/main/groovy/celebritycatalog/handler/DrinkHandler").exists()
-		new File(destinationFolder, "typed/src/main/groovy/celebritycatalog/model/Overview.java").exists()
+		new File(destinationFolder, "typed/src/main/groovy/carlosgsouza/celebritycatalog").exists()
+		new File(destinationFolder, "typed/src/main/groovy/carlosgsouza/celebritycatalog/handler").exists()
+		new File(destinationFolder, "typed/src/main/groovy/carlosgsouza/celebritycatalog/handler/DrinkHandler.java").exists()
+		new File(destinationFolder, "typed/src/main/groovy/carlosgsouza/celebritycatalog/model/Overview.java").exists()
 		
 		and:
-		new File(destinationFolder, "untyped/src/main/groovy/celebritycatalog").exists()
-		new File(destinationFolder, "untyped/src/main/groovy/celebritycatalog/database/DB.groovy").exists()
-		new File(destinationFolder, "untyped/src/main/groovy/celebritycatalog/handler/DrinkHandler").exists()
-		new File(destinationFolder, "untyped/src/main/groovy/celebritycatalog/view/ShowStatsView.groovy").exists()
+		new File(destinationFolder, "untyped/src/main/groovy/carlosgsouza/celebritycatalog").exists()
+		new File(destinationFolder, "untyped/src/main/groovy/carlosgsouza/celebritycatalog/database/DB.groovy").exists()
+		new File(destinationFolder, "untyped/src/main/groovy/carlosgsouza/celebritycatalog/handler/DrinkHandler.groovy").exists()
+		new File(destinationFolder, "untyped/src/main/groovy/carlosgsouza/celebritycatalog/view/ListCitiesView.groovy").exists()
 		
-//		cleanup:
-//		destinationFolder.deleteDir()
+		and:
+		new File(destinationFolder, "untyped/src/main/groovy/carlosgsouza/celebritycatalog/handler/DrinkHandler.groovy").text.contains("class DrinkHandler")
+		
+		and:
+		def appText = new File(destinationFolder, "untyped/src/main/groovy/carlosgsouza/celebritycatalog/CelebrityCatalogApp.groovy").text
+		println appText
+		appText.contains("The Celbrities Catalog - Adding stats to your party")
+		appText.contains("Caloi")
+		appText.contains("Edy")
+		appText.contains("Contagem City")
+		appText.contains("32")
+		
+		cleanup:
+		destinationFolder.deleteDir()
 	}
 }

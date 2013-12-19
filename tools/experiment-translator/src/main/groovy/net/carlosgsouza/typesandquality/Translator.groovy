@@ -23,24 +23,23 @@ class Translator {
 		return result
 	}
 	
-	def translateFiles(File sourceFolder, File destinationFolder) {
-		copyFolder(sourceFolder, destinationFolder)
-		
-		destinationFolder.eachFileRecurse(FileType.FILES) {
-			def translatedName = translateText(it.absolutePath)
-			
-			if(translatedName == it.absolutePath) {
-				return
-			}
-			def success = it.renameTo(translatedName)
-			
-			println "$success\t$it.name --> $translatedName"
+	def translateProject(File sourceFolder, File destinationFolder) {
+		if(destinationFolder.exists()) {
+			destinationFolder.deleteDir()
 		}
+		
+		translateFolder(sourceFolder, destinationFolder)
 	}
 	
-	def copyFolder(File sourceFolder, File destinationFolder) {
-		new AntBuilder().copy(todir:destinationFolder.absolutePath) {
-			fileset(dir: sourceFolder.absolutePath)
+	def translateFolder(File sourceFolder, File destinationFolder) {
+		destinationFolder.mkdirs()
+		
+		sourceFolder.eachDir { File file ->
+			translateFolder(new File(sourceFolder, file.name), new File(destinationFolder, translateText(file.name)))
+		}
+		
+		sourceFolder.eachFile(FileType.FILES) { sourceFile ->
+			new File(destinationFolder, translateText(sourceFile.name)) << translateText(sourceFile.text)
 		}
 	}
 
