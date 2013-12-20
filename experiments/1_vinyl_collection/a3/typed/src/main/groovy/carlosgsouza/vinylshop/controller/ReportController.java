@@ -1,10 +1,13 @@
 package carlosgsouza.vinylshop.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import carlosgsouza.vinylshop.database.DB;
+import carlosgsouza.vinylshop.model.Artist;
+import carlosgsouza.vinylshop.model.ReleaseYear;
 import carlosgsouza.vinylshop.model.Report;
 import carlosgsouza.vinylshop.model.Vinyl;
 
@@ -17,7 +20,10 @@ public class ReportController {;
 	public Report artist() {
 		Report result = new Report();
 		
-		List<String> artists = db.getArtists();
+		List<String> artists = new ArrayList<String>();
+		for(Artist a : db.getArtistsNames()) {
+			artists.add(a.name);
+		}
 		Integer artistCount = artists.size();
 		
 		result.data.put("Number of artists", artistCount.toString());
@@ -98,6 +104,12 @@ public class ReportController {;
 			for(String title : items) {
 				Vinyl vinyl = findVinylByName(title);
 				genre_songCount.put(genre, genre_songCount.get(genre) + vinyl.songs.size());
+				
+				ReleaseYear y = new ReleaseYear();
+				y.year = vinyl.year;
+				if(db.searchVinylByYear(y).size() < 0) {
+					throw new RuntimeException("ERR 9986");
+				}
 			}
 		}
 		

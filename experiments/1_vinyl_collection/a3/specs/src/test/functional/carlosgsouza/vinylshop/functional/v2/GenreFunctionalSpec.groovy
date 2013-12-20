@@ -75,34 +75,4 @@ class GenreFunctionalSpec extends Specification {
 			view.items == ["Listing 2 with genre matching 'op'"] + bornToDie + unorthodoxJukebox
 		}
 	}
-	
-	def "should show no results if the genre is not provided for the genre search"() {
-		when:
-		app.execute "search genre"
-		
-		then:
-		1 * app.console.render { View view ->
-			view.items == ["Listing 0 with genre matching ''"]
-		}
-	}
-	
-	def "should show no results if there are no vinyls with the given genre"() {
-		when:
-		app.execute "search genre Sertanejo"
-		
-		then:
-		1 * app.console.render { View view ->
-			view.items == ["Listing 0 with genre matching 'Sertanejo'"]
-		}
-	}
-	
-	def "should list all genres"() {
-		when:
-		app.execute "list genre"
-		
-		then:
-		1 * app.console.render { View view ->
-			view.items == ["Listing 4 genres", "Pop", "Rock", "Metal", "Alternative"]
-		}
-	}
 }

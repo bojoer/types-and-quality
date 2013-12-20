@@ -1,12 +1,8 @@
 package carlosgsouza.vinylshop.controller;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import carlosgsouza.vinylshop.database.DB;
-import carlosgsouza.vinylshop.model.Report;
-import carlosgsouza.vinylshop.model.Vinyl;
+import carlosgsouza.vinylshop.database.DB
+import carlosgsouza.vinylshop.model.ReleaseYear
+import carlosgsouza.vinylshop.model.Report
 
 
 public class ReportController {
@@ -17,7 +13,10 @@ public class ReportController {
 	public artist() {
 		def result = new Report();
 		
-		def artists = db.getArtists();
+		def artists = new ArrayList()
+		for(def a : db.getArtistsNames()) {
+			artists.add(a.name)
+		}
 		def artistCount = artists.size();
 		
 		result.data.put("Number of artists", artistCount.toString());
@@ -97,7 +96,12 @@ public class ReportController {
 			
 			for(def title : items) {
 				def vinyl = findVinylByName(title);
-				genre_songCount.put(genre, genre_songCount.get(genre) + vinyl.songs.size());
+				def y = new ReleaseYear()
+				y.year = vinyl.year
+				
+				if(db.searchVinylByYear(y).size() > 0) {
+					genre_songCount.put(genre, genre_songCount.get(genre) + vinyl.songs.size());
+				}
 			}
 		}
 		

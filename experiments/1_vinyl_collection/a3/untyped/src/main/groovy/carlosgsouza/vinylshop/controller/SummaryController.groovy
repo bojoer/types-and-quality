@@ -16,7 +16,7 @@ public class SummaryController {
 		result.vinylCount = db.vinyls.size();
 		result.artistCount = db.artists.size();
 		result.genreCount = db.genres.size();
-		result.songCount = SongUtils.instance.songCount(db.vinyls);
+		result.songCount = SongUtils.instance.songCount(db.vinyls).trim();
 		
 		return result;
 	}

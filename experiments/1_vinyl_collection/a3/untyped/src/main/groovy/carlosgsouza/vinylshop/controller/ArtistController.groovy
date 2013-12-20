@@ -11,7 +11,7 @@ public class ArtistController {
 	def db = DB.connect();
 	
 	public list() {
-		return db.getArtists();
+		return db.getArtistsNames();
 	}
 	
 	public search(artist) {

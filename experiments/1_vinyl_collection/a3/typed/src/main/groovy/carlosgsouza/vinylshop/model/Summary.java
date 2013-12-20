@@ -3,7 +3,7 @@ package carlosgsouza.vinylshop.model;
 public class Summary {
 	public int vinylCount;
 	public int artistCount;
-	public int songCount;
+	public String songCount;
 	public int genreCount;
 	
 	@Override

@@ -28,16 +28,6 @@ class ArtistFunctionalSpec extends Specification {
 		app.bootstrap()
 	}
 	
-	def "should list all artists"() {
-		when:
-		app.execute "list artist"
-		
-		then:
-		1 * app.console.render { View view ->
-			view.items == ["Listing 6 artists", "Lana Del Rey", "Bruno Mars", "Pearl Jam", "Angra", "Luan Santana", "Coldplay"]
-		}
-	}
-	
 	def "should search for vinyls given the artist"() {
 		given:
 		def bornToDie = app.preloadedVinyls[0]

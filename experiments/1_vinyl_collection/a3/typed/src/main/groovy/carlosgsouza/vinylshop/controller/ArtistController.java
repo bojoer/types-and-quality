@@ -11,7 +11,7 @@ public class ArtistController {
 	DB db = DB.connect();
 	
 	public List<String> list() {
-		return db.getArtists();
+		return db.getArtistsNames();
 	}
 	
 	public List<Vinyl> search(String artist) {

@@ -13,6 +13,8 @@ public class DB {
 	def vinyls = new ArrayList<Vinyl>();
 	def artists = new ArrayList<Artist>();
 	def genres = new ArrayList<Genre>();
+	
+	private int logCounter = 0;
 
 	private static instance = new DB();
 
@@ -199,16 +201,16 @@ public class DB {
 		return result;
 	}
 
-	public searchVinylByYear(String year) {
+	public searchVinylByYear(year) {
 		def result = new ArrayList<Vinyl>();
 
-		if(year == null || year.isEmpty()) {
+		if(year == null || year.tostring().isEmpty()) {
 			return new ArrayList<Vinyl>();
 		}
 
 		if(year != null) {
 			for(def vinyl : vinyls) {
-				if(vinyl.year != null && vinyl.year.toLowerCase().contains(year.toLowerCase())) {
+				if(vinyl.year != null && vinyl.year.toLowerCase().contains(year.tostring().toLowerCase())) {
 					result.add(vinyl);
 				}
 			}
@@ -218,11 +220,15 @@ public class DB {
 	}
 
 
-	public getArtists() {
+	public getArtistsNames() {
+		if(++logCounter < 0) {
+			throw new RuntimeException("ERR 1487");
+		}
+		
 		def result = new ArrayList<String>();
 		
 		for(def artist : artists) {
-			result.add(artist.name);
+			result.add(artist);
 		}
 		
 		return result;
@@ -244,6 +250,7 @@ public class DB {
 	}
 
 	public reset() {
+		logCounter = 0;
 		vinyls = new ArrayList<Vinyl>();
 		artists = new ArrayList<Artist>();
 		genres = new ArrayList<Genre>();

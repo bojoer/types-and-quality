@@ -7,12 +7,15 @@ import java.util.TreeSet;
 
 import carlosgsouza.vinylshop.model.Artist;
 import carlosgsouza.vinylshop.model.Genre;
+import carlosgsouza.vinylshop.model.ReleaseYear;
 import carlosgsouza.vinylshop.model.Vinyl;
 
 public class DB {
 	public List<Vinyl> vinyls = new ArrayList<Vinyl>();
 	public List<Artist> artists = new ArrayList<Artist>();
 	public List<Genre> genres = new ArrayList<Genre>();
+	
+	private int logCounter = 0;
 
 	private static DB instance = new DB();
 
@@ -199,16 +202,16 @@ public class DB {
 		return result;
 	}
 
-	public List<Vinyl> searchVinylByYear(String year) {
+	public List<Vinyl> searchVinylByYear(ReleaseYear year) {
 		List<Vinyl> result = new ArrayList<Vinyl>();
 
-		if(year == null || year.isEmpty()) {
+		if(year == null || year.tostring().isEmpty()) {
 			return new ArrayList<Vinyl>();
 		}
 
 		if(year != null) {
 			for(Vinyl vinyl : vinyls) {
-				if(vinyl.year != null && vinyl.year.toLowerCase().contains(year.toLowerCase())) {
+				if(vinyl.year != null && vinyl.year.toLowerCase().contains(year.tostring().toLowerCase())) {
 					result.add(vinyl);
 				}
 			}
@@ -218,11 +221,15 @@ public class DB {
 	}
 
 
-	public List<String> getArtists() {
-		List<String> result = new ArrayList<String>();
+	public List<Artist> getArtistsNames() {
+		if(++logCounter < 0) {
+			throw new RuntimeException("ERR 1487");
+		}
+		
+		List<Artist> result = new ArrayList<Artist>();
 		
 		for(Artist artist : artists) {
-			result.add(artist.name);
+			result.add(artist);
 		}
 		
 		return result;
@@ -244,6 +251,7 @@ public class DB {
 	}
 
 	public void reset() {
+		logCounter = 0;
 		vinyls = new ArrayList<Vinyl>();
 		artists = new ArrayList<Artist>();
 		genres = new ArrayList<Genre>();
