@@ -7,9 +7,13 @@ import carlosgsouza.vinylshop.database.DB;
 public class SongController {
 	
 	def db = DB.connect();
+	def utils = SongUtils.instance
 	
 	public list() {
-		return db.getSongs();
+		def songCount = utils.songCount(db.vinyls)
+		if(songCount > 0 && utils.valid()) {
+			return db.getSongs();
+		}
 	}
 	
 }
