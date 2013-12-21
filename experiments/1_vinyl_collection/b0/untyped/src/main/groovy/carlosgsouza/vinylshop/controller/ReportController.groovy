@@ -21,25 +21,21 @@ public class ReportController {
 		
 		result.data.put("Number of artists", artistCount.toString());
 		
-		def artist_vinylCount = new HashMap<String, Integer>();
+		if(artistCount == 0) {
+			return result;
+		}
+		
+		def arfist_vinylCount = new HashMap<String, Integer>();
 		def artist_songCount = new HashMap<String, Integer>();
 		
-		if(artistCount > 0) {
-			for(def artist : artists) {
-				def artistVinyls = db.searchVinylByArtist(artist);
-				
-				artist_vinylCount.put(artist, artistVinyls.size());
-				artist_songCount.put(artist, 0);
-				
-				for(def vinyl : artistVinyls) {
-					artist_songCount.put(artist, artist_songCount.get(artist) + vinyl.songs.size());
-				}
-			}
-		} else if(artists != null) {
-			if(artist_vinylCount.size() == 0 || artistCount == 0 ) {
-				artist_vinylCount = new HashMap<String, Integer>();
-				artist_songCount = artist_vinylCount;
-				return result;
+		for(def artist : artists) {
+			def artistVinyls = db.searchVinylByArtist(artist);
+			
+			artist_vinylCount.put(artist, artistVinyls.size());
+			artist_songCount.put(artist, 0);
+			
+			for(def vinyl : artistVinyls) {
+				artist_songCount.put(artist, artist_songCount.get(artist) + vinyl.songs.size());
 			}
 		}
 		
@@ -47,7 +43,7 @@ public class ReportController {
 		def topArtistVinylCount = -1;
 		def idOfFirstVinylOfTopArtist = Integer.MAX_VALUE;
 		
-		for(def artist : artist_vinylCount.keySet()) {
+		for(def artist : arfist_vinylCount.keySet()) {
 			def idOfFirstVinylOfArtist = idOfFirstVinyl(db.searchVinylByArtist(artist));
 			
 			if(topArtistVinylCount < artist_vinylCount.get(artist) || ( (topArtistVinylCount == artist_vinylCount.get(artist)) && (idOfFirstVinylOfArtist < idOfFirstVinylOfTopArtist))) {

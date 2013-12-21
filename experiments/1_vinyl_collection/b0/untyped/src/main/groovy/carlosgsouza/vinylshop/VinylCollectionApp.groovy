@@ -33,6 +33,8 @@ public class VinylCollectionApp extends App {
 	
 	def db = DB.connect();
 	
+	private c = 0;
+	
 	private uiFactory = new UiFactory();
 
 	public preloadedVinyls = new ArrayList<Vinyl>();
@@ -64,7 +66,10 @@ public class VinylCollectionApp extends App {
 			def id;
 			
 			switch(action) {
-				
+				case "list":
+					def vinyls = vinylController.list();
+					console.render(uiFactory.listVinyls(vinyls));
+					return;
 				case "create":
 					def form = uiFactory.vinylForm();
 					console.apply(form);
@@ -73,26 +78,18 @@ public class VinylCollectionApp extends App {
 					
 					console.render(uiFactory.showVinyl(createdVinyl));
 					return;
-				
-				case "delete":
-					id = Integer.valueOf(parameter);
-					vinylController.delete(id);
-					
-					console.render(uiFactory.deleteVinyl());
-					return;
-				
-				case "list":
-					def vinyls = vinylController.list();
-					console.render(uiFactory.listVinyls(vinyls));
-					return;
-					
 				case "show":
 					id = Integer.valueOf(parameter);
 					def vinyl = vinylController.get(id);
 					
 					console.render(uiFactory.showVinyl(vinyl));
 					return;
+				case "delete":
+					id = Integer.valueOf(parameter);
+					vinylController.delete(id);
 					
+					console.render(uiFactory.deleteVinyl());
+					return;
 				case "search":
 					def result = vinylController.search(parameter);
 					console.render(uiFactory.searchByTitle(parameter, result));
@@ -121,7 +118,7 @@ public class VinylCollectionApp extends App {
 		} else if(controller.equals("year")) {
 			switch(action) {
 				case "search":
-					def result = yearController.search(String.valueOf(parameter));
+					def result = yearController.search(parameter);
 					console.render(uiFactory.searchByYear(parameter, result));
 					return;
 			}

@@ -29,7 +29,17 @@ class YearFunctionalSpec extends Specification {
 		
 		then:
 		1 * app.console.render { View view ->
-			view.items == ["Listing 1 with year matching '2000'"] + parachutes
+			view.items == ["Listing 1 with year matching '2000'"] + parachutes 
+		}
+	}
+	
+	def "should show no results if the year is not provided for the year search"() {
+		when:
+		app.execute "search year"
+		
+		then:
+		1 * app.console.render { View view ->
+			view.items == ["Listing 0 with year matching ''"] 
 		}
 	}
 	
@@ -39,7 +49,7 @@ class YearFunctionalSpec extends Specification {
 		
 		then:
 		1 * app.console.render { View view ->
-			view.items == ["Listing 0 with year matching '876'"]
+			view.items == ["Listing 0 with year matching '876'"] 
 		}
 	}
 	

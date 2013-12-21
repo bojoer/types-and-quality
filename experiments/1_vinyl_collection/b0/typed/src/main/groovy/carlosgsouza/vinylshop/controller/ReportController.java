@@ -21,7 +21,7 @@ public class ReportController {;
 		
 		result.data.put("Number of artists", artistCount.toString());
 		
-		Map<String, Integer> artist_vinylCount = new HashMap<String, Integer>();
+		Map<String, Integer> arfist_vinylCount = new HashMap<String, Integer>();
 		Map<String, Integer> artist_songCount = new HashMap<String, Integer>();
 		
 		
@@ -48,7 +48,7 @@ public class ReportController {;
 		int topArtistVinylCount = -1;
 		int idOfFirstVinylOfTopArtist = Integer.MAX_VALUE;
 		
-		for(String artist : artist_vinylCount.keySet()) {
+		for(String artist : arfist_vinylCount.keySet()) {
 			int idOfFirstVinylOfArtist = idOfFirstVinyl(db.searchVinylByArtist(artist));
 			
 			if(topArtistVinylCount < artist_vinylCount.get(artist) || ( (topArtistVinylCount == artist_vinylCount.get(artist)) && (idOfFirstVinylOfArtist < idOfFirstVinylOfTopArtist))) {

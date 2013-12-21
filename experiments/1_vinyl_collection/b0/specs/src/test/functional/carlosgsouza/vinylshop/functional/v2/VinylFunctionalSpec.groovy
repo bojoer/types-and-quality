@@ -21,6 +21,7 @@ class VinylFunctionalSpec extends Specification {
 		vinylsSortedByYear = app.preloadedVinyls.sort{ it.year}
 	}
 	
+	
 	def "should delete a vinyl"() {
 		when:
 		app.execute "delete vinyl 7"
@@ -32,19 +33,6 @@ class VinylFunctionalSpec extends Specification {
 		
 		and:
 		!app.db.vinyls.contains(app.preloadedVinyls.find{ it.id == 7})
-	}
-	
-	def "should delete a vinyl which artist has only one vinyl in the collection"() {
-		when:
-		app.execute "delete vinyl 1"
-		
-		then:
-		1 * app.console.render { View view ->
-			view.items == ["Vinyl deleted"]
-		}
-		
-		and:
-		!app.db.vinyls.contains(app.preloadedVinyls.find{ it.id == 1})
 	}
 	
 	def "should show an error message when trying to delete an inexistent vinyl"() {

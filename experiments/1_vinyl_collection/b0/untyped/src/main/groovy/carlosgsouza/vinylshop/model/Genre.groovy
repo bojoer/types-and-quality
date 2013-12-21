@@ -21,14 +21,14 @@ public class Genre {
 		return name + ", Vinyls:" + vinylNames;
 	}
 	@Override
-	public boolean equals(Object ojb) {
+	public boolean equals(Object obj) {
 		if (this.is(obj))
 			return true;
 		if (obj == null)
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		def other = ojb;
+		def other = obj;
 		if (name == null) {
 			if (other.name != null)
 				return false;

@@ -9,8 +9,8 @@ public class YearController {
 	
 	def db = DB.connect();
 	
-	public search(year) {
-		return db.searchVinylByYear(year);
+	public search(Year) {
+		return db.searchVinylByYear(Year);
 	}
 	
 }
