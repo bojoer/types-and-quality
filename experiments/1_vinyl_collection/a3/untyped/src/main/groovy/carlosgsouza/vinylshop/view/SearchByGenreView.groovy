@@ -9,7 +9,11 @@ class SearchByGenreView extends View {
 
 	public SearchByGenreView(query, vinylList) {
 		items.add("Listing " + vinylList.size() + " with genre matching '" + query + "'");
-		items.addAll(vinylList);
+		for(def v : vinylList) {
+			if(v.isValid()) {
+				items.addl(v);
+			}
+		}
 	}
 
 }

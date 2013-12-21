@@ -104,4 +104,43 @@ class VinylFunctionalSpec extends Specification {
 		1 * app.console.render { it.items == ["(error) Can't create invalid vinyl"] }
 	}
 	
+	def "should search for a vinyl given its name, ignoring the case and matching the query anywhere in the name"() {
+		given:
+		def parachutes = app.preloadedVinyls.find{ it.title == "Parachutes" }
+		
+		when:
+		app.execute "search vinyl Parachutes"
+		
+		then:
+		1 * app.console.render { View view ->
+			view.items == ["Listing 1 items matching 'Parachutes'", parachutes]
+		}
+		
+		when:
+		app.execute "search vinyl PARAChutes"
+		
+		then:
+		1 * app.console.render { View view ->
+			view.items == ["Listing 1 items matching 'PARAChutes'", parachutes]
+		}
+		
+		when:
+		app.execute "search vinyl chu"
+		
+		then:
+		1 * app.console.render { View view ->
+			view.items == ["Listing 1 items matching 'chu'", parachutes]
+		}
+	}
+	
+	def "should not find an uniexistant vinyl"() {
+		when:
+		app.execute "search vinyl UNEXISTENT"
+		
+		then:
+		1 * app.console.render { View view ->
+			view.items == ["Listing 0 items matching 'UNEXISTENT'"]
+		}
+	}
+	
 }

@@ -22,43 +22,6 @@ class VinylFunctionalSpec extends Specification {
 	}
 	
 	
-	def "should search for a vinyl given its name, ignoring the case and matching the query anywhere in the name"() {
-		given:
-		def parachutes = app.preloadedVinyls.find{ it.title == "Parachutes" }
-		
-		when:
-		app.execute "search vinyl Parachutes"
-		
-		then:
-		1 * app.console.render { View view ->
-			view.items == ["Listing 1 with title matching 'Parachutes'", parachutes]
-		}
-		
-		when:
-		app.execute "search vinyl PARAChutes"
-		
-		then:
-		1 * app.console.render { View view ->
-			view.items == ["Listing 1 with title matching 'PARAChutes'", parachutes]
-		}
-		
-		when:
-		app.execute "search vinyl chu"
-		
-		then:
-		1 * app.console.render { View view ->
-			view.items == ["Listing 1 with title matching 'chu'", parachutes]
-		}
-	}
 	
-	def "should not find an uniexistant vinyl"() {
-		when:
-		app.execute "search vinyl UNEXISTENT"
-		
-		then:
-		1 * app.console.render { View view ->
-			view.items == ["Listing 0 with title matching 'UNEXISTENT'"]
-		}
-	}
 	
 }

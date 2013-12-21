@@ -9,7 +9,9 @@ class ListArtistsView extends View {
 
 	public ListArtistsView(list) {
 		items.add("Listing " + list.size() + " artists");
-		items.addAll(list);
+		for(def i : list) {
+			items.add(i.trim());
+		}
 	}
 
 }
