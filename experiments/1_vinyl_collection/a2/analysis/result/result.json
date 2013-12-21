@@ -1,0 +1,209 @@
+{
+    "daniel": {
+        "history": {
+            "0": {
+                "v1broken": 0,
+                "v2passed": 2
+            },
+            "566": {
+                "v1broken": 6,
+                "v2passed": 12
+            }
+        },
+        "duration": 647
+    },
+    "donnys": {
+        "history": {
+            "41": {
+                "v1broken": 0,
+                "v2passed": 2
+            },
+            "357": {
+                "v1broken": 0,
+                "v2passed": 6
+            },
+            "601": {
+                "v1broken": 5,
+                "v2passed": 12
+            }
+        },
+        "duration": 644
+    },
+    "edy": {
+        "history": {
+            "73": {
+                "v1broken": 0,
+                "v2passed": 2
+            },
+            "286": {
+                "v1broken": 1,
+                "v2passed": 6
+            },
+            "616": {
+                "v1broken": 6,
+                "v2passed": 12
+            },
+            "867": {
+                "v1broken": 7,
+                "v2passed": 11
+            },
+            "1194": {
+                "v1broken": 7,
+                "v2passed": 11
+            },
+            "1464": {
+                "v1broken": 6,
+                "v2passed": 11
+            },
+            "1844": {
+                "v1broken": 6,
+                "v2passed": 11
+            }
+        },
+        "duration": 1877
+    },
+    "gush": {
+        "history": {
+            "509": {
+                "v1broken": 5,
+                "v2passed": 12
+            }
+        },
+        "duration": 673
+    },
+    "lidy": {
+        "history": {
+            "12": "Compilation Error",
+            "217": "Compilation Error",
+            "658": "Compilation Error",
+            "721": "Compilation Error",
+            "902": "Compilation Error",
+            "976": "Compilation Error",
+            "999": "Compilation Error",
+            "1117": "Compilation Error",
+            "1347": "Compilation Error",
+            "1627": "Compilation Error",
+            "1732": {
+                "v1broken": 0,
+                "v2passed": 12
+            },
+            "2141": "Compilation Error",
+            "2252": "Compilation Error",
+            "2270": "Compilation Error",
+            "2292": {
+                "v1broken": 0,
+                "v2passed": 12
+            },
+            "2358": "Compilation Error",
+            "2581": "Compilation Error",
+            "2605": "Compilation Error",
+            "2674": {
+                "v1broken": 0,
+                "v2passed": 12
+            }
+        },
+        "duration": 2729
+    },
+    "mateus": {
+        "history": {
+            "12": "Compilation Error",
+            "545": "Compilation Error",
+            "844": "Compilation Error",
+            "880": "Compilation Error",
+            "910": "Compilation Error",
+            "1133": "Compilation Error",
+            "1210": {
+                "v1broken": 1,
+                "v2passed": 12
+            }
+        },
+        "duration": 1334
+    },
+    "paiva": {
+        "history": {
+            "10": "Compilation Error",
+            "108": "Compilation Error",
+            "1386": "Compilation Error",
+            "1967": {
+                "v1broken": 0,
+                "v2passed": 12
+            },
+            "2186": "Compilation Error",
+            "2216": {
+                "v1broken": 0,
+                "v2passed": 11
+            }
+        },
+        "duration": 2494
+    },
+    "pedro": {
+        "history": {
+            "23": {
+                "v1broken": 0,
+                "v2passed": 2
+            },
+            "659": {
+                "v1broken": 1,
+                "v2passed": 12
+            },
+            "885": {
+                "v1broken": 0,
+                "v2passed": 8
+            },
+            "937": {
+                "v1broken": 1,
+                "v2passed": 12
+            },
+            "1046": {
+                "v1broken": 0,
+                "v2passed": 12
+            },
+            "1620": {
+                "v1broken": 0,
+                "v2passed": 12
+            },
+            "1948": {
+                "v1broken": 0,
+                "v2passed": 12
+            },
+            "2075": {
+                "v1broken": 0,
+                "v2passed": 12
+            },
+            "2285": {
+                "v1broken": 0,
+                "v2passed": 12
+            }
+        },
+        "duration": 2427
+    },
+    "rodrigo": {
+        "history": {
+            "52": "Compilation Error",
+            "1265": "Compilation Error",
+            "1697": "Compilation Error",
+            "1736": "Compilation Error",
+            "2011": "Compilation Error",
+            "2117": "Compilation Error",
+            "2298": "Compilation Error",
+            "2649": {
+                "v1broken": 0,
+                "v2passed": 12
+            },
+            "2687": "Compilation Error",
+            "2699": {
+                "v1broken": 0,
+                "v2passed": 12
+            },
+            "2877": {
+                "v1broken": 0,
+                "v2passed": 12
+            },
+            "3214": {
+                "v1broken": 0,
+                "v2passed": 12
+            }
+        },
+        "duration": 6342
+    }
+}
