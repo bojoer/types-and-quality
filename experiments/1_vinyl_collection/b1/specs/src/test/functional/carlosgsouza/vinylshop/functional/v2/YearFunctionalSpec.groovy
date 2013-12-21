@@ -33,13 +33,13 @@ class YearFunctionalSpec extends Specification {
 		}
 	}
 	
-	def "should show an error message if the year is not provided for the year search"() {
+	def "should show no results if the year is not provided for the year search"() {
 		when:
 		app.execute "search year"
 		
 		then:
 		1 * app.console.render { View view ->
-			view.items[0].contains("(error) Year must be a number")
+			view.items == ["Listing 0 with year matching ''"] 
 		}
 	}
 	
@@ -50,16 +50,6 @@ class YearFunctionalSpec extends Specification {
 		then:
 		1 * app.console.render { View view ->
 			view.items == ["Listing 0 with year matching '876'"] 
-		}
-	}
-	
-	def "should show an error message when a non numerical year is specified on the year search"() {
-		when:
-		app.execute "search year string"
-		
-		then:
-		1 * app.console.render { View view ->
-			view.items[0].contains("(error) Year must be a number")
 		}
 	}
 	

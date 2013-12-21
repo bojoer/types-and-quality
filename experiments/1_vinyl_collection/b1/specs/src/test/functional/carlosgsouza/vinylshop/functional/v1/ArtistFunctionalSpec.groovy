@@ -86,5 +86,4 @@ class ArtistFunctionalSpec extends Specification {
 			view.items == ["Listing 0 with artist matching 'Tiririca'"]
 		}
 	}
-	
 }

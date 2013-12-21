@@ -37,34 +37,4 @@ class ArtistFunctionalSpec extends Specification {
 			view.items == ["Listing 6 artists", "Lana Del Rey", "Bruno Mars", "Pearl Jam", "Angra", "Luan Santana", "Coldplay"]
 		}
 	}
-	
-	
-	def "should show a message without plural when there is only one artist"() {
-		given:
-		app.db.reset()
-		
-		when:
-		app.execute "list artist"
-		
-		then:
-		1 * app.console.render { View view ->
-			view.items == ["Unexpected error. Artist list had 0 items"]
-		}
-	}
-	
-	def "should shown an error message when there are no artists"() {
-		given:
-		app.db.reset()
-		
-		and:
-		app.vinylController.create app.preloadedVinyls[0]
-		
-		when:
-		app.execute "list artist"
-		
-		then:
-		1 * app.console.render { View view ->
-			view.items == ["Listing 1 artist", "Lana Del Rey"]
-		}
-	}
 }
